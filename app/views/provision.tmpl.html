@@ -6,8 +6,9 @@
             <!-- left column -->
             <div class="col-md-4 col-sm-6 col-xs-12">
               <div class="text-center">
+             
                 <img ng-hide="imageSrc" ng-src="https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg" class="avatar img-circle img-thumbnail" alt="avatar">
-                <img ng-hide="invalidFile" ng-src="{{imageSrc}}" class="avatar img-circle img-thumbnail"/>
+                <img ng-hide="!imageSrc" ng-src="{{imageSrc}}" class="avatar img-circle img-thumbnail"/>
                 <h5 ng-hide="invalidFile">Upload a profile picture!<br/>Only PNG,GIF,JPG files allowed.</h5>
                 <h5 ng-hide="!invalidFile">{{invalidText}}<br/>Upload a different photo...</h5>
                 <input type="file" ng-file-select="onFileSelect($files)" class="text-center center-block">
@@ -31,55 +32,39 @@
                 </div>
 
                 <div class="form-group">
-                  <label class="col-lg-3 control-label">Favorite Movie:</label>
+                  <label class="col-lg-3 control-label">Favorite Movies:</label>
+
                   <div class="col-lg-8">
-                    <input class="form-control" ng-model="user.movies" type="text">
+                    <div class="btn-group" data-toggle="buttons">
+                      <div class="row">
+                         <div class="col-xs-8">
+                            <input class="form-control" ng-model="user.movie" type="text">
+                          </div>
+                          <div class="col-xs-4">
+                            <button class="btn btn-default" type="submit" ng-click="addMovie(user.movie)">Add</button>
+                          </div>
+                      </div>
+                      <span ng-repeat="item in movies" ng-click="removeMovie($index)">{{item}} <i class="glyphicon glyphicon-remove"></i></span>
+                    </div>
                   </div>
                 </div>
-
                 <div class="form-group">
                   <label class="col-lg-3 control-label">Favorite Music:</label>
+
                   <div class="col-lg-8">
-                    <input class="form-control" ng-model="user.music" type="text">
+                    <div class="btn-group" data-toggle="buttons">
+                      <div class="row">
+                         <div class="col-xs-8">
+                            <input class="form-control" ng-model="user.music" type="text">
+                          </div>
+                          <div class="col-xs-4">
+                            <button class="btn btn-default" type="submit" ng-click="addMusic(user.music)">Add</button>
+                          </div>
+                      </div>
+                      <span ng-repeat="item in musics" ng-click="removeMusic($index)">{{item}} <i class="glyphicon glyphicon-remove"></i></span>
+                    </div>
                   </div>
                 </div>
-
-<!--
-   -                <div class="form-group">
-   -                  <label class="col-lg-3 control-label">Favorite Movies:</label>
-   -
-   -                  <div class="col-lg-8">
-   -                    <div class="btn-group" data-toggle="buttons">
-   -                      <div class="row">
-   -                         <div class="col-xs-8">
-   -                            <input class="form-control" ng-model="user.movie" type="text">
-   -                          </div>
-   -                          <div class="col-xs-4">
-   -                            <button class="btn btn-default" type="submit" ng-click="addMovie(movie);">Add</button>
-   -                          </div>
-   -                      </div>
-   -                      <span ng-repeat="item in movies" ng-click="removeMovie($index)">{{item}} <i class="glyphicon glyphicon-remove"></i></span>
-   -                    </div>
-   -                  </div>
-   -                </div>
-   -                <div class="form-group">
-   -                  <label class="col-lg-3 control-label">Favorite Movies:</label>
-   -
-   -                  <div class="col-lg-8">
-   -                    <div class="btn-group" data-toggle="buttons">
-   -                      <div class="row">
-   -                         <div class="col-xs-8">
-   -                            <input class="form-control" ng-model="user.music" type="text">
-   -                          </div>
-   -                          <div class="col-xs-4">
-   -                            <button class="btn btn-default" type="submit" ng-click="addMusic(music);">Add</button>
-   -                          </div>
-   -                      </div>
-   -                      <span ng-repeat="item in musics" ng-click="removeMusic($index)">{{item}} <i class="glyphicon glyphicon-remove"></i></span>
-   -                    </div>
-   -                  </div>
-   -                </div>
-   -->
 
                 <div class="form-group">
                   <label class="col-md-3 control-label"></label>

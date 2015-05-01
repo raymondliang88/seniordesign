@@ -104,10 +104,8 @@ angular.module('projectsApp')
       $scope.save = function(user) {
         $mdDialog.hide();
         setUserProvision();
-        /*
-         *user.movies = $scope.movies;
-         *user.music = $scope.musics;
-         */
+        user.movies = $scope.movies;
+        user.music = $scope.musics;
         saveMoreSettings(user, $scope.imageSrc);
       };
       $scope.cancel = function() {
