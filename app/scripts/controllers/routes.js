@@ -31,14 +31,9 @@ angular.module('projectsApp')
 angular.module('projectsApp')
   .controller('ToolBarCtrl', function ($scope, $firebaseAuth, $location, $timeout, $mdSidenav, $log, $state, searchService ) {
     var ref = new Firebase('https://shining-torch-23.firebaseio.com/');
-    // var authObj = $firebaseAuth(ref);
-    // var authData = authObj.$getAuth();
+    var authObj = $firebaseAuth(ref);
+    var authData = authObj.$getAuth();
 
-    // if (authData) {
-    //   console.log("Logged in as:", authData.uid);
-    // } else {
-    //   console.log("Logged out");
-    // }
 
     $scope.toggleRight = buildToggler('right');
     $scope.toggleLeft = buildToggler('left');
@@ -90,6 +85,9 @@ angular.module('projectsApp')
 
     $scope.logout = function(){
       console.log("Logging Out!")
+      ref.child('profileInfo').child(authData.uid).update({
+        loggedIn: false
+      });
       ref.unauth();
       $state.go('login');
     };

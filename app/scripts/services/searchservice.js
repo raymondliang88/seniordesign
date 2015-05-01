@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('projectsApp')
   .factory('searchService', function (firebaseService) {
     var query;
