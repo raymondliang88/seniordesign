@@ -14,24 +14,44 @@ angular.module('projectsApp')
   var authData = authObj.$getAuth();
   console.log("Logged in as:", authData.uid);
 
-  var ref = new Firebase("https://shining-torch-23.firebaseio.com/friends/"+ authData.uid);
-  $scope.messages = $firebaseArray(ref);
+  //gets list of all current users friends
+  var friendsRef = new Firebase("https://shining-torch-23.firebaseio.com/friends/"+ authData.uid +"/friendList");
+  $scope.messages = $firebaseArray(friendsRef);
 
-  var list = $firebaseArray(ref);
-  var friendProfile = [];
+  //for each person in the friends array, loop through the array to get user profile
+  var list = $firebaseArray(friendsRef);
+  var friendProfileArr = [];
   list.$loaded(
   function(x) {
-    x === list; // true
+    //loops through and gets profile data, adds to friendprofile array
+    //friend profile array contains array of userprofileData objects
     x.forEach(function(entry) {
-      getUserProfileInfo(entry.uid);
+      getUserProfileInfo(entry.$id);
     });
+    // $scope.friendProfiles = friendProfile;
     }, function(error) {
-    console.error("Error:", error);
   });
+
+  //gets user profile info
+  var getUserProfileInfo = function(userid) {
+    console.log("Userid" + userid);
+    var ref = new Firebase("https://shining-torch-23.firebaseio.com/profileInfo/"+ userid);
+    var profileData = $firebaseObject(ref);
+    profileData.$loaded(
+      function(data) {
+        friendProfileArr.push(data);
+      },
+      function(error) {
+        console.error("Error:", error);
+      }
+    );
+    $scope.friendProfiles = friendProfileArr;
+  }
 
   var friendRequestRef = new Firebase("https://shining-torch-23.firebaseio.com/pending/"+ authData.uid + "/senderList");
   var pendingFriendList = $firebaseArray(friendRequestRef);
   var pendingFriendProfile = [];
+
   pendingFriendList.$loaded(
   function(x) {
     x.forEach(function(entry) {
@@ -210,22 +230,6 @@ angular.module('projectsApp')
       }
     );
   };
-
-  var getUserProfileInfo = function(userid){
-    var userID = userid;
-    //console.log("entered");
-    var ref = new Firebase("https://shining-torch-23.firebaseio.com/profileInfo/"+ userID);
-    var profileData = $firebaseObject(ref);
-    profileData.$loaded(
-      function(data) {
-        friendProfile.push(data);
-      },
-      function(error) {
-        console.error("Error:", error);
-      }
-    );
-    $scope.friendProfiles = friendProfile;
-  }
 
   var profileRef = new Firebase("https://shining-torch-23.firebaseio.com/profileInfo/");
   $scope.allProfiles = $firebaseArray(profileRef);
