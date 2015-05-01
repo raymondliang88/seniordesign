@@ -6,10 +6,14 @@
           <md-icon md-svg-icon="images/icons/menu.svg" ></md-icon>
       </md-button>
       <span flex></span>
-      <span flex></span>
       some cool logo
       <span flex></span>
+      <span flex></span>
       <span ></span>
+      <md-button ng-click='checkPending()'>
+        Pending Friends {{pendingTotal}}
+      </md-button>
+			<input ng-model="user.name" type="text" class="form-control" flex placeholder="Name">
 
     <!-- TODO: Add action="" to take to selectedProfile -->
     <form ng-controller="SearchCtrl">

@@ -34,6 +34,12 @@ angular.module('projectsApp')
     var authObj = $firebaseAuth(ref);
     var authData = authObj.$getAuth();
 
+    // notification: check # of pending friends 
+    var pending = ref.child('pending').child(authData.uid).child('pendingTotal').once('value', function(snapshot) {
+      var val = snapshot.val();
+      $scope.pendingTotal = val;
+      return val;
+    });
 
     $scope.toggleRight = buildToggler('right');
     $scope.toggleLeft = buildToggler('left');
@@ -49,6 +55,10 @@ angular.module('projectsApp')
           });
       }
     }
+
+    $scope.checkPending = function() {
+      // pop up to show friend requests you can accept  
+    };
 
     $scope.goToSearch = function(queryString) {
       searchService.setSearchQuery(queryString);

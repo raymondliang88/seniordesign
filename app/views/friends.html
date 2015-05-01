@@ -1,5 +1,4 @@
 <div layout="column" flex layout-fill ng-controller='UsersController'>
-
   <md-content style="margin-top: 75px;" class="md-padding">
   <md-card>
     <md-input-container md-no-float style="padding: 0px;">
@@ -9,12 +8,14 @@
     <md-radio-group ng-model="data.group1">
       <md-radio-button value="Friends" class="md-primary">Friends</md-radio-button>
       <md-radio-button value="Everyone">Everyone</md-radio-button>
+      <md-radio-button value="FriendRequests">Friend Requests</md-radio-button>
     </md-radio-group>
 <!--     <div class>
       <label for="search">items per page:</label>
       <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
     </div>
- -->  </md-card>
+ -->  
+  </md-card>
   </md-content>
 
   <md-content dir-paginate="friend in friendProfiles | filter:q | itemsPerPage: pageSize" current-page="currentPage" ng-show="data.group1 == 'Friends'">
@@ -29,17 +30,11 @@
       </md-card-content>
       <md-action-bar layout="row">
         <md-button>Connect with me</md-button>
-         <md-button class="md-fab">
+        <md-button class="md-fab">
         </md-button>
       </md-action-bar>
     </md-card>
   </md-content>
-
-  <div ng-controller="OtherController" class="other-controller" ng-show="data.group1">
-    <div class="text-center">
-      <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/dirPagination.tpl.html"></dir-pagination-controls>
-    </div>
-  </div>
 
   <md-content style="margin: 20px" dir-paginate="user in allProfiles | filter:q | itemsPerPage: pageSize" current-page="currentPage" ng-show="data.group1 == 'Everyone'">
     <md-card>
@@ -50,6 +45,10 @@
       </md-toolbar>
       <md-card-content>
         <img src={{user.picture}}   width="140" height="120"/>
+        {{user.$id}}
+
+        <a ui-sref="home.profile.user({user: user.$id })">Click me</a>
+
         <br>Online: {{user.loggedIn}}</br>
         <br>Email: {{user.email}}</br>
         <br>School: {{user.email}}</br>
@@ -64,11 +63,52 @@
           two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
         </p>
         <div class="md-actions" layout="row" layout-align="end center">
-         <md-button class="md-fab"> Add
-        </md-button>
-      </div>
+          <md-button aria-label="Add Friend" class="md-fab" ng-click="addFriend(user.$id)">
+            Add
+          </md-button>
+        </div>
       </md-card-content>
     </md-card>
   </md-content>
 
+  <md-content style="margin: 20px" dir-paginate="request in friendRequests | filter:q | itemsPerPage: pageSize" current-page="currentPage" ng-show="data.group1 == 'FriendRequests'">
+    <md-card>
+      <md-toolbar class="md-accent" style="position: relative; z-index: 1;">
+        <div class="md-toolbar-tools">
+          <h2 class="md-headline md-flex">{{request.firstName}}  {{request.lastName}}</h2>
+        </div>
+      </md-toolbar>
+      <md-card-content>
+        <img src={{request.picture}}   width="140" height="120"/>
+        <br>Online: {{request.loggedIn}}</br>
+        <br>Email: {{request.email}}</br>
+        <br>School: {{request.email}}</br>
+        <br>Birthday: {{request.email}}</br>
+        <br>Favorite Movie: {{request.email}}</br>
+        <br>About Me: {{request.email}}</br>
+        <br></br>
+      <md-divider></md-divider>
+        <md-subheader class="md-no-sticky">md-offset class</md-subheader>
+        <p>
+          The titles of Washed Out's breakthrough song and the first single from Paracosm share the
+          two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
+        </p>
+
+        <div class="md-actions" layout="row" layout-align="end center">
+          <md-button class="md-fab" ng-click="confirmFriendRequest(request.$id, 1)">
+            Add
+          </md-button>
+          <md-button class="md-fab" ng-click="confirmFriendRequest(request.$id, 0)">
+            Reject
+          </md-button>
+        </div>
+      </md-card-content>
+    </md-card>
+  </md-content>
+
+  <div ng-controller="OtherController" class="other-controller" ng-show="data.group1">
+    <div class="text-center">
+      <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/dirPagination.tpl.html"></dir-pagination-controls>
+    </div>
+  </div>
 </div>
