@@ -21,18 +21,36 @@
   <md-content dir-paginate="friend in friendProfiles | filter:q | itemsPerPage: pageSize" current-page="currentPage" ng-show="data.group1 == 'Friends'">
     <md-card>
       <!-- <img src="img/washedout.png" class="md-card-image" alt="Washed Out"> -->
-      {{friend}}
+      <md-toolbar class="md-accent" style="position: relative; z-index: 1;">
+        <div class="md-toolbar-tools">
+          <h2 class="md-headline md-flex">{{friend.firstName}}  {{friend.lastName}}</h2>
+        </div>
+      </md-toolbar>
       <md-card-content>
-       <h2 class="md-title">{{friend.name}}</h2>
-      <h2 class="md-title">{{friend.firstName}}</h2>
-      <h2 class="md-title">{{friend.lastName}}</h2>
-      <img class="pano" id="pano" />
+        <img src={{friend.picture}}   width="140" height="120"/>
+        {{friend.$id}}
+
+        <a ui-sref="home.profile.user({user: friend.$id })">Click me</a>
+
+        <br>Online: {{friend.loggedIn}}</br>
+        <br>Email: {{friend.email}}</br>
+        <br>School: {{friend.email}}</br>
+        <br>Birthday: {{friend.email}}</br>
+        <br>Favorite Movie: {{friend.email}}</br>
+        <br>About Me: {{friend.email}}</br>
+        <br></br>
+       <md-divider ></md-divider>
+        <md-subheader class="md-no-sticky">md-offset class</md-subheader>
+        <p>
+          The titles of Washed Out's breakthrough song and the first single from Paracosm share the
+          two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
+        </p>
+        <div class="md-actions" layout="row" layout-align="end center">
+          <md-button aria-label="Add Friend" class="md-fab" ng-click="addFriend(friend.$id)">
+            Add
+          </md-button>
+        </div>
       </md-card-content>
-      <md-action-bar layout="row">
-        <md-button>Connect with me</md-button>
-        <md-button class="md-fab">
-        </md-button>
-      </md-action-bar>
     </md-card>
   </md-content>
 

@@ -20,38 +20,33 @@ angular.module('projectsApp')
 
   //for each person in the friends array, loop through the array to get user profile
   var list = $firebaseArray(friendsRef);
-  var friendProfile = [];
+  var friendProfileArr = [];
   list.$loaded(
   function(x) {
     //loops through and gets profile data, adds to friendprofile array
     //friend profile array contains array of userprofileData objects
     x.forEach(function(entry) {
-      var userProfileData = getUserProfileInfo(entry.uid);
-      friendProfile.push(userProfileData);
+      getUserProfileInfo(entry.$id);
     });
-    $scope.friendProfiles = friendProfile;
+    // $scope.friendProfiles = friendProfile;
     }, function(error) {
-    console.error("Error:", error);
   });
 
   //gets user profile info
   var getUserProfileInfo = function(userid) {
+    console.log("Userid" + userid);
     var ref = new Firebase("https://shining-torch-23.firebaseio.com/profileInfo/"+ userid);
     var profileData = $firebaseObject(ref);
     profileData.$loaded(
       function(data) {
-        //return data when data is loaded
-        console.log("user Data" + data);
-        return data;
+        friendProfileArr.push(data);
       },
       function(error) {
         console.error("Error:", error);
       }
     );
-    console.log("end")
+    $scope.friendProfiles = friendProfileArr;
   }
-
-
 
   var friendRequestRef = new Firebase("https://shining-torch-23.firebaseio.com/pending/"+ authData.uid);
   var pendingFriendList = $firebaseArray(friendRequestRef.child('senderList'));
