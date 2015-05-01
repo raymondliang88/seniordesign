@@ -21,7 +21,6 @@ angular.module('projectsApp')
   var friendProfile = [];
   list.$loaded(
   function(x) {
-    x === list; // true
     x.forEach(function(entry) {
       getUserProfileInfo(entry.uid);
     });
@@ -32,9 +31,9 @@ angular.module('projectsApp')
   var friendRequestRef = new Firebase("https://shining-torch-23.firebaseio.com/pending/"+ authData.uid);
   var pendingFriendList = $firebaseArray(friendRequestRef.child('senderList'));
   var pendingFriendProfile = [];
+
   pendingFriendList.$loaded(
   function(x) {
-    x === list; // true
     x.forEach(function(entry) {
       getPendingUserProfileInfo(entry.$id);
     });
