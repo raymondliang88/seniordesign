@@ -1,104 +1,341 @@
-<div class="container" style="padding-top: 60px;">
-  <h1 class="page-header">Profile</h1>
+<div layout="column" flex layout-fill ng-controller='ToolBarCtrl'>
+<h1 class="page-header">Profile</h1>
   <div class="row">
-    <!-- left column -->
-    <div class="col-md-4 col-sm-6 col-xs-12">
-      <div class="text-center">
-        <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Blank_woman_placeholder.svg/315px-Blank_woman_placeholder.svg.png" class="avatar img-circle img-thumbnail" alt="avatar">
-        <h6>Upload a different photo...</h6>
-        <input type="file" class="text-center center-block">
+    <div class="col-md-5 col-xs-12">
+      <div class="well panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-12 col-sm-5 text-center">
+              <img src="https://fbcdn-creative-a.akamaihd.net/hads-ak-xpa1/t45.1600-4/p133x133/10737148_6022815573895_1527834660_n.png" alt="" class="center-block img-circle img-thumbnail img-responsive">
+            </div>
+            <!--/col--> 
+            <div class="col-xs-12 col-sm-7">
+              <h2>Some User</h2>
+              <p><strong>About: </strong> Read, out with friends, listen to music, draw and learn new things. </p>
+              <p><strong>Work: </strong>Apple</p>
+              <p><strong>Studied: </strong>Computer Science</p>
+              <p><strong>From: </strong>Los Angeles</p>
+              <p>
+            </div>
+            <!--/col-->          
+            <div class="clearfix"></div>
+            <!--/col-->
+          </div>
+          <!--/row-->
+        </div>
+        <!--/panel-body-->
       </div>
-    </div>
-    <!-- edit form column -->
-    <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
+      <!--/panel-->
 
-      <h3>Personal info</h3>
-      <form class="form-horizontal" role="form">
-        <div class="form-group">
-          <label class="col-lg-3 control-label">Full name:</label>
-          <div class="col-lg-8">
-            <input class="form-control" ng-model="profile.name" type="text">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-lg-3 control-label">Email:</label>
-          <div class="col-lg-8">
-            <input class="form-control" ng-model="profile.email" type="text">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-lg-3 control-label">Birthday:</label>
-          <div class="col-lg-8">
-            <input class="form-control" ng-model="profile.birthday" type="text" pick-a-date="date" pick-a-date-options="{ format: 'mm-dd-yyyy' }">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-lg-3 control-label">Work:</label>
-          <div class="col-lg-8">
-            <input class="form-control" ng-model="profile.work" type="text">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-lg-3 control-label">Education:</label>
-          <div class="col-lg-8">
-            <input class="form-control" ng-model="profile.education" type="text">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-lg-3 control-label">School:</label>
-          <div class="col-lg-8">
-            <input class="form-control" ng-model="profile.school" type="text">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-lg-3 control-label">About me:</label>
-          <div class="col-lg-8">
-            <textarea class="form-control" id="inputBody" ng-model="profile.aboutme" rows="8"></textarea>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-lg-3 control-label">Favorite Movies:</label>
+      <!-- friends -->
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12">
+              <h4>Friends - <small>6</small></h4>
 
-          <div class="col-lg-8">
-            <div class="btn-group" data-toggle="buttons">
-              <div class="row">
-                 <div class="col-xs-8">
-                    <input class="form-control" ng-model="movie" type="text">
+                  <div class="row">
+                    <div class="col-sm-4 event">
+                      <div class="thumbnail">
+                        <div class="overlay"></div>
+                        <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?1">
+                      </div>
+                    </div>
+                    <div class="col-sm-4 event">
+                      <div class="thumbnail">
+                        <div class="overlay"></div>
+                        <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?2">
+                      </div>
+                    </div>
+                    <div class="col-sm-4 event">
+                      <div class="thumbnail">
+                        <div class="overlay"></div>
+                        <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?3">
+                      </div>
+                    </div>
+                    <div class="col-sm-4 event">
+                      <div class="thumbnail">
+                        <div class="overlay"></div>
+                        <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?1">
+                      </div>
+                    </div>
+                    <div class="col-sm-4 event">
+                      <div class="thumbnail">
+                        <div class="overlay"></div>
+                        <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?2">
+                      </div>
+                    </div>
+                    <div class="col-sm-4 event">
+                      <div class="thumbnail">
+                        <div class="overlay"></div>
+                        <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?3">
+                      </div>
+                    </div>
                   </div>
-                  <div class="col-xs-4">
-                    <button class="btn btn-default" type="submit" ng-click="addMovie(movie);">Add</button>
+                    </div>
+
                   </div>
-              </div>
-              <span ng-repeat="item in movies" ng-click="removeMovie($index)">{{item}} <i class="glyphicon glyphicon-remove"></i></span>
+                  <!--/row-->
+        </div>
+        <!--/panel-body-->
+      </div>
+      <!--/panel-->
+      <!-- end friends -->
+
+
+
+      <!-- pictures -->
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12">
+              <h4>Pictures - <small>6</small></h4>
+
+                <div class="row">
+                  <div class="col-sm-4 event">
+                    <div class="thumbnail">
+                      <div class="overlay"></div>
+                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?1">
+                    </div>
+                  </div>
+                  <div class="col-sm-4 event">
+                    <div class="thumbnail">
+                      <div class="overlay"></div>
+                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?2">
+                    </div>
+                  </div>
+                  <div class="col-sm-4 event">
+                    <div class="thumbnail">
+                      <div class="overlay"></div>
+                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?3">
+                    </div>
+                  </div>
+                  <div class="col-sm-4 event">
+                    <div class="thumbnail">
+                      <div class="overlay"></div>
+                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?1">
+                    </div>
+                  </div>
+                  <div class="col-sm-4 event">
+                    <div class="thumbnail">
+                      <div class="overlay"></div>
+                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?2">
+                    </div>
+                  </div>
+                  <div class="col-sm-4 event">
+                    <div class="thumbnail">
+                      <div class="overlay"></div>
+                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?3">
+                    </div>
+                  </div>
+                </div>
+                  </div>
+
+                </div>
+                <!--/row-->
+        </div>
+        <!--/panel-body-->
+      </div>
+      <!--/panel-->
+      <!-- end pictures -->
+
+
+      <!-- Video -->
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12">
+              <h4>Video - <small>6</small></h4>
+
+                <div class="row">
+                  <div class="col-sm-4 event">
+                    <div class="thumbnail">
+                      <div class="overlay"></div>
+                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?1">
+                    </div>
+                  </div>
+                  <div class="col-sm-4 event">
+                    <div class="thumbnail">
+                      <div class="overlay"></div>
+                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?2">
+                    </div>
+                  </div>
+                  <div class="col-sm-4 event">
+                    <div class="thumbnail">
+                      <div class="overlay"></div>
+                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?3">
+                    </div>
+                  </div>
+                  <div class="col-sm-4 event">
+                    <div class="thumbnail">
+                      <div class="overlay"></div>
+                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?1">
+                    </div>
+                  </div>
+                  <div class="col-sm-4 event">
+                    <div class="thumbnail">
+                      <div class="overlay"></div>
+                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?2">
+                    </div>
+                  </div>
+                  <div class="col-sm-4 event">
+                    <div class="thumbnail">
+                      <div class="overlay"></div>
+                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?3">
+                    </div>
+                  </div>
+                </div>
+                  </div>
+
+                </div>
+                <!--/row-->
+        </div>
+        <!--/panel-body-->
+      </div>
+      <!--/panel-->
+      <!-- end Video -->
+
+
+      <!-- Music -->
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12">
+              <h4>Music - <small>3</small></h4>
+
+                <div class="row">
+                  <div class="col-sm-4 event">
+                    <div class="thumbnail">
+                      <div class="overlay"></div>
+                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?1">
+                    </div>
+                  </div>
+                  <div class="col-sm-4 event">
+                    <div class="thumbnail">
+                      <div class="overlay"></div>
+                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?2">
+                    </div>
+                  </div>
+                  <div class="col-sm-4 event">
+                    <div class="thumbnail">
+                      <div class="overlay"></div>
+                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?3">
+                    </div>
+                  </div>
+
+                </div>
             </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-lg-3 control-label">Favorite Movies:</label>
 
-          <div class="col-lg-8">
-            <div class="btn-group" data-toggle="buttons">
-              <div class="row">
-                 <div class="col-xs-8">
-                    <input class="form-control" ng-model="music" type="text">
-                  </div>
-                  <div class="col-xs-4">
-                    <button class="btn btn-default" type="submit" ng-click="addMusic(music);">Add</button>
-                  </div>
-              </div>
-              <span ng-repeat="item in musics" ng-click="removeMusic($index)">{{item}} <i class="glyphicon glyphicon-remove"></i></span>
-            </div>
           </div>
+          <!--/row-->
         </div>
+        <!--/panel-body-->
+      </div>
+      <!--/panel-->
+      <!-- end Music -->
 
-        <div class="form-group">
-          <label class="col-md-3 control-label"></label>
-          <div class="col-md-8 text-center">
-            <input class="btn btn-primary" value="Save Changes" type="button" ng-click="">
-          </div>
-        </div>
-      </form>
+
     </div>
+
+    <script type="text/javascript">
+    $(function() {
+      $('#tab a').click(function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+      })
+    })
+    </script>
+
+    <!-- Right-handed side -->
+    <div class="col-md-7 col-xs-12">
+              <div class="row">
+                  <div class="col-sm-12 col-md-12">
+                          <div class="user-info-block">
+                              <ul class="navigation" id="tab">
+                                  <li class="active">
+                                      <a data-toggle="#information" href="#information">
+                                          <span class="glyphicon glyphicon-envelope"></span>
+                                      </a>
+                                  </li>
+                                  <li>
+                                      <a data-toggle="#settings" href="#settings">
+                                          <span class="glyphicon glyphicon-upload"></span>
+                                      </a>
+                                  </li>
+                              </ul>
+                              <div class="user-body">
+                                  <div class="tab-content">
+                                      <div id="information" class="tab-pane active">
+                                        <div class="input-group">
+                                          <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." maxlength="200" ng-model="postText"/>
+                                          <span class="input-group-btn">
+                                          <button class="btn btn-warning btn-sm" id="btn-chat" ng-click="sendPost(postText)">
+                                            Send
+                                          </button>
+                                          </span>
+                                        </div>
+                                      </div>
+                                      <div id="settings" class="tab-pane">
+                                          <h4>Settings</h4>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                </div>
+                <br />
+                <div class="row" ng-init="loadPosts()">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-repeat="post in posts | orderBy:'-timestamp'"
+                        <div class="panel panel-default chat-widget">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">{{post.sender}}</h3>
+                                <small>{{post.timestamp}}</small>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row wrapper post-details">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 post-message">
+                                        <div class="post">
+                                            <p>{{post.text}}</p>
+                                        </div>
+                                    </div>      
+                                </div>
+                                <br />
+
+                                <div class="row wrapper reply-message" ng-repeat="comment in post.comments | orderBy:'timestamp'">
+                                    <div class="col-xs-2 col-sm-1 col-md-1 ">
+                                        <span class="avatar">
+                                        <img src="https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-xap1/v/t1.0-9/10407263_10153092069927526_2345401600703274971_n.png?oh=14645e7a466aaf9494a9dc66bee4c6a6&oe=55D36C5D&__gda__=1436133640_90b26c6823f4a9a0307d4b62a3dc34dd" class="img-responsive" alt="">
+                                    </span>
+                                    </div>
+                                    <div class="col-xs-10 col-sm-11 col-md-11">
+                                        <div class="post">
+                                            <p>
+                                              <a href=""><span class="posted-by">{{comment.sender}}</span></a>:
+                                              {{comment.text}}
+                                              <br />
+                                              <small>{{comment.timestamp}}</small>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <form>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Write a comment..." ng-model="commentText" maxlength="200">
+                                        <span class="input-group-btn">
+                                          <button class="btn btn-primary" type="button" ng-click="sendComment(commentText, post.postID)">SEND</button>
+                                         </span>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+    </div>
+    <!--/col--> 
   </div>
+  <!--/row--> 
+
 </div>
 
