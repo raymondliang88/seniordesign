@@ -73,19 +73,6 @@ angular.module('projectsApp')
       }
     };
 
-    /*
-     *function readImage(input) {
-     *    if ( input.files && input.files[0] ) {
-     *        var FR= new FileReader();
-     *        FR.onload = function(e) {
-     *             $('#img').attr( 'src', e.target.result );
-     *             $('#base').text( e.target.result );
-     *        };
-     *        FR.readAsDataURL( input.files[0] );
-     *    }
-     *}
-     */
-
     var setUserProvision = function() {
       var provisionedData = ref.child('privacySettings').child(authData.uid);
       provisionedData.update({
@@ -166,9 +153,7 @@ angular.module('projectsApp')
             if (error) {
               console.log('Login Failed!', error);
             } else {
-
-              console.log("Authenticated successfully with payload:", authData);
-
+             console.log("Authenticated successfully with payload:", authData);
 
              Facebook.api('/me', function(response) {
                 $scope.user = response;
@@ -195,8 +180,6 @@ angular.module('projectsApp')
                     $scope.user.school = response.education[1].school.name;
                   });
                 }
-                 
-
               });
             }
           }, {
