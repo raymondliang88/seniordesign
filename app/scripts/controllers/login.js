@@ -39,6 +39,11 @@ angular.module('projectsApp')
           messagePrivacy: 'everyone',
           postPrivacy: 'everyone',
       });
+
+      ref.child('posts').child(userData.uid).set({
+          // null
+          ignore: 0
+      });
       
       ref.child('friends').child(userData.uid).set({
           friendTotal: 0
