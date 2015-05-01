@@ -13,6 +13,7 @@
     $scope.selectedProfile = {};
     $scope.loaded = false;
     $scope.profiles = [];
+    $scope.selectedProfile;
 
     var ref = new Firebase(firebaseService.getFirebBaseURL());
 

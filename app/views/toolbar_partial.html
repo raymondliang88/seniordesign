@@ -15,7 +15,7 @@
     <form ng-controller="SearchCtrl">
 			<input type="text" keyboard-poster post-function="searchProfiles" ng-model="input" class="form-control" name="_profiles" list="_profiles" flex placeholder="Search"/>
         <datalist id="_profiles">
-          <option  ng-repeat="profile in profiles" value="{{profile.val.firstName}} {{profile.val.lastName}}"></option>
+          <option ng-repeat="profile in profiles" ng-model="selectedProfile" value="{{profile.val.firstName}} {{profile.val.lastName}}"></option>
         </datalist>
     </form>
 
