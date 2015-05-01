@@ -8,6 +8,7 @@ angular.module('projectsApp')
     $scope.userCurrentID = $scope.authData.uid;
     $scope.userCurrentFirstName;
     $scope.userCurrentLastName;
+    $scope.aboutMe;
     $scope.postText;
 
 

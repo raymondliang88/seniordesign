@@ -1,5 +1,6 @@
 <div layout="column" flex layout-fill ng-controller="FriendProfileCtrl">
 
+<!--
 <div class="jumbotron">
 <h1 class="md-display-3">Friend profile</h1>
   <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
@@ -16,94 +17,352 @@
   <br>Favorite Movie: {{friendProfile.email}}</br>
   <br>About Me: {{friendProfile.email}}</br>
 </div>
+-->
+<h1 class="page-header"></h1>
+<div class="row">
+  <div class="col-md-5 col-xs-12">
+  
 
- <div class="col-md-7 col-xs-12">
-              <div class="row">
-                  <div class="col-sm-12 col-md-12">
-                          <div class="user-info-block">
-                              <ul class="navigation" id="tab">
-                                  <li class="active">
-                                      <a data-toggle="#information" href="#information">
-                                          <span class="glyphicon glyphicon-envelope"></span>
-                                      </a>
-                                  </li>
-                                  <li>
-                                      <a data-toggle="#settings" href="#settings">
-                                          <span class="glyphicon glyphicon-upload"></span>
-                                      </a>
-                                  </li>
-                              </ul>
-                              <div class="user-body">
-                                  <div class="tab-content">
-                                      <div id="information" class="tab-pane active">
-                                        <div class="input-group">
-                                          <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." maxlength="200" ng-model="postText"/>
-                                          <span class="input-group-btn">
-                                          <button class="btn btn-warning btn-sm" id="btn-chat" ng-click="sendPost(postText, username)">
-                                            Send
-                                          </button>
-                                          </span>
+
+      <div class="well panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-12 col-sm-5 text-center">
+              <img src={{friendProfile.picture}}   width="140" height="120"/>
+              <hr>
+            </div>
+            <!--/col--> 
+            <div class="col-xs-12 col-sm-7">
+              <h2>{{friendProfile.firstName}} {{friendProfile.lastName}}</h2>
+              <p><strong>Online: </strong>  {{friendProfile.loggedIn}} </p>
+              <p><strong>About: </strong>  {{friendProfile.email}} </p>
+              <p><strong>Work: </strong> {{friendProfile.email}} </p>
+              <p><strong>Studied: </strong> {{friendProfile.email}}</p>
+              <p><strong>From: </strong> {{friendProfile.email}}</p>
+              <p>
+            </div>
+            <!--/col-->          
+            <div class="clearfix"></div>
+            <!--/col-->
+          </div>
+          <!--/row-->
+        </div>
+        <!--/panel-body-->
+      </div>
+      <!--/panel-->
+
+
+      <!-- friends -->
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12">
+              <h4>Friends - <small>6</small></h4>
+
+                  <div class="row">
+                    <div class="col-sm-4 event">
+                      <div class="thumbnail">
+                        <div class="overlay"></div>
+                        <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?1">
+                      </div>
+                    </div>
+                    <div class="col-sm-4 event">
+                      <div class="thumbnail">
+                        <div class="overlay"></div>
+                        <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?2">
+                      </div>
+                    </div>
+                    <div class="col-sm-4 event">
+                      <div class="thumbnail">
+                        <div class="overlay"></div>
+                        <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?3">
+                      </div>
+                    </div>
+                    <div class="col-sm-4 event">
+                      <div class="thumbnail">
+                        <div class="overlay"></div>
+                        <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?1">
+                      </div>
+                    </div>
+                    <div class="col-sm-4 event">
+                      <div class="thumbnail">
+                        <div class="overlay"></div>
+                        <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?2">
+                      </div>
+                    </div>
+                    <div class="col-sm-4 event">
+                      <div class="thumbnail">
+                        <div class="overlay"></div>
+                        <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?3">
+                      </div>
+                    </div>
+                  </div>
+                    </div>
+
+                  </div>
+                  <!--/row-->
+        </div>
+        <!--/panel-body-->
+      </div>
+      <!--/panel-->
+      <!-- end friends -->
+
+
+
+      <!-- pictures -->
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12">
+              <h4>Pictures - <small>6</small></h4>
+
+                <div class="row">
+                  <div class="col-sm-4 event">
+                    <div class="thumbnail">
+                      <div class="overlay"></div>
+                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?1">
+                    </div>
+                  </div>
+                  <div class="col-sm-4 event">
+                    <div class="thumbnail">
+                      <div class="overlay"></div>
+                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?2">
+                    </div>
+                  </div>
+                  <div class="col-sm-4 event">
+                    <div class="thumbnail">
+                      <div class="overlay"></div>
+                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?3">
+                    </div>
+                  </div>
+                  <div class="col-sm-4 event">
+                    <div class="thumbnail">
+                      <div class="overlay"></div>
+                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?1">
+                    </div>
+                  </div>
+                  <div class="col-sm-4 event">
+                    <div class="thumbnail">
+                      <div class="overlay"></div>
+                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?2">
+                    </div>
+                  </div>
+                  <div class="col-sm-4 event">
+                    <div class="thumbnail">
+                      <div class="overlay"></div>
+                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?3">
+                    </div>
+                  </div>
+                </div>
+                  </div>
+
+                </div>
+                <!--/row-->
+        </div>
+        <!--/panel-body-->
+      </div>
+      <!--/panel-->
+      <!-- end pictures -->
+
+
+      <!-- Video -->
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12">
+              <h4>Video - <small>6</small></h4>
+
+                <div class="row">
+                  <div class="col-sm-4 event">
+                    <div class="thumbnail">
+                      <div class="overlay"></div>
+                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?1">
+                    </div>
+                  </div>
+                  <div class="col-sm-4 event">
+                    <div class="thumbnail">
+                      <div class="overlay"></div>
+                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?2">
+                    </div>
+                  </div>
+                  <div class="col-sm-4 event">
+                    <div class="thumbnail">
+                      <div class="overlay"></div>
+                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?3">
+                    </div>
+                  </div>
+                  <div class="col-sm-4 event">
+                    <div class="thumbnail">
+                      <div class="overlay"></div>
+                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?1">
+                    </div>
+                  </div>
+                  <div class="col-sm-4 event">
+                    <div class="thumbnail">
+                      <div class="overlay"></div>
+                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?2">
+                    </div>
+                  </div>
+                  <div class="col-sm-4 event">
+                    <div class="thumbnail">
+                      <div class="overlay"></div>
+                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?3">
+                    </div>
+                  </div>
+                </div>
+                  </div>
+
+                </div>
+                <!--/row-->
+        </div>
+        <!--/panel-body-->
+      </div>
+      <!--/panel-->
+      <!-- end Video -->
+
+
+      <!-- Music -->
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12">
+              <h4>Music - <small>3</small></h4>
+
+                <div class="row">
+                  <div class="col-sm-4 event">
+                    <div class="thumbnail">
+                      <div class="overlay"></div>
+                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?1">
+                    </div>
+                  </div>
+                  <div class="col-sm-4 event">
+                    <div class="thumbnail">
+                      <div class="overlay"></div>
+                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?2">
+                    </div>
+                  </div>
+                  <div class="col-sm-4 event">
+                    <div class="thumbnail">
+                      <div class="overlay"></div>
+                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?3">
+                    </div>
+                  </div>
+
+                </div>
+            </div>
+
+          </div>
+          <!--/row-->
+        </div>
+        <!--/panel-body-->
+      </div>
+      <!--/panel-->
+      <!-- end Music -->
+
+
+    </div>
+
+    <script type="text/javascript">
+    $(function() {
+      $('#tab a').click(function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+      })
+    })
+    </script>
+
+
+   <!-- Right-handed side -->
+   <div class="col-md-7 col-xs-12">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                            <div class="user-info-block">
+                                <ul class="navigation" id="tab">
+                                    <li class="active">
+                                        <a data-toggle="#information" href="#information">
+                                            <span class="glyphicon glyphicon-envelope"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="#settings" href="#settings">
+                                            <span class="glyphicon glyphicon-upload"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="user-body">
+                                    <div class="tab-content">
+                                        <div id="information" class="tab-pane active">
+                                          <div class="input-group">
+                                            <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." maxlength="200" ng-model="postText"/>
+                                            <span class="input-group-btn">
+                                            <button class="btn btn-warning btn-sm" id="btn-chat" ng-click="sendPost(postText, username)">
+                                              Send
+                                            </button>
+                                            </span>
+                                          </div>
                                         </div>
+                                        <div id="settings" class="tab-pane">
+                                            <h4>Settings</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                  </div>
+                  <br />
+                  <div class="row" ng-init="loadPosts(username)">
+                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-repeat="post in posts | orderBy:'-timestamp'"
+                          <div class="panel panel-default chat-widget">
+                              <div class="panel-heading">
+                                  <h3 class="panel-title">{{post.sender}} </h3>
+                                  <small>{{post.timestamp}}</small>
+                              </div>
+                              <div class="panel-body">
+                                  <div class="row wrapper post-details">
+                                      <div class="col-xs-12 col-sm-12 col-md-12 post-message">
+                                          <div class="post">
+                                              <p>{{post.text}}</p>
+                                          </div>
+                                      </div>      
+                                  </div>
+                                  <br />
+
+                                  <div class="row wrapper reply-message" ng-repeat="comment in post.comments | orderBy:'timestamp'">
+                                      <div class="col-xs-2 col-sm-1 col-md-1 ">
+                                          <span class="avatar">
+                                          <img src="https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-xap1/v/t1.0-9/10407263_10153092069927526_2345401600703274971_n.png?oh=14645e7a466aaf9494a9dc66bee4c6a6&oe=55D36C5D&__gda__=1436133640_90b26c6823f4a9a0307d4b62a3dc34dd" class="img-responsive" alt="">
+                                      </span>
                                       </div>
-                                      <div id="settings" class="tab-pane">
-                                          <h4>Settings</h4>
+                                      <div class="col-xs-10 col-sm-11 col-md-11">
+                                          <div class="post">
+                                              <p>
+                                                <a href=""><span class="posted-by">{{comment.sender}}</span></a>:
+                                                {{comment.text}}
+                                                <br />
+                                                <small>{{comment.timestamp}}</small>
+                                              </p>
+                                          </div>
                                       </div>
                                   </div>
                               </div>
+                              <div class="panel-footer">
+                                  <form>
+                                      <div class="input-group">
+                                          <input type="text" class="form-control" placeholder="Write a comment..." ng-model="commentText" maxlength="200">
+                                          <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="button" ng-click="sendComment(commentText, post.postID, username)">SEND</button>
+                                           </span>
+                                      </div>
+                                  </form>
+
+                              </div>
                           </div>
                       </div>
-                </div>
-                <br />
-                <div class="row" ng-init="loadPosts(username)">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-repeat="post in posts | orderBy:'-timestamp'"
-                        <div class="panel panel-default chat-widget">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">{{post.sender}} </h3>
-                                <small>{{post.timestamp}}</small>
-                            </div>
-                            <div class="panel-body">
-                                <div class="row wrapper post-details">
-                                    <div class="col-xs-12 col-sm-12 col-md-12 post-message">
-                                        <div class="post">
-                                            <p>{{post.text}}</p>
-                                        </div>
-                                    </div>      
-                                </div>
-                                <br />
+   </div>
+  
 
-                                <div class="row wrapper reply-message" ng-repeat="comment in post.comments | orderBy:'timestamp'">
-                                    <div class="col-xs-2 col-sm-1 col-md-1 ">
-                                        <span class="avatar">
-                                        <img src="https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-xap1/v/t1.0-9/10407263_10153092069927526_2345401600703274971_n.png?oh=14645e7a466aaf9494a9dc66bee4c6a6&oe=55D36C5D&__gda__=1436133640_90b26c6823f4a9a0307d4b62a3dc34dd" class="img-responsive" alt="">
-                                    </span>
-                                    </div>
-                                    <div class="col-xs-10 col-sm-11 col-md-11">
-                                        <div class="post">
-                                            <p>
-                                              <a href=""><span class="posted-by">{{comment.sender}}</span></a>:
-                                              {{comment.text}}
-                                              <br />
-                                              <small>{{comment.timestamp}}</small>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel-footer">
-                                <form>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Write a comment..." ng-model="commentText" maxlength="200">
-                                        <span class="input-group-btn">
-                                          <button class="btn btn-primary" type="button" ng-click="sendComment(commentText, post.postID, username)">SEND</button>
-                                         </span>
-                                    </div>
-                                </form>
-
-                            </div>
-                        </div>
-                    </div>
-    </div>
-
+  </div>
+</div>
 
 </div>
 

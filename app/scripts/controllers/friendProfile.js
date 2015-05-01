@@ -17,7 +17,7 @@ angular.module('projectsApp')
   	var friendFirebaseRef = new Firebase("https://shining-torch-23.firebaseio.com/profileInfo/"+ param.user);
 
   	// query firebase for posts
-  	//$scope.friendProfile = $firebaseObject(friendFirebaseRef);
+  	$scope.friendProfile = $firebaseObject(friendFirebaseRef);
   	var ref = new Firebase(firebaseService.getFirebBaseURL());
     var auth = $firebaseAuth(ref);
 
