@@ -39,7 +39,7 @@
                                         <div class="input-group">
                                           <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." maxlength="200" ng-model="postText"/>
                                           <span class="input-group-btn">
-                                          <button class="btn btn-warning btn-sm" id="btn-chat" ng-click="sendPost(postText, username, friendProfile.firstName, friendProfile.lastName)">
+                                          <button class="btn btn-warning btn-sm" id="btn-chat" ng-click="sendPost(postText, username)">
                                             Send
                                           </button>
                                           </span>
@@ -94,7 +94,7 @@
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="Write a comment..." ng-model="commentText" maxlength="200">
                                         <span class="input-group-btn">
-                                          <button class="btn btn-primary" type="button" ng-click="sendComment(commentText, post.postID)">SEND</button>
+                                          <button class="btn btn-primary" type="button" ng-click="sendComment(commentText, post.postID, username)">SEND</button>
                                          </span>
                                     </div>
                                 </form>
