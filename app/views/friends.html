@@ -45,6 +45,10 @@
       </md-toolbar>
       <md-card-content>
         <img src={{user.picture}}   width="140" height="120"/>
+        {{user.$id}}
+
+        <a ui-sref="home.profile.user({user: user.$id })">Click me</a>
+
         <br>Online: {{user.loggedIn}}</br>
         <br>Email: {{user.email}}</br>
         <br>School: {{user.email}}</br>
