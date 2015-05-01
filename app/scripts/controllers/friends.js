@@ -50,6 +50,7 @@ angular.module('projectsApp')
 
   var friendRequestRef = new Firebase("https://shining-torch-23.firebaseio.com/pending/"+ authData.uid + "/senderList");
   var pendingFriendList = $firebaseArray(friendRequestRef);
+  var pendingFriendProfile = [];
 
   pendingFriendList.$loaded(
   function(x) {
@@ -229,21 +230,6 @@ angular.module('projectsApp')
       }
     );
   };
-
-  var getUserProfileInfo = function(userid){
-    var userID = userid;
-    var ref = new Firebase("https://shining-torch-23.firebaseio.com/profileInfo/"+ userID);
-    var profileData = $firebaseObject(ref);
-    profileData.$loaded(
-      function(data) {
-        friendProfile.push(data);
-      },
-      function(error) {
-        console.error("Error:", error);
-      }
-    );
-    $scope.friendRequests = pendingFriendProfile;
-  }
 
   var profileRef = new Firebase("https://shining-torch-23.firebaseio.com/profileInfo/");
   $scope.allProfiles = $firebaseArray(profileRef);
