@@ -18,7 +18,6 @@ angular.module('projectsApp')
             .content(msg)
             .ariaLabel('Alert Dialog')
             .ok('close')
-            .targetEvent(event)
         );
         }
       }

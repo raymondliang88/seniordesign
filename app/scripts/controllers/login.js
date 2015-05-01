@@ -95,7 +95,7 @@ angular.module('projectsApp')
         }).then(function (authData) {
           console.log('Logged in as:' + authData.uid);
           //todo: logged in state
-          $state.go('home.dashboard');
+          goToDashboard(authData);
         }).catch(function (error) {
           var msg = 'Invalid E-mail or password. Please try again';
           alertService.show(msg,ev);
