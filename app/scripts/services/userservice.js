@@ -104,11 +104,38 @@ angular.module('projectsApp')
       $scope.save = function(user) {
         $mdDialog.hide();
         setUserProvision();
+        /*
+         *user.movies = $scope.movies;
+         *user.music = $scope.musics;
+         */
         saveMoreSettings(user, $scope.imageSrc);
       };
       $scope.cancel = function() {
         $mdDialog.cancel();
       };
+
+      $scope.movie;
+      $scope.movies = [];
+      $scope.music;
+      $scope.musics = [];
+
+      $scope.addMovie = function(name) {
+        $scope.movies.push(name);
+        $scope.movie = '';
+      };
+
+      $scope.removeMovie = function(index) {
+        $scope.movies.splice(index,1);
+      }
+
+      $scope.addMusic = function(name) {
+        $scope.musics.push(name);
+        $scope.music = null;
+      };
+
+      $scope.removeMusic = function(index) {
+        $scope.musics.splice(index,1);
+      }
 
       $scope.import = function(provider) {
         //$mdDialog.hide()
@@ -238,7 +265,8 @@ angular.module('projectsApp')
     var showAboutForm = function() {
         $mdDialog.show({
           controller: MoreInfoController,
-          templateUrl: 'views/about.tmpl.html'
+          //templateUrl: 'views/about.tmpl.html'
+          templateUrl: 'views/provision.tmpl.html'
         })
           .then(function(input){
             //Confirmed, pass input
