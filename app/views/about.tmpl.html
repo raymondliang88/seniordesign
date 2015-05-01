@@ -26,9 +26,11 @@
               <form>
                   <input type="file" ng-file-select="onFileSelect($files)" >
               </form>
+              {{invalidText}}
+              <br/>
               <b>Preview:</b><br/>
               <i ng-hide="imageSrc">No image chosen</i>
-              <img ng-src="{{imageSrc}}" /><br/>
+              <img ng-hide="invalidFile" ng-src="{{imageSrc}}" width="140" height="120"/><br/>
                 Only PNG,GIF,JPG files allowed.
               </p>
             </div>
@@ -47,7 +49,7 @@
     <md-button ng-click="cancel()">
       Maybe later
     </md-button>
-    <md-button ng-click="save(user, imageSrc)" class="md-primary">
+    <md-button ng-disabled="invalidFile" ng-click="save(user, imageSrc)" class="md-primary">
       Save
     </md-button>
   </div>

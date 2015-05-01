@@ -48,15 +48,24 @@ angular.module('projectsApp')
     $scope.friendProfiles = friendProfileArr;
   }
 
-  var friendRequestRef = new Firebase("https://shining-torch-23.firebaseio.com/pending/"+ authData.uid);
-  var pendingFriendList = $firebaseArray(friendRequestRef.child('senderList'));
-  var pendingFriendProfile = [];
+  var friendRequestRef = new Firebase("https://shining-torch-23.firebaseio.com/pending/"+ authData.uid + "/senderList");
+  var pendingFriendList = $firebaseArray(friendRequestRef);
 
   pendingFriendList.$loaded(
   function(x) {
     x.forEach(function(entry) {
-      getPendingUserProfileInfo(entry.$id);
+      var pendingRef = new Firebase("https://shining-torch-23.firebaseio.com/profileInfo/"+ entry.$id);
+      var friendRequests = $firebaseObject(pendingRef);
+      friendRequests.$loaded(
+        function(data) {
+          pendingFriendProfile.push(data);
+        },
+        function(error) {
+          console.error("Error:", error);
+        }
+      );
     });
+    $scope.friendRequests = pendingFriendProfile;
     }, function(error) {
     console.error("Error:", error);
   });
@@ -221,14 +230,13 @@ angular.module('projectsApp')
     );
   };
 
-  var getPendingUserProfileInfo = function(userid){
+  var getUserProfileInfo = function(userid){
     var userID = userid;
     var ref = new Firebase("https://shining-torch-23.firebaseio.com/profileInfo/"+ userID);
     var profileData = $firebaseObject(ref);
     profileData.$loaded(
       function(data) {
-        console.log(data.name); // true
-        pendingFriendProfile.push(data);
+        friendProfile.push(data);
       },
       function(error) {
         console.error("Error:", error);
@@ -236,8 +244,6 @@ angular.module('projectsApp')
     );
     $scope.friendRequests = pendingFriendProfile;
   }
-
-
 
   var profileRef = new Firebase("https://shining-torch-23.firebaseio.com/profileInfo/");
   $scope.allProfiles = $firebaseArray(profileRef);
