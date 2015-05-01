@@ -15,6 +15,97 @@
   <br>Birthday: {{friendProfile.email}}</br>
   <br>Favorite Movie: {{friendProfile.email}}</br>
   <br>About Me: {{friendProfile.email}}</br>
+</div>
+
+ <div class="col-md-7 col-xs-12">
+              <div class="row">
+                  <div class="col-sm-12 col-md-12">
+                          <div class="user-info-block">
+                              <ul class="navigation" id="tab">
+                                  <li class="active">
+                                      <a data-toggle="#information" href="#information">
+                                          <span class="glyphicon glyphicon-envelope"></span>
+                                      </a>
+                                  </li>
+                                  <li>
+                                      <a data-toggle="#settings" href="#settings">
+                                          <span class="glyphicon glyphicon-upload"></span>
+                                      </a>
+                                  </li>
+                              </ul>
+                              <div class="user-body">
+                                  <div class="tab-content">
+                                      <div id="information" class="tab-pane active">
+                                        <div class="input-group">
+                                          <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." maxlength="200" ng-model="postText"/>
+                                          <span class="input-group-btn">
+                                          <button class="btn btn-warning btn-sm" id="btn-chat" ng-click="sendPost(postText, username, friendProfile.firstName, friendProfile.lastName)">
+                                            Send
+                                          </button>
+                                          </span>
+                                        </div>
+                                      </div>
+                                      <div id="settings" class="tab-pane">
+                                          <h4>Settings</h4>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                </div>
+                <br />
+                <div class="row" ng-init="loadPosts(username)">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-repeat="post in posts | orderBy:'-timestamp'"
+                        <div class="panel panel-default chat-widget">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">{{post.sender}} </h3>
+                                <small>{{post.timestamp}}</small>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row wrapper post-details">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 post-message">
+                                        <div class="post">
+                                            <p>{{post.text}}</p>
+                                        </div>
+                                    </div>      
+                                </div>
+                                <br />
+
+                                <div class="row wrapper reply-message" ng-repeat="comment in post.comments | orderBy:'timestamp'">
+                                    <div class="col-xs-2 col-sm-1 col-md-1 ">
+                                        <span class="avatar">
+                                        <img src="https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-xap1/v/t1.0-9/10407263_10153092069927526_2345401600703274971_n.png?oh=14645e7a466aaf9494a9dc66bee4c6a6&oe=55D36C5D&__gda__=1436133640_90b26c6823f4a9a0307d4b62a3dc34dd" class="img-responsive" alt="">
+                                    </span>
+                                    </div>
+                                    <div class="col-xs-10 col-sm-11 col-md-11">
+                                        <div class="post">
+                                            <p>
+                                              <a href=""><span class="posted-by">{{comment.sender}}</span></a>:
+                                              {{comment.text}}
+                                              <br />
+                                              <small>{{comment.timestamp}}</small>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <form>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Write a comment..." ng-model="commentText" maxlength="200">
+                                        <span class="input-group-btn">
+                                          <button class="btn btn-primary" type="button" ng-click="sendComment(commentText, post.postID)">SEND</button>
+                                         </span>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+    </div>
+
 
 </div>
-</div>
+
+
+

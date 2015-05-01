@@ -72,7 +72,7 @@ angular.module('projectsApp')
                        d.getMinutes(),
                        d.getSeconds()].join(':');
             // push a post
-            var fullName = $scope.userCurrentFirstName + " " + $scope.userCurrentLastName
+            var fullName = $scope.userCurrentFirstName + " " + $scope.userCurrentLastName;
             console.log('Pushing a new post to Firebase...');
             pathFire.push({ 'senderID': $scope.userCurrentID, /* CHANGE */
                             'senderName': fullName,
@@ -84,6 +84,7 @@ angular.module('projectsApp')
       });
     };
 
+   // $scope.sendComment = function(commentText, postID, profileID){
     $scope.sendComment = function(commentText, postID){
       console.log('SendComment Called!');
       console.log("THE POSTID: " + postID);
@@ -91,7 +92,7 @@ angular.module('projectsApp')
         var pathFire = ref.child(snapshot.key());
         // profileID loop
         snapshot.forEach(function(profileFire){
-          if(profileFire.key() === $scope.userCurrentID){
+          if(profileFire.key() === $scope.userCurrentID){ // ** PROFILEID GOES HERE!!!!
             pathFire = pathFire.child(profileFire.key());
             // postID loop
             profileFire.forEach(function(postFire){
@@ -107,7 +108,7 @@ angular.module('projectsApp')
                            d.getMinutes(),
                            d.getSeconds()].join(':');
                 // push a comment
-                var fullName = $scope.userCurrentFirstName + " " + $scope.userCurrentLastName
+                var fullName = $scope.userCurrentFirstName + " " + $scope.userCurrentLastName;
                 pathFire.push({ 'senderID': $scope.userCurrentID,
                                 'senderName': fullName,
                                 'text': commentText,
