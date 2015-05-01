@@ -64,7 +64,13 @@ angular.module('projectsApp')
 
       if(imageSrc !== undefined){
           ref.child('profileInfo').child(authData.uid).update({
-            profilePic: imageSrc
+            picture: imageSrc
+          });
+      } else {
+          // choosing default image
+          imageSrc = "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg";
+          ref.child('profileInfo').child(authData.uid).update({
+            picture: imageSrc
           });
       }
     };

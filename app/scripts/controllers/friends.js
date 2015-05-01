@@ -50,15 +50,24 @@ angular.module('projectsApp')
     console.error("Error:", error);
   });
 
-  var friendRequestRef = new Firebase("https://shining-torch-23.firebaseio.com/pending/"+ authData.uid);
-  var pendingFriendList = $firebaseArray(friendRequestRef.child('senderList'));
+  var friendRequestRef = new Firebase("https://shining-torch-23.firebaseio.com/pending/"+ authData.uid + "/senderList");
+  var pendingFriendList = $firebaseArray(friendRequestRef);
   var pendingFriendProfile = [];
   pendingFriendList.$loaded(
   function(x) {
-    x === list; // true
     x.forEach(function(entry) {
-      getPendingUserProfileInfo(entry.$id);
+      var pendingRef = new Firebase("https://shining-torch-23.firebaseio.com/profileInfo/"+ entry.$id);
+      var friendRequests = $firebaseObject(pendingRef);
+      friendRequests.$loaded(
+        function(data) {
+          pendingFriendProfile.push(data);
+        },
+        function(error) {
+          console.error("Error:", error);
+        }
+      );
     });
+    $scope.friendRequests = pendingFriendProfile;
     }, function(error) {
     console.error("Error:", error);
   });
@@ -226,22 +235,6 @@ angular.module('projectsApp')
       }
     );
   };
-
-  var getPendingUserProfileInfo = function(userid){
-    var userID = userid;
-    var ref = new Firebase("https://shining-torch-23.firebaseio.com/profileInfo/"+ userID);
-    var profileData = $firebaseObject(ref);
-    profileData.$loaded(
-      function(data) {
-        console.log(data.name); // true
-        pendingFriendProfile.push(data);
-      },
-      function(error) {
-        console.error("Error:", error);
-      }
-    );
-    $scope.friendRequests = pendingFriendProfile;
-  }
 
   var getUserProfileInfo = function(userid){
     var userID = userid;
