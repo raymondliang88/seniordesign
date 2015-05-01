@@ -22,70 +22,64 @@
                     <input class="form-control" type="date" ng-model="user.birthday"> 
                   </div>
                 </div>
-                <!--
-                   -<div class="form-group">
-                   -  <label class="col-lg-3 control-label">Work:</label>
-                   -  <div class="col-lg-8">
-                   -    <input class="form-control" ng-model="user.work" type="text">
-                   -  </div>
-                   -</div>
-                   -->
-                <!--
-                   -<div class="form-group">
-                   -  <label class="col-lg-3 control-label">Education:</label>
-                   -  <div class="col-lg-8">
-                   -    <input class="form-control" ng-model="user.education" type="text">
-                   -  </div>
-                   -</div>
-                   -->
+
                 <div class="form-group">
                   <label class="col-lg-3 control-label">School:</label>
                   <div class="col-lg-8">
                     <input class="form-control" ng-model="user.school" type="text">
                   </div>
                 </div>
-                <!--
-                   -<div class="form-group">
-                   -  <label class="col-lg-3 control-label">About me:</label>
-                   -  <div class="col-lg-8">
-                   -    <textarea class="form-control" id="inputBody" ng-model="user.aboutme" rows="8"></textarea>
-                   -  </div>
-                   -</div>
-                   -->
-                <div class="form-group">
-                  <label class="col-lg-3 control-label">Favorite Movies:</label>
 
+                <div class="form-group">
+                  <label class="col-lg-3 control-label">Favorite Movie:</label>
                   <div class="col-lg-8">
-                    <div class="btn-group" data-toggle="buttons">
-                      <div class="row">
-                         <div class="col-xs-8">
-                            <input class="form-control" ng-model="user.movie" type="text">
-                          </div>
-                          <div class="col-xs-4">
-                            <button class="btn btn-default" type="submit" ng-click="addMovie(movie);">Add</button>
-                          </div>
-                      </div>
-                      <span ng-repeat="item in movies" ng-click="removeMovie($index)">{{item}} <i class="glyphicon glyphicon-remove"></i></span>
-                    </div>
+                    <input class="form-control" ng-model="user.movies" type="text">
                   </div>
                 </div>
-                <div class="form-group">
-                  <label class="col-lg-3 control-label">Favorite Movies:</label>
 
+                <div class="form-group">
+                  <label class="col-lg-3 control-label">Favorite Music:</label>
                   <div class="col-lg-8">
-                    <div class="btn-group" data-toggle="buttons">
-                      <div class="row">
-                         <div class="col-xs-8">
-                            <input class="form-control" ng-model="user.music" type="text">
-                          </div>
-                          <div class="col-xs-4">
-                            <button class="btn btn-default" type="submit" ng-click="addMusic(music);">Add</button>
-                          </div>
-                      </div>
-                      <span ng-repeat="item in musics" ng-click="removeMusic($index)">{{item}} <i class="glyphicon glyphicon-remove"></i></span>
-                    </div>
+                    <input class="form-control" ng-model="user.music" type="text">
                   </div>
                 </div>
+
+<!--
+   -                <div class="form-group">
+   -                  <label class="col-lg-3 control-label">Favorite Movies:</label>
+   -
+   -                  <div class="col-lg-8">
+   -                    <div class="btn-group" data-toggle="buttons">
+   -                      <div class="row">
+   -                         <div class="col-xs-8">
+   -                            <input class="form-control" ng-model="user.movie" type="text">
+   -                          </div>
+   -                          <div class="col-xs-4">
+   -                            <button class="btn btn-default" type="submit" ng-click="addMovie(movie);">Add</button>
+   -                          </div>
+   -                      </div>
+   -                      <span ng-repeat="item in movies" ng-click="removeMovie($index)">{{item}} <i class="glyphicon glyphicon-remove"></i></span>
+   -                    </div>
+   -                  </div>
+   -                </div>
+   -                <div class="form-group">
+   -                  <label class="col-lg-3 control-label">Favorite Movies:</label>
+   -
+   -                  <div class="col-lg-8">
+   -                    <div class="btn-group" data-toggle="buttons">
+   -                      <div class="row">
+   -                         <div class="col-xs-8">
+   -                            <input class="form-control" ng-model="user.music" type="text">
+   -                          </div>
+   -                          <div class="col-xs-4">
+   -                            <button class="btn btn-default" type="submit" ng-click="addMusic(music);">Add</button>
+   -                          </div>
+   -                      </div>
+   -                      <span ng-repeat="item in musics" ng-click="removeMusic($index)">{{item}} <i class="glyphicon glyphicon-remove"></i></span>
+   -                    </div>
+   -                  </div>
+   -                </div>
+   -->
 
                 <div class="form-group">
                   <label class="col-md-3 control-label"></label>
