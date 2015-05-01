@@ -98,6 +98,7 @@ angular.module('projectsApp')
       ref.child('profileInfo').child(authData.uid).update({
         loggedIn: false
       });
+      localStorage.clear();
       ref.unauth();
       $state.go('login');
     };
