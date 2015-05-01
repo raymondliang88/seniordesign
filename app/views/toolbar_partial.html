@@ -1,15 +1,19 @@
 <div layout="column" layout-fill ng-controller='ToolBarCtrl'>
-  <md-toolbar style="position: fixed;">
+  <md-toolbar style="position: fixed; z-index=999;">
     <div class="md-toolbar-tools">
       <!-- fill up the space between left and right area -->
       <md-button class="md-icon-button" aria-label="Settings" ng-click='toggleLeft()'>
           <md-icon md-svg-icon="images/icons/menu.svg" ></md-icon>
       </md-button>
       <span flex></span>
-      <span flex></span>
       some cool logo
       <span flex></span>
+      <span flex></span>
       <span ></span>
+      <md-button ng-click='checkPending()'>
+        Pending Friends {{pendingTotal}}
+      </md-button>
+			<input ng-model="user.name" type="text" class="form-control" flex placeholder="Name">
 
     <!-- TODO: Add action="" to take to selectedProfile -->
     <form ng-controller="SearchCtrl">
@@ -23,7 +27,7 @@
           <md-icon md-svg-icon="images/icons/menu.svg"></md-icon>
       </md-button>
       <md-input-container placeholder="Search">
-        
+
       </md-input-container>
 <!--       <md-button ng-click='toggleRight()'>
         Right Bar Button
