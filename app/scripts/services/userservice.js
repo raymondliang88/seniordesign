@@ -121,18 +121,14 @@ angular.module('projectsApp')
         }
       };
 
-      var clientId = '824361687622-oigige156t3n418c8p14or24pqdqrdkq.apps.googleusercontent.com';
-      var scopes = 'https://www.googleapis.com/auth/plus.me';
-      var googleImport = function(){
-        console.log('...requesting deeper google auth...');
-        var apiKey = 'AIzaSyAAY3m6JlU7DVn5GdNMcilJ0jP7qW7p7PI';
-        gapi.client.setApiKey(apiKey);
-        gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, handleAuthResult);
-
-      };
-
-
-
+    var clientId = '824361687622-oigige156t3n418c8p14or24pqdqrdkq.apps.googleusercontent.com';
+    var scopes = 'https://www.googleapis.com/auth/plus.me';
+    var googleImport = function(){
+      console.log('...requesting deeper google auth...');
+      var apiKey = 'AIzaSyAAY3m6JlU7DVn5GdNMcilJ0jP7qW7p7PI';
+      gapi.client.setApiKey(apiKey);
+      gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, handleAuthResult);
+    };
 
    var facebookImport = function() {
         ref.authWithOAuthPopup('facebook', function(error, authData) {
