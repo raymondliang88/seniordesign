@@ -5,44 +5,26 @@
   <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
 </div>
 
-<md-grid-list
-      md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6"
-      md-row-height-gt-md="1:1" md-row-height="2:2"
-      md-gutter="12px" md-gutter-gt-sm="8px" >
-  <md-grid-tile class="gray"
-      md-rowspan="3" md-colspan="2" md-colspan-sm="1">
-    <md-grid-tile-footer>
-      <h3>#1: (3r x 2c)</h3>
-    </md-grid-tile-footer>
-  </md-grid-tile>
-  <md-grid-tile class="green">
-    <md-grid-tile-footer>
-      <h3>#2: (1r x 1c)</h3>
-    </md-grid-tile-footer>
-  </md-grid-tile>
-  <md-grid-tile class="yellow">
-    <md-grid-tile-footer>
-      <h3>#3: (1r x 1c)</h3>
-    </md-grid-tile-footer>
-  </md-grid-tile>
-  <md-grid-tile class="blue"
-      md-rowspan="2">
-    <md-grid-tile-footer>
-      <h3>#4: (2r x 1c)</h3>
-    </md-grid-tile-footer>
-  </md-grid-tile>
-  <md-grid-tile class="red"
-      md-rowspan="2" md-colspan="2" md-colspan-sm="1">
-    <md-grid-tile-footer>
-      <h3>#5: (2r x 2c)</h3>
-    </md-grid-tile-footer>
-  </md-grid-tile>
-  <md-grid-tile class="green"
-      md-rowspan="2" >
-    <md-grid-tile-footer>
-      <h3>#6: (2r x 1c)</h3>
-    </md-grid-tile-footer>
-  </md-grid-tile>
-</md-grid-list>
-
+  <!-- Advanced Search Form -->
+  <form ng-controller="AdvSearchCtrl"></form>
+    <label>First Name</label>
+      <input type="text" ng-model="input.firstName" class="form-control" placeholder="First Name"/>
+    <label>Last Name</label>
+      <input type="text" ng-model="input.lastName" class="form-control" placeholder="Last Name"/>
+    <label>Gender</label>
+      <md-select placeholder="Gender" ng-model="input.gender" class="form-control" >
+        <md-option value="male">Male</md-option>
+        <md-option value="female">Female</md-option>
+        <md-option value="other">Other</md-option>
+      </md-select>
+    <label>Language</label>
+      <input type="text" ng-model="input.language" class="form-control" placeholder="Language"/>
+    <label>Country</label>
+      <input type="text" ng-model="input.country" class="form-control" placeholder="Country"/>
+    <label>Age</label>
+      <input type="text" ng-model="input.age" class="form-control" placeholder="Age"/>
+    <md-button ng-click="advancedSearch(input)" class="md-primary">
+      Advanced Search
+    </md-button>
+  </form>
 </div>

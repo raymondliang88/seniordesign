@@ -152,7 +152,9 @@ angular.module('projectsApp')
           console.log('Authenticated successfully with payload:', authData);
           
           ref.child('profileInfo').child(authData.uid).once('value', function (snapshot){
-
+            ref.child('profileInfo').child.(authData.uid).set({
+              language: authData.google.language
+            })
             if(snapshot.val() === null){
               console.log('making new user profile');
               //If account doesn't exist set new data
