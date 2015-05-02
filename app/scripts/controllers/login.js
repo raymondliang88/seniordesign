@@ -26,11 +26,27 @@ angular.module('projectsApp')
     var ref = new Firebase(firebaseService.getFirebBaseURL());
     var auth = $firebaseAuth(ref);
 
+    //getting current date
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+    if(dd<10) {
+        dd='0'+dd
+    }
+    if(mm<10) {
+        mm='0'+mm
+    }
+    today = mm+'/'+dd+'/'+yyyy;
+    console.log(today);
+
     var createFireAcc = function(userData, user) {
       ref.child('profileInfo').child(userData.uid).set({
           email: user.email,
           firstName: user.firstName,
           lastName: user.lastName,
+          aboutMe: user.aboutMe,
+          creation_date: today,
           loggedIn: false
       });
 
@@ -44,7 +60,7 @@ angular.module('projectsApp')
           // null
           ignore: 0
       });
-      
+
       ref.child('friends').child(userData.uid).set({
           friendTotal: 0
       });
@@ -60,7 +76,7 @@ angular.module('projectsApp')
       });
       $state.go('home.dashboard');
     };
-    
+
     //registers users on firebase
     $scope.createUser = function(user, form) {
       //Valid form fields
@@ -100,7 +116,7 @@ angular.module('projectsApp')
         }).then(function (authData) {
           console.log('Logged in as:' + authData.uid);
           //todo: logged in state
-          $state.go('home.dashboard');
+          goToDashboard(authData);
         }).catch(function (error) {
           var msg = 'Invalid E-mail or password. Please try again';
           alertService.show(msg,ev);
@@ -111,7 +127,7 @@ angular.module('projectsApp')
       ref.authWithOAuthPopup('facebook', function(error, authData) {
         if (error) {
           console.log('Login Failed!', error);
-        } 
+        }
         else {
           console.log("Authenticated successfully with payload:", authData);
           userService.setCurrentUser(authData);
@@ -152,12 +168,11 @@ angular.module('projectsApp')
       ref.authWithOAuthPopup('google', function(error, authData) {
         if (error) {
           console.log('Login Failed!', error);
-        } 
+        }
         else {
           console.log('Authenticated successfully with payload:', authData);
           
-          ref.child('profileInfo').child(authData.uid).once('value', function (snapshot){
-
+          ref.child('profileInfo').child(authData.uid).once('value', function (snapshot){ 
             if(snapshot.val() === null){
               console.log('making new user profile');
               //If account doesn't exist set new data
@@ -165,7 +180,8 @@ angular.module('projectsApp')
                   email: authData.google.email,
                   firstName: authData.google.cachedUserProfile.given_name,
                   lastName: authData.google.cachedUserProfile.family_name,
-                  picture: authData.google.cachedUserProfile.picture
+                  picture: authData.google.cachedUserProfile.picture,
+
               });
               ref.child('privacySettings').child(authData.uid).set({
                   provisionSettings: 0,
@@ -191,13 +207,13 @@ angular.module('projectsApp')
         scope: "email, profile" // permission requests
       });
     };
-      
+
 
     $scope.registerTwitter = function() {
       ref.authWithOAuthPopup("twitter", function(error, authData) {
         if (error) {
           console.log("Login Failed!", error);
-        } 
+        }
         else {
           console.log("Authenticated successfully with payload:", authData);
           ref.child('profileInfo').child(authData.uid).once('value', function (snapshot){
@@ -227,7 +243,7 @@ angular.module('projectsApp')
                       pendingTotal: 0
                   });
                   goToDashboard(authData);
-            } 
+            }
             else{
                   goToDashboard(authData);
             }

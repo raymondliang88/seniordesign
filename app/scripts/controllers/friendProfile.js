@@ -12,8 +12,45 @@ angular.module('projectsApp')
 	var param = $stateParams;
 	console.log(param.user);
 	$scope.username = param.user;
+		var ref = new Firebase(firebaseService.getFirebBaseURL());
+    var authObj = $firebaseAuth(ref);
+    var authData = authObj.$getAuth();
+    var param = $stateParams;
+		console.log(param.user);
+		$scope.username = param.user;
 
-	//query firebase for info
+    $scope.commonFriends = 0;
+
+    //Find number of friends in common
+    var profileFriends = new Firebase("https://shining-torch-23.firebaseio.com/friends/"+ param.user);
+    var profileObj = $firebaseObject(profileFriends);
+    profileObj.$loaded()
+    .then(function(data) {
+      console.log(data === profileObj); //true
+      var profileList = {};
+      if (data.friendList !== undefined) {
+          profileList = data.friendList;
+      }
+      var userFriends = new Firebase("https://shining-torch-23.firebaseio.com/friends/"+ authData.uid);
+      var userObj = $firebaseObject(userFriends);
+      userObj.$loaded()
+      .then(function(data) {
+        var userList = {};
+        if(data.friendList !== undefined){
+          userList = data.friendList;
+        }
+        for(var i in userList){
+          if(profileList[i] !== undefined){
+            $scope.commonFriends = $scope.commonFriends + 1;
+          }
+        }
+      });
+    })
+    .catch(function(error) {
+      console.error("Error:", error);
+    });
+
+		//query firebase for info
   	var friendFirebaseRef = new Firebase("https://shining-torch-23.firebaseio.com/profileInfo/"+ param.user);
 
   	// query firebase for posts
@@ -27,11 +64,11 @@ angular.module('projectsApp')
     $scope.userCurrentLastName;
     $scope.posts = [];
 
-    $scope.loadPosts = function(profileID){  
+    $scope.loadPosts = function(profileID){
       ref.child('posts').once('value', function (snapshot) {
         console.log('...fetching posts...');
         // profileID loop
-        
+
         snapshot.forEach(function(profileFire) {
           if(profileFire.exists()){
             if(profileFire.key() === profileID){
@@ -45,7 +82,7 @@ angular.module('projectsApp')
 	                    var comment = {sender: commentFire.val().senderName, text: commentFire.val().text, timestamp: commentFire.val().timestamp};
 	                    post.comments.push(comment);
 	                  }
-	                }) 
+	                })
 	                $scope.posts.push(post);
 	              }
                 })
@@ -126,12 +163,10 @@ angular.module('projectsApp')
                                 'timestamp': time});
 
                 $state.reload();
-              }  
+              }
             })
           }
         })
       });
     };
-
-
 });
