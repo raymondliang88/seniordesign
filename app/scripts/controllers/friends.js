@@ -8,12 +8,17 @@
  * Controller of the projectsApp
 **/
 angular.module('projectsApp')
-.controller('UsersController',  function($scope, $http, $firebaseAuth, $firebaseArray, $firebaseObject , firebaseService, profileService) {
+.controller('UsersController',  function($scope, $http, $firebaseAuth, $firebaseArray, $firebaseObject , firebaseService, profileService, $mdDialog) {
   var ref = new Firebase(firebaseService.getFirebBaseURL());
   var authObj = $firebaseAuth(ref);
   var authData = authObj.$getAuth();
   console.log("Logged in as:", authData.uid);
 
+  var ref = new Firebase("https://shining-torch-23.firebaseio.com/friends/"+ authData.uid + '/friendList');
+  $scope.messages = $firebaseArray(ref);
+
+  var list = $firebaseArray(ref);
+  $scope.friendProfile = [];
   //gets list of all current users friends
   var friendsRef = new Firebase("https://shining-torch-23.firebaseio.com/friends/"+ authData.uid +"/friendList");
   $scope.messages = $firebaseArray(friendsRef);
@@ -173,11 +178,37 @@ angular.module('projectsApp')
   };
 
   /**
-   * Removes receiverID from senderID Friend List
-   * @param {string} receiverID The uid of the removed friend.
-   * @param {string} senderID The uid of the user performing the friend removal.
+   * Removes friendID from userID Friend List
+   * @param {string} friendID The uid of the removed friend.
+   * @param {string} userID The uid of the user performing the friend removal.
    */
-  var removeFromFriendList = function(receiverID, senderID) {
+  var removeFromFriendList = function(userID, friendID) {
+    var ref = new Firebase("https://shining-torch-23.firebaseio.com/friends/" + userID);
+    var obj = $firebaseObject(ref);
+    obj.$loaded()
+      .then(function(data) {
+        console.log(data === obj); //true
+        var friendList = {};
+        if (data.friendList !== undefined) {
+          friendList = data.friendList;
+        }
+        // update friendTotal
+        if (friendList[friendID] !== undefined) {
+          ref.child('friendTotal').transaction(function(current_value) {
+            return (current_value || 0) - 1;
+          });
+        }
+        // remove from friendList
+        delete friendList[friendID];
+        console.log('new friends list', friendList);
+        // update Firebase endpoint
+        ref.update({
+          friendList: friendList
+        });
+      })
+      .catch(function(error) {
+        console.error("Error:", error);
+      });
   };
 
   /**
@@ -229,6 +260,57 @@ angular.module('projectsApp')
         console.error("Error:", error);
       }
     );
+  };
+
+  var getPendingUserProfileInfo = function(userid){
+    var userID = userid;
+    var ref = new Firebase("https://shining-torch-23.firebaseio.com/profileInfo/"+ userID);
+    var profileData = $firebaseObject(ref);
+    profileData.$loaded(
+      function(data) {
+        console.log(data.name); // true
+        pendingFriendProfile.push(data);
+      },
+      function(error) {
+        console.error("Error:", error);
+      }
+    );
+    $scope.friendRequests = pendingFriendProfile;
+  };
+
+  var getUserProfileInfo = function(userid){
+    var userID = userid;
+    //console.log("entered");
+    var ref = new Firebase("https://shining-torch-23.firebaseio.com/profileInfo/"+ userID);
+    var profileData = $firebaseObject(ref);
+    profileData.$loaded().then(function(data) {
+        $scope.friendProfile.push(data);
+      },
+      function(error) {
+        console.error("Error:", error);
+      }
+    );
+    $scope.friendProfiles = $scope.friendProfile;
+  };
+
+  $scope.removeFriendConfirm = function(friend, ev){
+    console.log('remove friend id: ', friend.$id);
+    var confirm = $mdDialog.confirm()
+      //.parent(angular.element(document.body))
+      .title('Would you like to delete '+ friend.firstName + '?')
+      .content('')
+      .ariaLabel('Friend Remove Confirm')
+      .ok('Yes, I hate ' + friend.firstName)
+      .cancel('No!')
+      .targetEvent(ev);
+      $mdDialog.show(confirm).then(function(){
+        //Accept friend remove
+        removeFromFriendList(authData.uid, friend.$id);
+        removeFromFriendList(friend.$id, authData.uid);        
+        
+      }, function(){
+        //Cancel friend remove
+      });
   };
 
   var profileRef = new Firebase("https://shining-torch-23.firebaseio.com/profileInfo/");

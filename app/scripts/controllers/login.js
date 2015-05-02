@@ -116,7 +116,7 @@ angular.module('projectsApp')
         }).then(function (authData) {
           console.log('Logged in as:' + authData.uid);
           //todo: logged in state
-          $state.go('home.dashboard');
+          goToDashboard(authData);
         }).catch(function (error) {
           var msg = 'Invalid E-mail or password. Please try again';
           alertService.show(msg,ev);
@@ -171,9 +171,8 @@ angular.module('projectsApp')
         }
         else {
           console.log('Authenticated successfully with payload:', authData);
-
-          ref.child('profileInfo').child(authData.uid).once('value', function (snapshot){
-
+          
+          ref.child('profileInfo').child(authData.uid).once('value', function (snapshot){ 
             if(snapshot.val() === null){
               console.log('making new user profile');
               //If account doesn't exist set new data
@@ -181,7 +180,8 @@ angular.module('projectsApp')
                   email: authData.google.email,
                   firstName: authData.google.cachedUserProfile.given_name,
                   lastName: authData.google.cachedUserProfile.family_name,
-                  picture: authData.google.cachedUserProfile.picture
+                  picture: authData.google.cachedUserProfile.picture,
+
               });
               ref.child('privacySettings').child(authData.uid).set({
                   provisionSettings: 0,
