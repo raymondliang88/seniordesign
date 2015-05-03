@@ -3,9 +3,13 @@
   <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
 </div>
 
-<div class="settings-container">
   <div ng-controller="SettingsCtrl">
-    <md-tabs class="md-primary" md-stretch-tabs="always">
+
+    <md-checkbox ng-model="data.bottom" aria-label="Align tabs to bottom?" style="margin: 5px;">
+      Align tabs to bottom?
+    </md-checkbox>
+
+       <md-tabs class="md-accent" md-stretch-tabs="always" md-align-tabs="{{data.bottom ? 'bottom' : 'top'}}">
         <md-tab id="tab1">
           <md-tab-label>Account Settings</md-tab-label>
           <md-tab-template>
@@ -22,7 +26,7 @@
             <md-container flex>
             </md-container>
           </div>
-          
+
             <div layout layout-sm="column">
               <md-input-container flex>
                 <label>{{ userCurrent.firstName }}</label>
@@ -76,8 +80,8 @@
       </md-tab-template>
       </md-tab>
 
-        
-   <!--Privacy Tab-->   
+
+   <!--Privacy Tab-->
       <md-tab id="tab2">
         <md-tab-label>Privacy Settings</md-tab-label>
         <md-tab-template>
@@ -98,7 +102,7 @@
               <label>{{ userCurrent.messagePrivacy }}</label>
             </md-container>
           </section>
-        
+
 
           <!-- These should be saved pull downs -->
           <div layout layout-sm="row">
@@ -128,7 +132,7 @@
         </md-card-footer>
 
         </form>
-        
+
         </md-content>
         </md-card>
         </md-tab-template>
@@ -239,5 +243,4 @@
 
 
     </md-tabs>
-  </div>
 </div>

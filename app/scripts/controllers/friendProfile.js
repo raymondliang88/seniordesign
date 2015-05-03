@@ -8,7 +8,11 @@
  * Controller of the projectsApp
 **/
 angular.module('projectsApp')
-.controller('FriendProfileCtrl',  function($scope, $http, $firebaseAuth, $firebaseArray, $firebaseObject, $stateParams , firebaseService, profileService) {
+
+.controller('FriendProfileCtrl',  function($scope, $http, $firebaseAuth, $firebaseArray, $firebaseObject, $stateParams , firebaseService, profileService, $state) {
+	var param = $stateParams;
+	console.log(param.user);
+	$scope.username = param.user;
 		var ref = new Firebase(firebaseService.getFirebBaseURL());
     var authObj = $firebaseAuth(ref);
     var authData = authObj.$getAuth();
@@ -18,12 +22,12 @@ angular.module('projectsApp')
     
     $scope.commonFriends = [];
 
+
     //Find number of friends in common
     var profileFriends = new Firebase("https://shining-torch-23.firebaseio.com/friends/"+ param.user);
     var profileObj = $firebaseObject(profileFriends);
     profileObj.$loaded()
     .then(function(data) {
-      console.log(data === profileObj); //true
       var profileList = {};
       if (data.friendList !== undefined) {
           profileList = data.friendList;
@@ -36,9 +40,17 @@ angular.module('projectsApp')
         if(data.friendList !== undefined){
           userList = data.friendList;
         }
-        for(var i in userList){
-          if(profileList[i] !== undefined){
-            $scope.commonFriends = $scope.commonFriends.push(profileList[i]);
+        for(var id in userList){
+          if(profileList[id] !== undefined){
+            //ID Found
+            //$scope.commonFriends.push(id);
+            //console.log(id);
+            var profileInfo = new Firebase("https://shining-torch-23.firebaseio.com/profileInfo/"+ id);
+            var info = $firebaseObject(profileInfo);
+            info.$loaded()
+            .then(function(data) {
+              $scope.commonFriends.push(data.firstName + ' ' + data.lastName);
+            });
           }
         }
       });
@@ -51,8 +63,9 @@ angular.module('projectsApp')
   	var friendFirebaseRef = new Firebase("https://shining-torch-23.firebaseio.com/profileInfo/"+ param.user);
 
   	// query firebase for posts
-  	$scope.friendProfile = $firebaseObject(friendFirebaseRef); 
-    var ref = new Firebase(firebaseService.getFirebBaseURL());
+
+  	$scope.friendProfile = $firebaseObject(friendFirebaseRef);
+  	var ref = new Firebase(firebaseService.getFirebBaseURL());
     var auth = $firebaseAuth(ref);
 
     $scope.authData = auth.$getAuth();
@@ -61,11 +74,11 @@ angular.module('projectsApp')
     $scope.userCurrentLastName;
     $scope.posts = [];
 
-    $scope.loadPosts = function(profileID){  
+    $scope.loadPosts = function(profileID){
       ref.child('posts').once('value', function (snapshot) {
         console.log('...fetching posts...');
         // profileID loop
-        
+
         snapshot.forEach(function(profileFire) {
           if(profileFire.exists()){
             if(profileFire.key() === profileID){
@@ -79,7 +92,7 @@ angular.module('projectsApp')
 	                    var comment = {sender: commentFire.val().senderName, text: commentFire.val().text, timestamp: commentFire.val().timestamp};
 	                    post.comments.push(comment);
 	                  }
-	                }) 
+	                })
 	                $scope.posts.push(post);
 	              }
                 })
@@ -91,7 +104,7 @@ angular.module('projectsApp')
       ref.child('profileInfo').once('value', function (snapshot){
         snapshot.forEach(function(profileInfoFire){
           if(profileInfoFire.key() === $scope.userCurrentID){
-          	console.log("PROFILEID: " + profileInfoFire.key());
+          	//console.log("PROFILEID: " + profileInfoFire.key());
 
             $scope.userCurrentFirstName = profileInfoFire.val().firstName;
             $scope.userCurrentLastName = profileInfoFire.val().lastName;
@@ -160,12 +173,10 @@ angular.module('projectsApp')
                                 'timestamp': time});
 
                 $state.reload();
-              }  
+              }
             })
           }
         })
       });
     };
-
-
 });
