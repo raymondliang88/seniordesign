@@ -14,24 +14,34 @@
       <label for="search">items per page:</label>
       <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
     </div>
- -->  
+ -->
   </md-card>
   </md-content>
 
   <md-content dir-paginate="friend in friendProfiles | filter:q | itemsPerPage: pageSize" current-page="currentPage" ng-show="data.group1 == 'Friends'">
+    <md-toolbar class="md-accent" style="position: relative; z-index: 1;">
+      <div class="md-toolbar-tools">
+        <h2 class="md-headline md-flex">{{friend.firstName}}  {{friend.lastName}}</h2>
+      </div>
+    </md-toolbar>
     <md-card>
-      <!-- <img src="img/washedout.png" class="md-card-image" alt="Washed Out"> -->
-      {{friend}}
-      <md-card-content>
-       <h2 class="md-title">{{friend.name}}</h2>
-      <h2 class="md-title">{{friend.firstName}}</h2>
-      <h2 class="md-title">{{friend.lastName}}</h2>
-      <img class="pano" id="pano" />
+     <md-card-content>
+        <img src={{friend.picture}}   width="140" height="120"/>
+        <a ui-sref="home.profile.user({user: friend.$id })">Click me</a>
+        <br>Online: {{friend.loggedIn}}</br>
+        <br>Email: {{friend.email}}</br>
+        <br>School: {{friend.school}}</br>
+        <br>Birthday: {{friend.birthday}}</br>
+        <br>Favorite Movie: {{friend.movies}}</br>
+        <br>About Me: {{friend.aboutMe}}</br>
+        <br></br>
       </md-card-content>
       <md-action-bar layout="row">
-        <md-button>Connect with me</md-button>
-        <md-button class="md-fab">
-        </md-button>
+        <div class="md-actions" layout="row" layout-align="end center">
+          <md-button class="md-primary" ng-click="removeFriendConfirm(friend, $event)">
+            Remove Friend
+          </md-button>
+        </div>
       </md-action-bar>
     </md-card>
   </md-content>
@@ -45,7 +55,7 @@
       </md-toolbar>
       <md-card-content>
         <img src={{user.picture}}   width="140" height="120"/>
-        {{user.$id}}
+        <!-- {{user.$id}} -->
 
         <a ui-sref="home.profile.user({user: user.$id })">Click me</a>
 
@@ -95,10 +105,10 @@
         </p>
 
         <div class="md-actions" layout="row" layout-align="end center">
-          <md-button class="md-fab" ng-click="confirmFriendRequest(request.$id, 1)">
+          <md-button class="md-fab" ng-click="confirmFriendRequest(request.$id, 1)" aria-label="Add">
             Add
           </md-button>
-          <md-button class="md-fab" ng-click="confirmFriendRequest(request.$id, 0)">
+          <md-button class="md-fab" ng-click="confirmFriendRequest(request.$id, 0)"aria-label="Reject">
             Reject
           </md-button>
         </div>

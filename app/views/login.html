@@ -42,6 +42,11 @@
                   <span ng-show="registrationForm.$submitted && registrationForm.password.$error.required" class="help-block">Enter a password</span>
                   <span ng-show="registrationForm.password.$error.minlength" class="help-block">Password must be a minimum of 6 characters long</span>
                 </md-input-container>
+                  <md-input-container flex>
+                    <label>About me</label>
+                    <input name="aboutMe" ng-model="user.aboutMe" required>
+                    <span ng-show="registrationForm.$submitted && registrationForm.aboutMe.$error.required" class="help-block">Seriously, please tell us about youself</span>
+                  </md-input-container>
               <section layout="row" layout-sm="column" layout-align="center center">
                 <p>
                   <input type="submit" class="btn btn-lg btn-success send" ng-click="createUser(user, registrationForm, $event)" value="Sign Up">
