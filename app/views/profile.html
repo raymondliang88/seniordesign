@@ -145,13 +145,12 @@
           </div>
       </div>
 
-
     <div ng-repeat="post in postData | orderBy:'-timeStamp'">
       <md-card>
         <div class="md-actions accent-color" layout="row" layout-align="end end">
          <md-button>Delete post</md-button>
        </div>
-        <md-content>
+        <md-content class="md-default-theme md-padding">
           <p>SenderID: {{post.senderID}}</p>
           <p>message: {{post.message}}</p>
           <p>POST ID: {{post.$id}}</p>
@@ -162,7 +161,7 @@
 
           <md-list class="divider-color">
             <md-list-item class="md-3-line divider-color" ng-repeat="comment in post.comments">
-              <div class="md-list-item-text">
+              <div class="md-list-item-text" style="background-color: #f5f5f5;">
               <p>
               <img src={{profileData.picture}} class="img-rounded icon commentIcon"/>
                 {{comment}}</p>
@@ -190,7 +189,6 @@
 
   </div>
 
-<br />
 </div>
   <!--/row-->
 
