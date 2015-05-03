@@ -16,7 +16,7 @@ angular.module('projectsApp')
 		console.log(param.user);
 		$scope.username = param.user;
     
-    $scope.commonFriends = 0;
+    $scope.commonFriends = [];
 
     //Find number of friends in common
     var profileFriends = new Firebase("https://shining-torch-23.firebaseio.com/friends/"+ param.user);
@@ -38,7 +38,7 @@ angular.module('projectsApp')
         }
         for(var i in userList){
           if(profileList[i] !== undefined){
-            $scope.commonFriends = $scope.commonFriends + 1;
+            $scope.commonFriends = $scope.commonFriends.push(profileList[i]);
           }
         }
       });

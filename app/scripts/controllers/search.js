@@ -13,7 +13,7 @@
     $scope.selectedProfile = {};
     $scope.loaded = false;
     $scope.profiles = [];
-    $scope.selectedProfile;
+    $scope.selections = [];
 
     var ref = new Firebase(firebaseService.getFirebBaseURL());
     $scope.loadProfiles = function(){
@@ -30,10 +30,35 @@
       });
     };
 
-    $scope.searchProfiles = function(name){
+    $scope.advancedSearch = function(input){
       if(!$scope.loaded){
         $scope.loadProfiles();
         $scope.loaded = true;
+      }
+      else{
+        selections = profiles;
+        for (var i = selections.length - 1; i >= 0; i--) {
+          selections[i]
+        };
+
+        if(input.firstName != undefined){
+
+        }
+        if(input.lastName != undefined){
+
+        }
+        if(input.gender != undefined){
+
+        }
+        if(input.language != undefined){
+
+        }
+        if(input.country != undefined){
+
+        }
+        if(input.age != undefined){
+
+        }
       }
     };
 
