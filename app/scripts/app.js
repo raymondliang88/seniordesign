@@ -39,6 +39,10 @@ angular
   }])
   .config(function ($urlRouterProvider, $stateProvider,  $mdThemingProvider, FacebookProvider) {
     $mdThemingProvider.theme('default');//.light();//.dark();
+    $mdThemingProvider.theme('altTheme').primaryPalette('purple'); // specify primary color, all
+                            // other color intentions will be inherited
+                            // from default
+
     $urlRouterProvider.otherwise('/');
     $stateProvider
       .state('login', {

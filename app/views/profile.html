@@ -1,4 +1,4 @@
-<div layout="column" flex layout-fill ng-controller='ToolBarCtrl'>
+<div layout="column" flex layout-fill ng-controller='ToolBarCtrl' class="md-primary" md-padding>
 <h1 class="page-header">Profile</h1>
   <div class="row">
     <div class="col-md-5 col-xs-12">
@@ -36,7 +36,7 @@
                     <div class="col-sm-4 event">
                       <div class="thumbnail">
                         <div class="overlay"></div>
-                        <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?1">
+                        <!-- <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?1"> -->
                       </div>
                     </div>
                   </div>
@@ -63,7 +63,7 @@
                   <div class="col-sm-4 event">
                     <div class="thumbnail">
                       <div class="overlay"></div>
-                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?1">
+                      <!-- <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?1"> -->
                     </div>
                   </div>
                 </div>
@@ -88,7 +88,7 @@
                   <div class="col-sm-4 event">
                     <div class="thumbnail">
                       <div class="overlay"></div>
-                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?2">
+                      <!-- <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?2"> -->
                     </div>
                   </div>
                 </div>
@@ -101,33 +101,6 @@
       </div>
       <!--/panel-->
       <!-- end Video -->
-
-
-      <!-- Music -->
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <div class="row">
-            <div class="col-xs-12 col-sm-12">
-              <h4>Music - <small>3</small></h4>
-                <div class="row">
-                  <div class="col-sm-4 event">
-                    <div class="thumbnail">
-                      <div class="overlay"></div>
-                      <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?1">
-                    </div>
-                  </div>
-                </div>
-            </div>
-
-          </div>
-          <!--/row-->
-        </div>
-        <!--/panel-body-->
-      </div>
-      <!--/panel-->
-      <!-- end Music -->
-
-
     </div>
 
     <script type="text/javascript">
@@ -159,40 +132,59 @@
       <div class="user-body">
           <div class="tab-content">
               <div id="information" class="tab-pane active">
-                <div class="input-group">
-                  <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." maxlength="200" ng-model="postText"/>
+                <div class="input-group" style="z-index: 1;">
+                  <input id="btn-input" type="text" class="form-control input-sm ng-pristine ng-valid ng-valid-maxlength ng-touched" placeholder="Type your message here..." maxlength="200" ng-model="postText" tabindex="0" aria-invalid="false">
                   <span class="input-group-btn">
-                  <button class="btn btn-warning btn-sm" id="btn-chat" ng-click="addTextPost(postText)">
+                  <button class="btn btn-primary">add image</button>
+                  <button class="btn btn-warning" id="btn-chat" ng-click="addTextPost(postText)" tabindex="0">
                     Send
                   </button>
                   </span>
                 </div>
               </div>
-              <div id="settings" class="tab-pane">
-                  <h4>Settings</h4>
-              </div>
           </div>
       </div>
+
+
+    <div ng-repeat="post in postData | orderBy:'-timeStamp'">
+      <md-card>
+        <div class="md-actions accent-color" layout="row" layout-align="end end">
+         <md-button>Delete post</md-button>
+       </div>
+        <md-content>
+          <p>SenderID: {{post.senderID}}</p>
+          <p>message: {{post.message}}</p>
+          <p>POST ID: {{post.$id}}</p>
+          <p>Timestamp: {{post.timeStamp}}</p>
+        </md-content>
+          <!-- <p>comments: {{post.comments}}</p> -->
+          <md-divider/>
+
+          <md-list class="divider-color">
+            <md-list-item class="md-3-line divider-color" ng-repeat="comment in post.comments">
+              <div class="md-list-item-text">
+              <p>
+              <img src={{profileData.picture}} class="img-rounded icon commentIcon"/>
+                {{comment}}</p>
+              </div>
+              <md-divider></md-divider>
+            </md-list-item>
+          </md-list>
+          <div/>
+
+            <div class="md-actions" layout="row" layout-align="front center">
+                      <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." maxlength="200" ng-model="textMessage"/>
+          <md-button ng-click="addComment(post.$id, textMessage)"> Send</md-button>
+             <md-button>Action 2</md-button>
+           </div>
+
+        </md-card-content>
+      </md-card>
+    </div>
+
     </div>
   </div>
 
-  <div ng-repeat="post in postData">
-    <md-card>
-      <md-card-content>
-      <p>SenderID: {{post.senderID}}</p>
-      <p>message: {{post.message}}</p>
-      <p>POST ID: {{post.$id}}</p>
-      <p>Timestamp: {{post.timeStamp}}</p>
-      <!-- <p>comments: {{post.comments}}</p> -->
-      <p ng-repeat="comment in post.comments">
-      {{comment}}
-      </p>
-      <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." maxlength="200" ng-model="textMessage"/>
-      {{textMessage}}
-      <md-button ng-click="addComment(post.$id, textMessage)"> Comment on this post </md-button>
-    </md-card-content>
-    </md-card>
-  </div>
 
 
 
@@ -203,4 +195,10 @@
   <!--/row-->
 
 </div>
+
+
+<!--  <md-content md-theme="altTheme" layout-padding layout="row" layout-sm="column">
+ slkdfjslkfjj
+  <md-button class="md-primary">I will be purple (altTheme)</md-button>
+</md-content>
 

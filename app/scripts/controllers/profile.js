@@ -18,42 +18,51 @@ angular.module('projectsApp')
       //post comment ref
 
       //timestamp
-      var date = new Date();
-      var time = [date.getMonth()+1,
+      var getTime = function() {
+        var date = new Date();
+        return [date.getMonth()+1,
                   date.getDate(),
                   date.getFullYear()].join('/')+' '+
                   [date.getHours(),
                   date.getMinutes(),
-                  date.getSeconds()].join(':');
+                  date.getSeconds(),
+                  date.getMilliseconds()].join(':');
+      }
 
       //add a new post
       $scope.addTextPost = function(message) {
+        var time = getTime();
         $scope.postData.$add({
           senderID: authData.uid,
           messageType: "text",
-          timeStamp: time,
+          postDate: time,
+          timeStamp: Firebase.ServerValue.TIMESTAMP,
           message: message
         });
       };
 
       //add an image post
       $scope.addImagePost = function(message) {
+        var time = getTime();
         $scope.postData.$add({
           senderID: authData.uid,
           messageType: "image",
-          timeStamp: time,
+          postDate: time,
+          timeStamp: Firebase.ServerValue.TIMESTAMP,
           message: message
         });
       };
 
       //Add a comment to a post, pass in postID
       $scope.addComment = function(postID, message) {
+        var time = getTime();
         var profilePostRef = new Firebase("https://shining-torch-23.firebaseio.com/posts/"+ authData.uid + "/" +  postID + "/comments/");
         $scope.postComment = $firebaseArray(profilePostRef);
         $scope.postComment.$add({
           senderID: authData.uid,
           messageType: "text",
-          timeStamp: time,
+          postDate: time,
+          timeStamp: Firebase.ServerValue.TIMESTAMP,
           message: message
         });
       }
