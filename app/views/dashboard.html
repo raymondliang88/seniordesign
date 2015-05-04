@@ -13,10 +13,11 @@
       <input type='text' ng-model='input.lastName' class='form-control' placeholder='Last Name'/>
     <label>Gender</label>
       <md-select placeholder='Gender' ng-model='input.gender'>
-        <md-option value='male'>Male</md-option>
-        <md-option value='female'>Female</md-option>
+        <md-option value='male'>M</md-option>
+        <md-option value='female'>F</md-option>
         <md-option value='other'>Other</md-option>
       </md-select>
+      <br>
     <label>Language</label>
       <input type='text' ng-model='input.language' class='form-control' placeholder='Language'/>
     <label>Country</label>
@@ -27,6 +28,7 @@
         <md-option value='26-40'>26-40</md-option>
         <md-option value='41-80'>41-80</md-option>
       </md-select>
+      <br>
     <md-button ng-click='advancedSearch(input)' class='md-primary'>
       Advanced Search
     </md-button>

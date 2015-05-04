@@ -1,8 +1,3 @@
-<div class="jumbotron">
-<h1 class="md-display-3">UCRPals</h1>
-  <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
-</div>
-
   <div ng-controller="SettingsCtrl">
 
     <md-checkbox ng-model="data.bottom" aria-label="Align tabs to bottom?" style="margin: 5px;">
@@ -10,75 +5,131 @@
     </md-checkbox>
 
        <md-tabs class="md-accent" md-stretch-tabs="always" md-align-tabs="{{data.bottom ? 'bottom' : 'top'}}">
+        
+    <!-- Profile Tab -->
         <md-tab id="tab1">
-          <md-tab-label>Account Settings</md-tab-label>
+          <md-tab-label>Profile Settings</md-tab-label>
           <md-tab-template>
           <md-card style="margin: 1px !important">
           <md-content layout-padding>
-          <form class="simple-form" name="profileForm">
 
-          <div layout layout-sm="column">
-            <label>First Name</label>
-            <md-container flex>
-            </md-container>
+              <div class="container">
+                <h1 class="page-header">Profile</h1>
+                <div class="row">
+                  <!-- left column -->
+                  <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="text-center">
+                      <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Blank_woman_placeholder.svg/315px-Blank_woman_placeholder.svg.png" class="avatar img-circle img-thumbnail" alt="avatar">
+                      <h6>Upload a different photo...</h6>
+                      <input type="file" class="text-center center-block">
+                    </div>
+                  </div>
+                  <!-- edit form column -->
+                  <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
+                    <form class="form-horizontal" role="form">
+                      <div class="form-group">
+                          <label class="col-lg-3 control-label">First Name:</label>
+                          <div class="col-lg-8">
+                            <input class="form-control" ng-model="user.firstName" type="text" placeholder="{{userCurrent.firstName}}">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="col-lg-3 control-label">Last Name:</label>
+                          <div class="col-lg-8">
+                            <input class="form-control" ng-model="user.lastName" type="text" placeholder="{{userCurrent.lastName}}">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-lg-3 control-label">Email:</label>
+                        <div class="col-lg-8">
+                          <input class="form-control" ng-model="user.email" type="text" placeholder="{{userCurrent.email}}">
+                      </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-lg-3 control-label">Birthday:</label>
+                        <div class="col-lg-8">
+                          <input class="form-control" ng-model="user.birthday" type="text" pick-a-date="date" pick-a-date-options="{ format: 'mm-dd-yyyy' }">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-lg-3 control-label">Language:</label>
+                        <div class="col-lg-8">
+                          <input class="form-control" ng-model="user.language" type="text">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-lg-3 control-label">Country:</label>
+                        <div class="col-lg-8">
+                          <input class="form-control" ng-model="user.country" type="text">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-lg-3 control-label">Work:</label>
+                        <div class="col-lg-8">
+                          <input class="form-control" ng-model="user.work" type="text">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-lg-3 control-label">School:</label>
+                        <div class="col-lg-8">
+                          <input class="form-control" ng-model="user.school" type="text">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-lg-3 control-label">About Me:</label>
+                        <div class="col-lg-8">
+                          <textarea class="form-control" id="inputBody" ng-model="user.aboutMe" rows="8"></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-lg-3 control-label">Favorite Movies:</label>
 
-            <label>Last Name</label>
-            <md-container flex>
-            </md-container>
-          </div>
+                        <div class="col-lg-8">
+                          <div class="btn-group" data-toggle="buttons">
+                            <div class="row">
+                               <div class="col-xs-8">
+                                  <input class="form-control" ng-model="movie" type="text">
+                                </div>
+                                <div class="col-xs-4">
+                                  <button class="btn btn-default" type="submit" ng-click="addMovie(movie);">Add</button>
+                                </div>
+                            </div>
+                            <span ng-repeat="item in movies" ng-click="removeMovie($index)">{{item}} <i class="glyphicon glyphicon-remove"></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-lg-3 control-label">Favorite Movies:</label>
 
-            <div layout layout-sm="column">
-              <md-input-container flex>
-                <label>{{ userCurrent.firstName }}</label>
-                <input ng-model="user.firstName">
-              </md-input-container>
+                        <div class="col-lg-8">
+                          <div class="btn-group" data-toggle="buttons">
+                            <div class="row">
+                               <div class="col-xs-8">
+                                  <input class="form-control" ng-model="music" type="text">
+                                </div>
+                                <div class="col-xs-4">
+                                  <button class="btn btn-default" type="submit" ng-click="addMusic(music);">Add</button>
+                                </div>
+                            </div>
+                            <span ng-repeat="item in musics" ng-click="removeMusic($index)">{{item}} <i class="glyphicon glyphicon-remove"></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-md-3 control-label"></label>
+                        <div class="col-md-8 text-center">
+                          <input class="btn btn-primary" value="Save Changes" type="button" ng-click="saveSettings(user)">
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
 
-              <md-input-container flex>
-                <label>{{ userCurrent.lastName }}</label>
-                <input ng-model="user.lastName">
-              </md-input-container>
-            </div>
-          <div layout layout-sm="column">
-            <label>Email</label>
-          </div>
-
-          <div layout layout-sm="column">
-            <md-input-container flex>
-              <label>{{ userCurrent.email }}</label>
-              <input ng-model="user.email" >
-            </md-input-container>
-          </div>
-
-          <div layout layout-sm="column">
-            <md-container flex>
-              <label>Password</label>
-            </md-container>
-            <md-container flex>
-              <section layout="row" layout-sm="column" layout-align="center center">
-                <md-button ng-click="" class="md-primary">
-                Reset
-                </md-button>
-              </section>
-            </md-container>
-            </md-content>
-          </div>
-
-          <section layout="row" layout-sm="column" layout-align="center center">
-            <md-content layout-padding>
-              <md-button ng-click="saveSettings(user)" class="md-primary send">
-                Save
-              </md-button>
-            </md-content>
-          </section>
-
-      </form>
-        <md-container flex>
-            <p class="md-caption"> {{ alert }}</p>
-        </md-container>
-      </md-content>
-      </md-card>
-      </md-tab-template>
-      </md-tab>
+          </md-content>
+          </md-card>
+          </md-tab-template>
+        </md-tab>
 
 
    <!--Privacy Tab-->
@@ -137,110 +188,5 @@
         </md-card>
         </md-tab-template>
         </md-tab>
-
-
-        <md-tab id="tab3">
-          <md-tab-label>Profile Settings</md-tab-label>
-          <md-tab-template>
-          <md-card style="margin: 1px !important">
-          <md-content layout-padding>
-
-              <div class="container">
-                <h1 class="page-header">Profile</h1>
-                <div class="row">
-                  <!-- left column -->
-                  <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="text-center">
-                      <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Blank_woman_placeholder.svg/315px-Blank_woman_placeholder.svg.png" class="avatar img-circle img-thumbnail" alt="avatar">
-                      <h6>Upload a different photo...</h6>
-                      <input type="file" class="text-center center-block">
-                    </div>
-                  </div>
-                  <!-- edit form column -->
-                  <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
-                    <form class="form-horizontal" role="form">
-                      <div class="form-group">
-                        <label class="col-lg-3 control-label">Birthday:</label>
-                        <div class="col-lg-8">
-                          <input class="form-control" ng-model="profile.birthday" type="text" pick-a-date="date" pick-a-date-options="{ format: 'mm-dd-yyyy' }">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="col-lg-3 control-label">Work:</label>
-                        <div class="col-lg-8">
-                          <input class="form-control" ng-model="profile.work" type="text">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="col-lg-3 control-label">Education:</label>
-                        <div class="col-lg-8">
-                          <input class="form-control" ng-model="profile.education" type="text">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="col-lg-3 control-label">School:</label>
-                        <div class="col-lg-8">
-                          <input class="form-control" ng-model="profile.school" type="text">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="col-lg-3 control-label">About me:</label>
-                        <div class="col-lg-8">
-                          <textarea class="form-control" id="inputBody" ng-model="profile.aboutme" rows="8"></textarea>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="col-lg-3 control-label">Favorite Movies:</label>
-
-                        <div class="col-lg-8">
-                          <div class="btn-group" data-toggle="buttons">
-                            <div class="row">
-                               <div class="col-xs-8">
-                                  <input class="form-control" ng-model="movie" type="text">
-                                </div>
-                                <div class="col-xs-4">
-                                  <button class="btn btn-default" type="submit" ng-click="addMovie(movie);">Add</button>
-                                </div>
-                            </div>
-                            <span ng-repeat="item in movies" ng-click="removeMovie($index)">{{item}} <i class="glyphicon glyphicon-remove"></i></span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="col-lg-3 control-label">Favorite Movies:</label>
-
-                        <div class="col-lg-8">
-                          <div class="btn-group" data-toggle="buttons">
-                            <div class="row">
-                               <div class="col-xs-8">
-                                  <input class="form-control" ng-model="music" type="text">
-                                </div>
-                                <div class="col-xs-4">
-                                  <button class="btn btn-default" type="submit" ng-click="addMusic(music);">Add</button>
-                                </div>
-                            </div>
-                            <span ng-repeat="item in musics" ng-click="removeMusic($index)">{{item}} <i class="glyphicon glyphicon-remove"></i></span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                        <label class="col-md-3 control-label"></label>
-                        <div class="col-md-8 text-center">
-                          <input class="btn btn-primary" value="Save Changes" type="button" ng-click="">
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-
-          </md-content>
-          </md-card>
-          </md-tab-template>
-        </md-tab>
-
-
-
     </md-tabs>
 </div>

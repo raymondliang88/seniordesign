@@ -96,18 +96,54 @@ angular.module('projectsApp')
         //Email changes require authorization from old email
         if(user.firstName !== undefined){
           ref.child('profileInfo').child($scope.userCurrent.uid).update({
-                firstName: user.firstName
+            firstName: user.firstName
           });
           $scope.userCurrent.firstName = user.firstName;
         }
         if(user.lastName !== undefined){
           ref.child('profileInfo').child($scope.userCurrent.uid).update({
-                lastName: user.lastName
+            lastName: user.lastName
           });
           $scope.userCurrent.lastName = user.lastName;
         }
         if(user.email !== undefined){
           $scope.emailConfirm(user.email, $scope.userCurrent.email);
+        }
+        if(user.birthday !== undefined){
+          $ref.child('profileInfo').child($scope.userCurrent.uid).update({
+            birthday: user.birthday
+          });
+          $scope.userCurrent.birthday = user.birthday;
+        }
+        if(user.language !== undefined){
+          $ref.child('profileInfo').child($scope.userCurrent.uid).update({
+            language: user.language
+          }); 
+          $scope.userCurrent.language = user.language;
+        }
+        if(user.country !== undefined){
+          $ref.child('profileInfo').child($scope.userCurrent.uid).update({
+            country: user.country
+          });
+          $scope.userCurrent.country;
+        }
+        if(user.work !== undefined){
+          $ref.child('profileInfo').child($scope.userCurrent.uid).update({
+            work: user.work
+          });
+          $scope.userCurrent.work = user.work;
+        }
+        if(user.school !== undefined){
+          $ref.child('profileInfo').child($scope.userCurrent.uid).update({
+            school: user.school
+          });
+          $scope.userCurrent.school = user.school;
+        }
+        if(user.aboutMe !== undefined){
+          $ref.child('profileInfo').child($scope.userCurrent.uid).update({
+            aboutMe: user.aboutMe
+          });
+          $scope.userCurrent.aboutMe = user.aboutMe;
         }
       }
     };
