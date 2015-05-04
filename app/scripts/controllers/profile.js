@@ -1,6 +1,6 @@
 angular.module('projectsApp')
   .controller('ProfileCtrl',
-    function ($scope, firebaseService, userService, $firebaseAuth, $state, $firebaseArray, $firebaseObject) {
+    function ($scope, $stateParams, firebaseService, userService, $firebaseAuth, $state, $firebaseArray, $firebaseObject) {
       var ref = new Firebase(firebaseService.getFirebBaseURL());
       var authObj = $firebaseAuth(ref);
       var authData = authObj.$getAuth();
