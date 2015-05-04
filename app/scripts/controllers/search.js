@@ -28,38 +28,71 @@
           $scope.profiles.push(profile);
         })
       });
+      //$scope.selections = $scope.profiles;
+      $scope.loaded = true;
     };
+
+    $scope.loadProfiles();
 
     $scope.advancedSearch = function(input){
       if(!$scope.loaded){
         $scope.loadProfiles();
-        $scope.loaded = true;
       }
+      if(input === undefined){}
       else{
-        selections = profiles;
-        for (var i = selections.length - 1; i >= 0; i--) {
-          selections[i]
-        };
-
-        if(input.firstName != undefined){
-
+        var s = $scope.profiles;
+        if(input.firstName !== undefined && input.firstName != ''){
+          for (var i = s.length - 1; i >= 0; i--) {
+            if(s[i].val.firstName === undefined){continue;}
+            else if(s[i].val.firstName.toLowerCase() != input.firstName.toLowerCase()){
+              s.splice(i, 1);
+            }
+          }
         }
-        if(input.lastName != undefined){
-
+        if(input.lastName !== undefined && input.lastName != ''){
+          for (var i = s.length - 1; i >= 0; i--) {
+            if(s[i].val.lastName === undefined){continue;}
+            else if(s[i].val.lastName.toLowerCase() != input.lastName.toLowerCase()){
+              s.splice(i, 1);
+            }
+          }
         }
-        if(input.gender != undefined){
-
+        if(input.gender !== undefined){
+          for (var i = s.length - 1; i >= 0; i--) {
+            if(s[i].val.gender === undefined){continue;}
+            else if(s[i].val.gender != input.gender){
+              s.splice(i, 1);
+            }
+          }
         }
-        if(input.language != undefined){
-
+        if(input.language !== undefined){
+          for (var i = s.length - 1; i >= 0; i--) {
+            if(s[i].val.language === undefined){continue;}
+            else if(s[i].val.language.toLowerCase() != input.language.toLowerCase()){
+              s.splice(i, 1);
+            }
+          }
         }
-        if(input.country != undefined){
-
+        if(input.country !== undefined){
+          for (var i = s.length - 1; i >= 0; i--) {
+            if(s[i].val.country === undefined){continue;}
+            else if(s[i].val.country != input.country){
+              s.splice(i, 1);
+            }
+          }
         }
-        if(input.age != undefined){
-
+        if(input.age !== undefined){
+          for (var i = s.length - 1; i >= 0; i--) {
+            if(s[i].age === undefined){continue;}
+            else if(s[i].age != input.age){
+              s.splice(i, 1);
+            }
+          }
         }
       }
+      $scope.selections = s;
+      console.log('input: ', input);
+      console.log('total selections: ', $scope.selections);
     };
 
   }).directive('keyboardPoster', function($parse, $timeout){
@@ -80,4 +113,4 @@
       }, DELAY_TIME_BEFORE_POSTING)
     }
   }
-})
+});

@@ -30,5 +30,7 @@
     <md-button ng-click='advancedSearch(input)' class='md-primary'>
       Advanced Search
     </md-button>
+
+    <div ng-repeat="profile in selections">{{ profile.val.firstName }} {{ profile.val.lastName }}</div>
   </form>
 </div>
