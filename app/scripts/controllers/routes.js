@@ -34,7 +34,9 @@ angular.module('projectsApp')
     var authObj = $firebaseAuth(ref);
     var authData = authObj.$getAuth();
 
-    // notification: check # of pending friends 
+    $scope.userid = authData.uid;
+
+    // notification: check # of pending friends
     var pending = ref.child('pending').child(authData.uid).child('pendingTotal').once('value', function(snapshot) {
       var val = snapshot.val();
       $scope.pendingTotal = val;
@@ -57,7 +59,7 @@ angular.module('projectsApp')
     }
 
     $scope.checkPending = function() {
-      // pop up to show friend requests you can accept  
+      // pop up to show friend requests you can accept
     };
 
     $scope.goToSearch = function(queryString) {
@@ -65,8 +67,11 @@ angular.module('projectsApp')
       $state.go('home.search');
     };
 
-    $scope.goToProfile = function() {
-      $state.go('home.profile');
+    //pass uid to go to
+    $scope.goToProfile = function(userid) {
+      console.log("Sending to profile uid" + userid);
+      $state.go('home.profile.user' , {user: userid});
+      // $state.go('home.profile');
     };
 
     $scope.goToFriends = function() {
