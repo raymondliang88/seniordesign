@@ -111,8 +111,8 @@ angular
         url: '/:user',
         views: {
           'container@': {
-            templateUrl: '/views/friendProfile.html',
-            controller: 'FriendProfileCtrl',
+            templateUrl: '/views/profile.html',
+            controller: 'ProfileCtrl',
             resolve: {
             // controller will not be loaded until $requireAuth resolves
               "currentAuth": ["$firebaseAuth", function ($firebaseAuth) {
