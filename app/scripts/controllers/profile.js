@@ -26,12 +26,12 @@ angular.module('projectsApp')
       var getTime = function() {
         var date = new Date();
         return [date.getMonth()+1,
-                  date.getDate(),
-                  date.getFullYear()].join('/')+' '+
-                  [date.getHours(),
-                  date.getMinutes(),
-                  date.getSeconds(),
-                  date.getMilliseconds()].join(':');
+                date.getDate(),
+                date.getFullYear()].join('/')+' '+
+                [date.getHours(),
+                date.getMinutes(),
+                date.getSeconds(),
+                date.getMilliseconds()].join(':');
       }
 
       //add a new post
@@ -43,6 +43,16 @@ angular.module('projectsApp')
           postDate: time,
           timeStamp: Firebase.ServerValue.TIMESTAMP,
           message: message
+        });
+      };
+
+      //remove post
+      $scope.removePost = function(postID) {
+        var time = getTime();
+        console.log("removing item" + postID);
+        var item = $scope.postData[1];
+        $scope.postData.$remove(item).then(function (ref) {
+          console.log(ref.key);
         });
       };
 
@@ -73,8 +83,13 @@ angular.module('projectsApp')
         });
       }
 
-      //returns a boolean if the current profile page bellongs to the user
-      $scope.profileOwner = function() {
-        return authData == profileUID;
-      }
+      //true if current profile belongs to the user
+      $scope.profileOwner = (authData.uid === profileUID);
+
+      // $scope.profileOwner = function() {
+      //   console.log("Authdata" + authData.uid);
+      //   console.log("Profile uid" + profileUID);
+
+      //   return authData.uid === profileUID;
+      // };
 });

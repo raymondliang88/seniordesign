@@ -120,7 +120,7 @@
       <div ng-repeat="post in postData | orderBy:'-timeStamp'">
         <md-card>
           <div class="md-actions accent-color" layout="row" layout-align="end end">
-            <md-button style="color: white;">Delete post</md-button>
+            <md-button style="color: white;" ng-show="profileOwner" ng-click="removePost(post.$id)">Delete post</md-button>
           </div>
           <md-content class="md-default-theme md-padding">
             <p>SenderID: {{post.senderID}}</p>
