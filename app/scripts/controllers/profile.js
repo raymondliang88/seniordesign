@@ -8,6 +8,8 @@ angular.module('projectsApp')
       var authData = authObj.$getAuth();
       console.log("Logged in as:" +  authData.uid);
 
+      var myselfDataRef = new Firebase("https://shining-torch-23.firebaseio.com/profileInfo/"+ authData.uid);
+      $scope.myselfData = $firebaseObject(myselfDataRef);
       //get all parameters passed into this controller
       var param = $stateParams;
       // this profile's uid
@@ -82,7 +84,7 @@ angular.module('projectsApp')
           messageType: "text",
           postDate: time,
           timeStamp: Firebase.ServerValue.TIMESTAMP,
-          senderPicture: $scope.profileData.picture,
+          senderPicture: $scope.myselfData.picture,
           message: message
         });
       };
@@ -145,7 +147,7 @@ angular.module('projectsApp')
           messageType: "image",
           postDate: time,
           timeStamp: Firebase.ServerValue.TIMESTAMP,
-          senderPicture: $scope.profileData.picture,
+          senderPicture: $scope.myselfData.picture,
           message: message,
           imageSrc: $scope.postFile
         });
@@ -163,7 +165,7 @@ angular.module('projectsApp')
           messageType: "text",
           postDate: time,
           timeStamp: Firebase.ServerValue.TIMESTAMP,
-          senderPicture: $scope.profileData.picture,
+          senderPicture: $scope.myselfData.picture,
           message: message
         }).then(function(ref) {
           //attaching ref if to end point
