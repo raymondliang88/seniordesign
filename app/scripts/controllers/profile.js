@@ -145,6 +145,7 @@ angular.module('projectsApp')
           messageType: "image",
           postDate: time,
           timeStamp: Firebase.ServerValue.TIMESTAMP,
+          senderPicture: $scope.profileData.picture,
           message: message,
           imageSrc: $scope.postFile
         });
