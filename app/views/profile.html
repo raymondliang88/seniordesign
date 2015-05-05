@@ -18,6 +18,8 @@
               <p><strong>Birthday: </strong> {{profileData.birthday}} </p>
               <p><strong>Favorite Movie: </strong> {{profileData.movies}} </p>
               Owner {{profileOwner}}
+              <p><strong>Friends In Common: </strong> {{commonFriends.length}} </p>
+              <p ng-repeat="friend in commonFriends"><i>{{friend}}</p>
             </div>
             <!--/col-->
             <div class="clearfix"></div>

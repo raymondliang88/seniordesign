@@ -313,6 +313,8 @@ angular.module('projectsApp')
       });
   };
 
+  
+
   var profileRef = new Firebase('https://shining-torch-23.firebaseio.com/profileInfo/');
   $scope.allProfiles = $firebaseArray(profileRef);
 
