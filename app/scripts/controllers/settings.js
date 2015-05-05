@@ -170,6 +170,27 @@ angular.module('projectsApp')
       $scope.userCurrent.messagePrivacy = selection;
     };
 
+    $scope.getPostFile = function(file) {
+      var reader = new FileReader();
+      console.log(file);
+      reader.onload = function (e) {
+        $('#post-imagepreview').attr('src', e.target.result);
+        //Set post file
+        $scope.postFile = e.target.result;
+        $scope.imageSrc = e.target.result;
+      }
+      reader.readAsDataURL(file);
+      $scope.addImagePost(imageSrc);
+    }
+
+    //add an image post
+      $scope.addImagePost = function(imageSrc) {
+        ref.child('profileInfo').child($scope.userCurrent.uid).update({
+          picture: imageSrc
+        });
+        $scope.userCurrent.picture = imageSrc;
+      };
+
     $scope.emailChange = function(passwd, userMail, oldMail){
         ref.changeEmail({
             oldEmail: oldMail,
