@@ -72,7 +72,8 @@ angular.module('projectsApp')
       //Add a comment to a post, pass in postID
       $scope.addComment = function(postID, message) {
         var time = getTime();
-        var profilePostRef = new Firebase("https://shining-torch-23.firebaseio.com/posts/"+ authData.uid + "/" +  postID + "/comments/");
+        console.log('gonna post a comment');
+        var profilePostRef = new Firebase("https://shining-torch-23.firebaseio.com/posts/"+ profileUID + "/" +  postID + "/comments/");
         $scope.postComment = $firebaseArray(profilePostRef);
         $scope.postComment.$add({
           senderID: authData.uid,
