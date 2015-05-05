@@ -1,141 +1,13 @@
-<div class="jumbotron">
-<h1 class="md-display-3">UCRPals</h1>
-  <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
-</div>
-
-<div class="settings-container">
   <div ng-controller="SettingsCtrl">
-    <md-tabs class="md-primary" md-stretch-tabs="always">
+
+    <md-checkbox ng-model="data.bottom" aria-label="Align tabs to bottom?" style="margin: 5px;">
+      Align tabs to bottom?
+    </md-checkbox>
+
+       <md-tabs class="md-accent" md-stretch-tabs="always" md-align-tabs="{{data.bottom ? 'bottom' : 'top'}}">
+        
+    <!-- Profile Tab -->
         <md-tab id="tab1">
-          <md-tab-label>Account Settings</md-tab-label>
-          <md-tab-template>
-          <md-card style="margin: 1px !important">
-          <md-content layout-padding>
-          <form class="simple-form" name="profileForm">
-
-          <div layout layout-sm="column">
-            <label>First Name</label>
-            <md-container flex>
-            </md-container>
-
-            <label>Last Name</label>
-            <md-container flex>
-            </md-container>
-          </div>
-          
-            <div layout layout-sm="column">
-              <md-input-container flex>
-                <label>{{ userCurrent.firstName }}</label>
-                <input ng-model="user.firstName">
-              </md-input-container>
-
-              <md-input-container flex>
-                <label>{{ userCurrent.lastName }}</label>
-                <input ng-model="user.lastName">
-              </md-input-container>
-            </div>
-          <div layout layout-sm="column">
-            <label>Email</label>
-          </div>
-
-          <div layout layout-sm="column">
-            <md-input-container flex>
-              <label>{{ userCurrent.email }}</label>
-              <input ng-model="user.email" >
-            </md-input-container>
-          </div>
-
-          <div layout layout-sm="column">
-            <md-container flex>
-              <label>Password</label>
-            </md-container>
-            <md-container flex>
-              <section layout="row" layout-sm="column" layout-align="center center">
-                <md-button ng-click="" class="md-primary">
-                Reset
-                </md-button>
-              </section>
-            </md-container>
-            </md-content>
-          </div>
-
-          <section layout="row" layout-sm="column" layout-align="center center">
-            <md-content layout-padding>
-              <md-button ng-click="saveSettings(user)" class="md-primary send">
-                Save
-              </md-button>
-            </md-content>
-          </section>
-
-      </form>
-        <md-container flex>
-            <p class="md-caption"> {{ alert }}</p>
-        </md-container>
-      </md-content>
-      </md-card>
-      </md-tab-template>
-      </md-tab>
-
-        
-   <!--Privacy Tab-->   
-      <md-tab id="tab2">
-        <md-tab-label>Privacy Settings</md-tab-label>
-        <md-tab-template>
-        <md-card style="margin: 1px !important">
-        <md-content layout-padding>
-        <form name="privacyForm">
-
-            <!-- These should be saved pull downs -->
-          <section>
-            <md-container flex>
-              <label>Who can see my posts?</label>
-              <label>{{ userCurrent.postPrivacy }}</label>
-            </md-container>
-          </section>
-          <section>
-            <md-container flex>
-              <label>Who can send me messages?</label>
-              <label>{{ userCurrent.messagePrivacy }}</label>
-            </md-container>
-          </section>
-        
-
-          <!-- These should be saved pull downs -->
-          <div layout layout-sm="row">
-            <md-container flex>
-              <md-select placeholder="Who can see my posts?" ng-model="privacy" ng-change="postSettings(privacy)">
-                <md-option value="Everyone">Everyone</md-option>
-                <md-option value="Friends">Friends</md-option>
-                <md-option value="No One">No One</md-option>
-              </md-select>
-            </md-container>
-
-          </div>
-
-          <div layout layout-sm="row">
-            <md-container flex>
-              <md-select placeholder="Who can send me messages?" ng-model="mess" ng-change="messageSettings(mess)">
-                <md-option value="Everyone">Everyone</md-option>
-                <md-option value="Friends">Friends</md-option>
-                <md-option value="No One">No One</md-option>
-              </md-select>
-            </md-container>
-
-          </div>
-
-        <md-card-footer>
-        <p></p>
-        </md-card-footer>
-
-        </form>
-        
-        </md-content>
-        </md-card>
-        </md-tab-template>
-        </md-tab>
-
-
-        <md-tab id="tab3">
           <md-tab-label>Profile Settings</md-tab-label>
           <md-tab-template>
           <md-card style="margin: 1px !important">
@@ -156,33 +28,67 @@
                   <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
                     <form class="form-horizontal" role="form">
                       <div class="form-group">
+                          <label class="col-lg-3 control-label">First Name:</label>
+                          <div class="col-lg-8">
+                            <input class="form-control" ng-model="user.firstName" type="text" placeholder="{{userCurrent.firstName}}">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="col-lg-3 control-label">Last Name:</label>
+                          <div class="col-lg-8">
+                            <input class="form-control" ng-model="user.lastName" type="text" placeholder="{{userCurrent.lastName}}">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-lg-3 control-label">Email:</label>
+                        <div class="col-lg-8">
+                          <input class="form-control" ng-model="user.email" type="text" placeholder="{{userCurrent.email}}">
+                      </div>
+                      </div>
+                      <div class="form-group">
                         <label class="col-lg-3 control-label">Birthday:</label>
                         <div class="col-lg-8">
-                          <input class="form-control" ng-model="profile.birthday" type="text" pick-a-date="date" pick-a-date-options="{ format: 'mm-dd-yyyy' }">
+                          <input class="form-control" ng-model="user.birthday" type="text" pick-a-date="date" pick-a-date-options="{ format: 'mm-dd-yyyy' }" placeholder="{{userCurrent.birthday}}">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-lg-3 control-label">Language:</label>
+                        <div class="col-lg-8">
+                          <input class="form-control" ng-model="user.language" type="text" placeholder="{{userCurrent.language}}">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-lg-3 control-label">Gender:</label>
+                        <div class="col-lg-8">
+                          <select value='{{userCurrent.gender}}' ng-model='user.gender'>
+                            <option value='male'>Male</option>
+                            <option value='female'>Female</option>
+                            <option value='other'>Other</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-lg-3 control-label">Country:</label>
+                        <div class="col-lg-8">
+                          <input class="form-control" ng-model="user.country" type="text" placeholder="{{userCurrent.country}}">
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="col-lg-3 control-label">Work:</label>
                         <div class="col-lg-8">
-                          <input class="form-control" ng-model="profile.work" type="text">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="col-lg-3 control-label">Education:</label>
-                        <div class="col-lg-8">
-                          <input class="form-control" ng-model="profile.education" type="text">
+                          <input class="form-control" ng-model="user.work" type="text"placeholder="{{userCurrent.work}}">
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="col-lg-3 control-label">School:</label>
                         <div class="col-lg-8">
-                          <input class="form-control" ng-model="profile.school" type="text">
+                          <input class="form-control" ng-model="user.school" type="text" placeholder="{{userCurrent.school}}">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="col-lg-3 control-label">About me:</label>
+                        <label class="col-lg-3 control-label">About Me:</label>
                         <div class="col-lg-8">
-                          <textarea class="form-control" id="inputBody" ng-model="profile.aboutme" rows="8"></textarea>
+                          <textarea class="form-control" id="inputBody" ng-model="user.aboutMe" rows="8" placeholder="{{userCurrent.aboutMe}}"></textarea>
                         </div>
                       </div>
                       <div class="form-group">
@@ -219,11 +125,10 @@
                           </div>
                         </div>
                       </div>
-
                       <div class="form-group">
                         <label class="col-md-3 control-label"></label>
                         <div class="col-md-8 text-center">
-                          <input class="btn btn-primary" value="Save Changes" type="button" ng-click="">
+                          <input class="btn btn-primary" value="Save Changes" type="button" ng-click="saveSettings(user)">
                         </div>
                       </div>
                     </form>
@@ -237,7 +142,61 @@
         </md-tab>
 
 
+   <!--Privacy Tab-->
+      <md-tab id="tab2">
+        <md-tab-label>Privacy Settings</md-tab-label>
+        <md-tab-template>
+        <md-card style="margin: 1px !important">
+        <md-content layout-padding>
+        <form name="privacyForm">
 
+            <!-- These should be saved pull downs -->
+          <section>
+            <md-container flex>
+              <label>Who can see my posts?</label>
+              <label>{{ userCurrent.postPrivacy }}</label>
+            </md-container>
+          </section>
+          <section>
+            <md-container flex>
+              <label>Who can send me messages?</label>
+              <label>{{ userCurrent.messagePrivacy }}</label>
+            </md-container>
+          </section>
+
+
+          <!-- These should be saved pull downs -->
+          <div layout layout-sm="row">
+            <md-container flex>
+              <md-select placeholder="Who can see my posts?" ng-model="privacy" ng-change="postSettings(privacy)">
+                <md-option value="Everyone">Everyone</md-option>
+                <md-option value="Friends">Friends</md-option>
+                <md-option value="No One">No One</md-option>
+              </md-select>
+            </md-container>
+
+          </div>
+
+          <div layout layout-sm="row">
+            <md-container flex>
+              <md-select placeholder="Who can send me messages?" ng-model="mess" ng-change="messageSettings(mess)">
+                <md-option value="Everyone">Everyone</md-option>
+                <md-option value="Friends">Friends</md-option>
+                <md-option value="No One">No One</md-option>
+              </md-select>
+            </md-container>
+
+          </div>
+
+        <md-card-footer>
+        <p></p>
+        </md-card-footer>
+
+        </form>
+
+        </md-content>
+        </md-card>
+        </md-tab-template>
+        </md-tab>
     </md-tabs>
-  </div>
 </div>

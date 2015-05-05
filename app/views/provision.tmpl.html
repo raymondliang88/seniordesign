@@ -6,7 +6,7 @@
             <!-- left column -->
             <div class="col-md-4 col-sm-6 col-xs-12">
               <div class="text-center">
-             
+                {{firstName}} {{lastName}}
                 <img ng-hide="imageSrc" ng-src="https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg" class="avatar img-circle img-thumbnail" alt="avatar">
                 <img ng-hide="!imageSrc" ng-src="{{imageSrc}}" class="avatar img-circle img-thumbnail"/>
                 <h5 ng-hide="invalidFile">Upload a profile picture!<br/>Only PNG,GIF,JPG files allowed.</h5>
@@ -20,14 +20,14 @@
                 <div class="form-group">
                   <label class="col-lg-3 control-label">Birthday:</label>
                   <div class="col-lg-8">
-                    <input class="form-control" type="date" ng-model="user.birthday"> 
+                    <input class="form-control" type="date" ng-model="user.birthday" placeholder="{{user.birthday}}"> 
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label class="col-lg-3 control-label">School:</label>
                   <div class="col-lg-8">
-                    <input class="form-control" ng-model="user.school" type="text">
+                    <input class="form-control" ng-model="user.school" type="text" placeholder="{{user.school}}">
                   </div>
                 </div>
 

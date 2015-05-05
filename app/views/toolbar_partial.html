@@ -1,5 +1,5 @@
 <div layout="column" layout-fill ng-controller='ToolBarCtrl'>
-  <md-toolbar style="position: fixed; z-index=999;">
+  <md-toolbar style="position: fixed;">
     <div class="md-toolbar-tools">
       <!-- fill up the space between left and right area -->
       <md-button class="md-icon-button" aria-label="Settings" ng-click='toggleLeft()'>
@@ -43,6 +43,7 @@
   </md-toolbar>
 	<md-content ng-controller="LeftCtrl" layout-padding>
 	<!--dashboard  -->
+    Logged in as {{userid}}
 		<md-content layout-padding>
 			<md-button ng-click="goToDashboard()" class="md-primary">
 			  Dashboard
@@ -51,14 +52,14 @@
 
 	<!-- Me -->
 		<md-content layout-padding>
-		  <md-button ng-click="goToProfile()" class="md-primary">
-		    Profile
-		  </md-button>
+      <md-button ng-click="goToProfile(userid)" class="md-primary">
+        Profile
+      </md-button>
 		</md-content>
 
 	<!--Friends -->
 		<md-content layout-padding>
-		  <md-button ng-click="goToFriends()" class="md-primary">
+		  <md-button ng-click="goToFriends(userid)" class="md-primary">
 		    Friends
 		  </md-button>
 		</md-content>

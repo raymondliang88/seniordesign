@@ -22,8 +22,6 @@
 <h1 class="page-header"></h1>
 <div class="row">
   <div class="col-md-5 col-xs-12">
-  
-
 
       <div class="well panel panel-default">
         <div class="panel-body">
@@ -32,7 +30,7 @@
               <img src={{friendProfile.picture}}   width="140" height="120"/>
               <hr>
             </div>
-            <!--/col--> 
+            <!--/col-->
             <div class="col-xs-12 col-sm-7">
               <h2>{{friendProfile.firstName}} {{friendProfile.lastName}}</h2>
               <p><strong>Online: </strong>  {{friendProfile.loggedIn}} </p>
@@ -40,9 +38,11 @@
               <p><strong>Work: </strong> {{friendProfile.email}} </p>
               <p><strong>Studied: </strong> {{friendProfile.email}}</p>
               <p><strong>From: </strong> {{friendProfile.email}}</p>
+              <p><strong>Friends In Common: </strong> {{commonFriends.length}} </p>
+              <p ng-repeat="friend in commonFriends"><i>{{friend}}</p>
               <p>
             </div>
-            <!--/col-->          
+            <!--/col-->
             <div class="clearfix"></div>
             <!--/col-->
           </div>
@@ -324,7 +324,7 @@
                                           <div class="post">
                                               <p>{{post.text}}</p>
                                           </div>
-                                      </div>      
+                                      </div>
                                   </div>
                                   <br />
 
@@ -360,7 +360,7 @@
                           </div>
                       </div>
    </div>
-  
+
 
   </div>
 </div>

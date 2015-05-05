@@ -39,6 +39,10 @@ angular
   }])
   .config(function ($urlRouterProvider, $stateProvider,  $mdThemingProvider, FacebookProvider) {
     $mdThemingProvider.theme('default');//.light();//.dark();
+    $mdThemingProvider.theme('altTheme').primaryPalette('purple'); // specify primary color, all
+                            // other color intentions will be inherited
+                            // from default
+
     $urlRouterProvider.otherwise('/');
     $stateProvider
       .state('login', {
@@ -107,8 +111,8 @@ angular
         url: '/:user',
         views: {
           'container@': {
-            templateUrl: '/views/friendProfile.html',
-            controller: 'FriendProfileCtrl',
+            templateUrl: '/views/profile.html',
+            controller: 'ProfileCtrl',
             resolve: {
             // controller will not be loaded until $requireAuth resolves
               "currentAuth": ["$firebaseAuth", function ($firebaseAuth) {

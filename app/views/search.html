@@ -5,7 +5,36 @@
   <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
 </div>
 
-<span> skldfjslkdfj {{queryString}}</span>
+  <!-- Advanced Search Form -->
+  <form>
+    <label>First Name</label>
+      <input type='text' ng-model='input.firstName' class='form-control' placeholder='First Name'/>
+    <label>Last Name</label>
+      <input type='text' ng-model='input.lastName' class='form-control' placeholder='Last Name'/>
+    <label>Gender</label>
+      <md-select placeholder='Gender' ng-model='input.gender'>
+        <md-option value='male'>Male</md-option>
+        <md-option value='female'>Female</md-option>
+        <md-option value='other'>Other</md-option>
+      </md-select>
+      <br>
+    <label>Language</label>
+      <input type='text' ng-model='input.language' class='form-control' placeholder='Language'/>
+    <label>Country</label>
+      <input type='text' ng-model='input.country' class='form-control' placeholder='Country'/>
+    <label>Age</label>
+      <md-select placeholder='Age' ng-model='input.age'>
+        <md-option value='18-25'>18-25</md-option>
+        <md-option value='26-40'>26-40</md-option>
+        <md-option value='41-80'>41-80</md-option>
+      </md-select>
+      <br>
+    <md-button ng-click='advancedSearch(input)' class='md-primary'>
+      Advanced Search
+    </md-button>
 
+    <div ng-repeat="profile in selections">{{ profile.val.firstName }} {{ profile.val.lastName }}</div>
+  </form>
+</div>
 
 </div>
