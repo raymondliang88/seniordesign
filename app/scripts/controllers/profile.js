@@ -87,14 +87,101 @@ angular.module('projectsApp')
       };
 
       //remove post
-      $scope.removePost = function(postID) {
+      $scope.removePost = function(postID){
+      ref.child('posts').once('value', function (snapshot) {
+        var pathFire = ref.child(snapshot.key());
+        // profileID loop
+        snapshot.forEach(function(profileFire){
+
+          if(profileFire.key() === $scope.userCurrentID){ 
+            pathFire = pathFire.child(profileFire.key());
+            // postID loop
+            profileFire.forEach(function(postFire){
+              if((postID !== undefined) && (postFire.key() !== "ignore") && postFire.key() === postID){
+                pathFire = pathFire.child(postFire.key());
+                console.log('...Removing...: ' + pathFire);
+                pathFire.remove();
+                $state.reload();
+              }  
+            })
+          }
+        })
+      });
+    };
+      /*$scope.removePost = function(postID) {
         var time = getTime();
         console.log("removing item" + postID);
         var item = $scope.postData[1];
         $scope.postData.$remove(item).then(function (ref) {
           console.log(ref.key);
         });
-      };
+      };*/
+      $scope.removeComment = function(postID, commentID){
+      console.log('...removing comment...');
+      ref.child('posts').once('value', function (snapshot) {
+        var pathFire = ref.child(snapshot.key());
+        // profileID loop
+        snapshot.forEach(function(profileFire){
+          if(profileFire.key() === $scope.userCurrentID){ 
+            pathFire = pathFire.child(profileFire.key());
+            // postID loop
+            profileFire.forEach(function(postFire){
+              if((postID !== undefined) && (postFire.key() !== "ignore") && postFire.key() === postID){
+                pathFire = pathFire.child(postFire.key());
+                // commentID loop
+                postFire.forEach(function(commentFire){
+                  if((commentID !== undefined) && (commentFire.key() !== "ignore") && commentFire.key() === commentID){
+                    console.log('postID: ' + postID + ' commentID: ' + commentID);
+                    pathFire = pathFire.child(commentFire.key());
+                    console.log('path: ' + pathFire);
+                    pathFire.remove();
+                    $state.reload();
+                  }
+                })
+              }  
+            })
+          }
+        })
+      });
+    };
+    $scope.showConfirmDeleteComment = function(ev, postID, commentID){
+
+      // Appending dialog to document.body to cover sidenav in docs app
+      var confirm = $mdDialog.confirm()
+        .title('Delete Comment')
+        .content('Are you sure?')
+        .ariaLabel('Lucky day')
+        .ok('Confirm Delete')
+        .cancel('No')
+        .targetEvent(ev);
+        $mdDialog.show(confirm).then(function() {
+          $scope.removeComment(postID, commentID);
+     
+      }, function() {
+          
+      });
+
+    }
+
+
+    $scope.showConfirmDeletePost = function(ev, postID){
+      
+      // Appending dialog to document.body to cover sidenav in docs app
+      var confirm = $mdDialog.confirm()
+        .title('Delete Post')
+        .content('Are you sure?')
+        .ariaLabel('Lucky day')
+        .ok('Confirm Delete')
+        .cancel('No')
+        .targetEvent(ev);
+        $mdDialog.show(confirm).then(function() {
+          $scope.removePost(postID);
+          
+      }, function() {
+          
+      });
+
+    }
 
       //add an image post
       $scope.addImagePost = function(message) {
@@ -133,4 +220,34 @@ angular.module('projectsApp')
 
       //   return authData.uid === profileUID;
       // };
+      $scope.getFile = function(file, imgSrc) {   
+          
+      $scope.file = file;   
+      var reader = new FileReader();    
+      reader.onload = function (e) {    
+        var imgID = imgSrc.getAttribute('id');    
+        $('#'+imgID).attr('src', e.target.result);    
+        $scope.imageSrc = e.target.result;    
+        console.log($scope.imageSrc);   
+      }   
+      reader.readAsDataURL(file);   
+    }   
+
+    $scope.getPostFile = function(file) {   
+      var reader = new FileReader();    
+      console.log(file);    
+      reader.onload = function (e) {    
+        $('#post-imagepreview').attr('src', e.target.result);   
+        //Set post file   
+        $scope.postFile = e.target.result;    
+        $scope.imageSrc = e.target.result;    
+      }   
+      reader.readAsDataURL(file);   
+    }   
+
+    $scope.removeUpload = function() {    
+      $scope.postFile = 0;    
+      $scope.imgSrc = 0;    
+      $('#post-imagepreview').attr('src', 0);   
+    }
 });
