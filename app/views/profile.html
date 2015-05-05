@@ -106,15 +106,19 @@
             </a>
           </li>
         </ul>
+
       </div>
       <div class="user-body">
         <div class="tab-content">
           <div id="information" class="tab-pane active">
             <div class="input-group" style="z-index: 1;">
               <input id="btn-input" type="text" class="form-control input-sm ng-pristine ng-valid ng-valid-maxlength ng-touched" placeholder="Share something here..." maxlength="200" ng-model="postText" tabindex="0" aria-invalid="false">
-                <button class="btn btn-primary">add image</button>
                 <button class="btn btn-warning" id="btn-chat" ng-click="addTextPost(postText)" tabindex="0"> Send</button>
             </div>
+              <input class="btn btn-primary" name="post-file" ng-upload="getPostFile($files)" type="file"></input><!-- 
+              <img id="post-imagepreview" src="" alt="your image" max-width="100%" class="img-responsive" /> <br />  -->  
+              <button ng-click="removeUpload();">Remove</button>
+              <button class="btn btn-warning" id="btn-chat" ng-click="addImagePost('', postFile)" tabindex="0"> Send</button>
           </div>
         </div>
       </div>
@@ -129,6 +133,7 @@
             <p>message: {{post.message}}</p>
             <p>POST ID: {{post.$id}}</p>
             <p>Timestamp: {{post.timeStamp}}</p>
+            <img ng-src="{{post.imageSrc}}"  width="100%" />  
           </md-content>
             <!-- <p>comments: {{post.comments}}</p> -->
             <md-divider/>

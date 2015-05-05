@@ -184,14 +184,15 @@ angular.module('projectsApp')
     }
 
       //add an image post
-      $scope.addImagePost = function(message) {
+      $scope.addImagePost = function(message, imageSrc) {
         var time = getTime();
         $scope.postData.$add({
           senderID: authData.uid,
           messageType: "image",
           postDate: time,
           timeStamp: Firebase.ServerValue.TIMESTAMP,
-          message: message
+          message: message,
+          imageSrc: $scope.postFile
         });
       };
 
@@ -234,6 +235,7 @@ angular.module('projectsApp')
     }   
 
     $scope.getPostFile = function(file) {   
+      console.log('getting file');
       var reader = new FileReader();    
       console.log(file);    
       reader.onload = function (e) {    
@@ -242,7 +244,7 @@ angular.module('projectsApp')
         $scope.postFile = e.target.result;    
         $scope.imageSrc = e.target.result;    
       }   
-      reader.readAsDataURL(file);   
+      reader.readAsDataURL(file);  
     }   
 
     $scope.removeUpload = function() {    
