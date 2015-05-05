@@ -2,8 +2,8 @@
 
 angular.module('projectsApp')
   .controller('ProfileCtrl',
-    function ($scope, $stateParams, firebaseService, userService, $firebaseAuth, $state, $firebaseArray, $firebaseObject) {
-      var ref = new Firebase(firebaseService.getFirebBaseURL());
+    function ($scope, $stateParams, firebaseService, userService, $firebaseAuth, $state, $firebaseArray, $firebaseObject, $mdDialog) {
+      var ref = new Firebase(firebaseService.getFirebBaseURL())
       var authObj = $firebaseAuth(ref);
       var authData = authObj.$getAuth();
       console.log("Logged in as:" +  authData.uid);

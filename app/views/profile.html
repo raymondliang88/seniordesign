@@ -122,7 +122,7 @@
       <div ng-repeat="post in postData | orderBy:'-timeStamp'">
         <md-card>
           <div class="md-actions accent-color" layout="row" layout-align="end end">
-            <md-button style="color: white;" ng-show="profileOwner" ng-click="removePost(post.$id)">Delete post</md-button>
+            <md-button style="color: white;" ng-show="profileOwner" ng-click="showConfirmDeletePost($event, post.$id)">Delete post</md-button>
           </div>
           <md-content class="md-default-theme md-padding">
             <p>SenderID: {{post.senderID}}</p>
@@ -139,7 +139,7 @@
                 <div class="md-list-item-text" style="background-color: #f5f5f5;">
                   <p style="padding-left: 40px; padding-top: 10px;"> {{comment.senderID}} wrote: {{comment.message}}</strong></p>
                   <md-button ng-click="goToProfile(comment.senderID)"> Sender Profile </md-button>
-                   <md-button style="color: white;" ng-show="profileOwner" ng-click="removeComment(post.$id, comment.commentID)">Delete post</md-button>
+                   <md-button style="color: white;" ng-show="profileOwner" ng-click="showConfirmDeleteComment($event, post.$id, comment.commentID)">Delete post</md-button>
                    <md-divider></md-divider>
 
                 </div>
