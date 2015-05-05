@@ -65,17 +65,18 @@
 
         <br>Online: {{user.loggedIn}}</br>
         <br>Email: {{user.email}}</br>
-        <br>School: {{user.email}}</br>
-        <br>Birthday: {{user.email}}</br>
-        <br>Favorite Movie: {{user.email}}</br>
-        <br>About Me: {{user.email}}</br>
+        <br>School: {{user.school}}</br>
+        <br>Birthday: {{user.birthday}}</br>
+        <br>Favorite Movie: {{user.movies}}</br>
+        <br>About Me: {{user.aboutMe}}</br>
         <br></br>
        <md-divider ></md-divider>
-        <md-subheader class="md-no-sticky">md-offset class</md-subheader>
+        <!-- <md-subheader class="md-no-sticky">md-offset class</md-subheader> -->
         <p>
-          The titles of Washed Out's breakthrough song and the first single from Paracosm share the
+        {{user.aboutMe}}
+<!--           The titles of Washed Out's breakthrough song and the first single from Paracosm share the
           two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
-        </p>
+ -->        </p>
         <div class="md-actions" layout="row" layout-align="end center">
           <md-button aria-label="Add Friend" class="md-fab" ng-click="addFriend(user.$id)">
             Add
@@ -96,16 +97,17 @@
         <img src={{request.picture}}   width="140" height="120"/>
         <br>Online: {{request.loggedIn}}</br>
         <br>Email: {{request.email}}</br>
-        <br>School: {{request.email}}</br>
-        <br>Birthday: {{request.email}}</br>
-        <br>Favorite Movie: {{request.email}}</br>
-        <br>About Me: {{request.email}}</br>
+        <br>School: {{request.school}}</br>
+        <br>Birthday: {{request.birthday}}</br>
+        <br>Favorite Movie: {{request.movies}}</br>
+        <br>About Me: {{request.aboutMe}}</br>
         <br></br>
       <md-divider></md-divider>
-        <md-subheader class="md-no-sticky">md-offset class</md-subheader>
+        <!-- <md-subheader class="md-no-sticky"></md-subheader> -->
         <p>
-          The titles of Washed Out's breakthrough song and the first single from Paracosm share the
-          two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
+          {{request.aboutMe}}
+          <!-- The titles of Washed Out's breakthrough song and the first single from Paracosm share the -->
+          <!-- two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well... -->
         </p>
 
         <div class="md-actions" layout="row" layout-align="end center">
