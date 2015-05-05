@@ -80,12 +80,27 @@ angular.module('projectsApp')
       });
     };
 
-    function MoreInfoController($scope, $mdDialog, $state, fileReader, userService) {
+    function MoreInfoController($scope, $mdDialog, $state, fileReader, userService, $firebaseAuth, $firebaseObject) {
       var firebaseURL = 'https://shining-torch-23.firebaseio.com/';
       var ref = new Firebase(firebaseURL);
       var authObj = $firebaseAuth(ref);
       var authData = authObj.$getAuth();
     
+      $scope.firstName = '';
+      $scope.lastName = '';
+      //get user profile Data
+      var profileDataRef = new Firebase("https://shining-torch-23.firebaseio.com/profileInfo/"+ authData.uid);
+      var profileData = $firebaseObject(profileDataRef);
+      profileData.$loaded()
+        .then(function(data) {
+          console.log(data);
+        //data.val.
+      
+      })
+    .catch(function(error) {
+      console.error("Error:", error);
+    });
+
       $scope.provider = authData.provider;
       $scope.user = {school: ''};
       $scope.save = function(user) {
