@@ -82,6 +82,7 @@ angular.module('projectsApp')
           messageType: "text",
           postDate: time,
           timeStamp: Firebase.ServerValue.TIMESTAMP,
+          senderPicture: $scope.profileData.picture,
           message: message
         });
       };
@@ -161,6 +162,7 @@ angular.module('projectsApp')
           messageType: "text",
           postDate: time,
           timeStamp: Firebase.ServerValue.TIMESTAMP,
+          senderPicture: $scope.profileData.picture,
           message: message
         }).then(function(ref) {
           //attaching ref if to end point
@@ -168,6 +170,7 @@ angular.module('projectsApp')
           ref.update({commentID: id});
         });
       }
+
 
       //true if current profile belongs to the user
       $scope.profileOwner = (authData.uid === profileUID);
