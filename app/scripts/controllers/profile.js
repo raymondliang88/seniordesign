@@ -34,6 +34,46 @@ angular.module('projectsApp')
                 date.getMilliseconds()].join(':');
       }
 
+          $scope.commonFriends = [];
+
+
+    //Find number of friends in common
+    var profileFriends = new Firebase("https://shining-torch-23.firebaseio.com/friends/"+ param.user);
+    var profileObj = $firebaseObject(profileFriends);
+    profileObj.$loaded()
+    .then(function(data) {
+      var profileList = {};
+      if (data.friendList !== undefined) {
+          profileList = data.friendList;
+      }
+      var userFriends = new Firebase("https://shining-torch-23.firebaseio.com/friends/"+ authData.uid);
+      var userObj = $firebaseObject(userFriends);
+      userObj.$loaded()
+      .then(function(data) {
+        var userList = {};
+        if(data.friendList !== undefined){
+          userList = data.friendList;
+        }
+        for(var id in userList){
+          if(profileList[id] !== undefined){
+            //ID Found
+            //$scope.commonFriends.push(id);
+            //console.log(id);
+            var profileInfo = new Firebase("https://shining-torch-23.firebaseio.com/profileInfo/"+ id);
+            var info = $firebaseObject(profileInfo);
+            info.$loaded()
+            .then(function(data) {
+              $scope.commonFriends.push(data.firstName + ' ' + data.lastName);
+            });
+          }
+        }
+      });
+    })
+    .catch(function(error) {
+      console.error("Error:", error);
+    });
+
+
       //add a new post
       $scope.addTextPost = function(message) {
         var time = getTime();
