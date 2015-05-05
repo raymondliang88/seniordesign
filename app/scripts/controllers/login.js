@@ -64,7 +64,6 @@ angular.module('projectsApp')
 
       ref.child('posts').child(userData.uid).set({
           // null
-          ignore: 0
       });
 
       ref.child('friends').child(userData.uid).set({
