@@ -110,37 +110,43 @@ angular.module('projectsApp')
           $scope.emailConfirm(user.email, $scope.userCurrent.email);
         }
         if(user.birthday !== undefined){
-          $ref.child('profileInfo').child($scope.userCurrent.uid).update({
+          ref.child('profileInfo').child($scope.userCurrent.uid).update({
             birthday: user.birthday
           });
           $scope.userCurrent.birthday = user.birthday;
         }
         if(user.language !== undefined){
-          $ref.child('profileInfo').child($scope.userCurrent.uid).update({
+          ref.child('profileInfo').child($scope.userCurrent.uid).update({
             language: user.language
           }); 
           $scope.userCurrent.language = user.language;
         }
         if(user.country !== undefined){
-          $ref.child('profileInfo').child($scope.userCurrent.uid).update({
+          ref.child('profileInfo').child($scope.userCurrent.uid).update({
             country: user.country
           });
-          $scope.userCurrent.country;
+          $scope.userCurrent.country = user.country;
+        }
+        if(user.gender !== undefined){
+          ref.child('profileInfo').child($scope.userCurrent.uid).update({
+            gender: user.gender
+          });
+          $scope.userCurrent.gender = user.gender;
         }
         if(user.work !== undefined){
-          $ref.child('profileInfo').child($scope.userCurrent.uid).update({
+          ref.child('profileInfo').child($scope.userCurrent.uid).update({
             work: user.work
           });
           $scope.userCurrent.work = user.work;
         }
         if(user.school !== undefined){
-          $ref.child('profileInfo').child($scope.userCurrent.uid).update({
+          ref.child('profileInfo').child($scope.userCurrent.uid).update({
             school: user.school
           });
           $scope.userCurrent.school = user.school;
         }
         if(user.aboutMe !== undefined){
-          $ref.child('profileInfo').child($scope.userCurrent.uid).update({
+          ref.child('profileInfo').child($scope.userCurrent.uid).update({
             aboutMe: user.aboutMe
           });
           $scope.userCurrent.aboutMe = user.aboutMe;

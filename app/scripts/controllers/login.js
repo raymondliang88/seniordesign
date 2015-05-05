@@ -47,7 +47,13 @@ angular.module('projectsApp')
           lastName: user.lastName,
           aboutMe: user.aboutMe,
           creation_date: today,
-          loggedIn: false
+          loggedIn: false,
+          birthday: '',
+          language: '',
+          country: '',
+          work: '',
+          gender: '',
+          school: '',
       });
 
       ref.child('privacySettings').child(userData.uid).set({
@@ -139,7 +145,16 @@ angular.module('projectsApp')
                   email: authData.facebook.cachedUserProfile.email,
                   firstName: authData.facebook.cachedUserProfile.first_name,
                   lastName: authData.facebook.cachedUserProfile.last_name,
-                  picture: authData.facebook.cachedUserProfile.picture.data.url
+                  picture: authData.facebook.cachedUserProfile.picture.data.url,
+                  creation_date: today,
+                  birthday: '',
+                  language: '',
+                  country: '',
+                  work: '',
+                  school: '',
+                  aboutMe: '',
+                  gender: '',
+                  loggedIn: false
               });
               ref.child('privacySettings').child(authData.uid).set({
                   provisionSettings: 0,
@@ -181,7 +196,15 @@ angular.module('projectsApp')
                   firstName: authData.google.cachedUserProfile.given_name,
                   lastName: authData.google.cachedUserProfile.family_name,
                   picture: authData.google.cachedUserProfile.picture,
-
+                  creation_date: today,
+                  birthday: '',
+                  language: '',
+                  country: '',
+                  work: '',
+                  school: '',
+                  aboutMe: '',
+                  gender: '',
+                  loggedIn: false
               });
               ref.child('privacySettings').child(authData.uid).set({
                   provisionSettings: 0,
@@ -226,10 +249,19 @@ angular.module('projectsApp')
                   var profileImage = authData.twitter.cachedUserProfile.profile_image_url;
 
                   ref.child('profileInfo').child(authData.uid).set({
-                      email:  twitterEmail,
-                      firstName: firstName,
-                      lastName: lastName,
-                      picture: profileImage
+                    email:  twitterEmail,
+                    firstName: firstName,
+                    lastName: lastName,
+                    picture: profileImage,
+                    creation_date: today,
+                    birthday: '',
+                    language: '',
+                    country: '',
+                    work: '',
+                    school: '',
+                    aboutMe: '',
+                    gender: '',
+                    loggedIn: false
                   });
                   ref.child('privacySettings').child(authData.uid).set({
                       provisionSettings: 0,
