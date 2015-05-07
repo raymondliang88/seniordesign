@@ -23,17 +23,17 @@ angular
     'facebook',
     'angular-datepicker'
   ])
-  .run(["$rootScope", "$location", function($rootScope, $location, alertService) {
-    $rootScope.$on("$routeChangeError", function(event, next, previous, error) {
+  .run(['$rootScope', '$location', function ($rootScope, $location, alertService) {
+    $rootScope.$on('$routeChangeError', function (event, next, previous, error) {
       // We can catch the error thrown when the $requireAuth promise is rejected
       // and redirect the user back to the home page
-      if (error === "AUTH_REQUIRED") {
-        var title= 'Auth Required';
+      if (error === 'AUTH_REQUIRED') {
+        var title = 'Auth Required';
         var msg = 'You are not logged in. You shall not pass';
-        alertService.show(title,msg,"");
-        console.log("auth required");
+        alertService.show(title,msg,'');
+        console.log('auth required');
 
-        $location.path("/");
+        $location.path('/');
       }
     });
   }])
@@ -59,7 +59,7 @@ angular
             controller: 'ToolBarCtrl',
             resolve: {
             // controller will not be loaded until $requireAuth resolves
-              "currentAuth": ["$firebaseAuth", function ($firebaseAuth) {
+              'currentAuth': ['$firebaseAuth', function ($firebaseAuth) {
                 var ref = new Firebase('https://shining-torch-23.firebaseio.com/');
                 var authObj = $firebaseAuth(ref);
                 //console.log(authObj.$requireAuth());
@@ -78,7 +78,7 @@ angular
             controller: 'ToolBarCtrl',
             resolve: {
             // controller will not be loaded until $requireAuth resolves
-              "currentAuth": ["$firebaseAuth", function ($firebaseAuth) {
+              'currentAuth': ['$firebaseAuth', function ($firebaseAuth) {
                 var ref = new Firebase('https://shining-torch-23.firebaseio.com/');
                 var authObj = $firebaseAuth(ref);
                 return authObj.$requireAuth();
@@ -98,7 +98,7 @@ angular
             controller: 'ProfileCtrl',
             resolve: {
             // controller will not be loaded until $requireAuth resolves
-              "currentAuth": ["$firebaseAuth", function ($firebaseAuth) {
+              'currentAuth': ['$firebaseAuth', function ($firebaseAuth) {
                 var ref = new Firebase('https://shining-torch-23.firebaseio.com/');
                 var authObj = $firebaseAuth(ref);
                 return authObj.$requireAuth();
@@ -115,7 +115,7 @@ angular
             controller: 'ProfileCtrl',
             resolve: {
             // controller will not be loaded until $requireAuth resolves
-              "currentAuth": ["$firebaseAuth", function ($firebaseAuth) {
+              'currentAuth': ['$firebaseAuth', function ($firebaseAuth) {
                 var ref = new Firebase('https://shining-torch-23.firebaseio.com/');
                 var authObj = $firebaseAuth(ref);
                 return authObj.$requireAuth();
@@ -132,7 +132,7 @@ angular
             controller: 'ToolBarCtrl',
             resolve: {
             // controller will not be loaded until $requireAuth resolves
-              "currentAuth": ["$firebaseAuth", function ($firebaseAuth) {
+              'currentAuth': ['$firebaseAuth', function ($firebaseAuth) {
                 var ref = new Firebase('https://shining-torch-23.firebaseio.com/');
                 var authObj = $firebaseAuth(ref);
                 return authObj.$requireAuth();
@@ -149,7 +149,7 @@ angular
             controller: 'SettingsCtrl',
             resolve: {
             // controller will not be loaded until $requireAuth resolves
-              "currentAuth": ["$firebaseAuth", function ($firebaseAuth) {
+              'currentAuth': ['$firebaseAuth', function ($firebaseAuth) {
                       var ref = new Firebase('https://shining-torch-23.firebaseio.com/');
                       var authObj = $firebaseAuth(ref);
                       return authObj.$requireAuth();
@@ -167,7 +167,7 @@ angular
             controller: 'ToolBarCtrl',
             resolve: {
             // controller will not be loaded until $requireAuth resolves
-              "currentAuth": ["$firebaseAuth", function ($firebaseAuth) {
+              'currentAuth': ['$firebaseAuth', function ($firebaseAuth) {
                 var ref = new Firebase('https://shining-torch-23.firebaseio.com/');
                 var authObj = $firebaseAuth(ref);
                 return authObj.$requireAuth();
@@ -186,7 +186,7 @@ angular
             controller: 'SearchCtrl',
             resolve: {
             // controller will not be loaded until $requireAuth resolves
-              "currentAuth": ["$firebaseAuth", function ($firebaseAuth) {
+              'currentAuth': ['$firebaseAuth', function ($firebaseAuth) {
                 var ref = new Firebase('https://shining-torch-23.firebaseio.com/');
                 var authObj = $firebaseAuth(ref);
                 return authObj.$requireAuth();
@@ -203,7 +203,7 @@ angular
             controller: 'ToolBarCtrl',
             resolve: {
             // controller will not be loaded until $requireAuth resolves
-              "currentAuth": ["$firebaseAuth", function ($firebaseAuth) {
+              'currentAuth': ['$firebaseAuth', function ($firebaseAuth) {
                 var ref = new Firebase('https://shining-torch-23.firebaseio.com/');
                 var authObj = $firebaseAuth(ref);
                 return authObj.$requireAuth();
@@ -211,7 +211,7 @@ angular
             }
           }
         }
-      })
+      });
       FacebookProvider.init('1571917669752119');
   });
 // themes colors:

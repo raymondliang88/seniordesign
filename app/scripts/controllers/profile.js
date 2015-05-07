@@ -6,9 +6,9 @@ angular.module('projectsApp')
       var ref = new Firebase(firebaseService.getFirebBaseURL())
       var authObj = $firebaseAuth(ref);
       var authData = authObj.$getAuth();
-      console.log("Logged in as:" +  authData.uid);
+      console.log('Logged in as:' +  authData.uid);
 
-      var myselfDataRef = new Firebase("https://shining-torch-23.firebaseio.com/profileInfo/"+ authData.uid);
+      var myselfDataRef = new Firebase('https://shining-torch-23.firebaseio.com/profileInfo/'+ authData.uid);
       $scope.myselfData = $firebaseObject(myselfDataRef);
       //get all parameters passed into this controller
       var param = $stateParams;
@@ -16,13 +16,13 @@ angular.module('projectsApp')
       var profileUID = param.user;
 
       //get user profile Data
-      var profileDataRef = new Firebase("https://shining-torch-23.firebaseio.com/profileInfo/"+ profileUID);
+      var profileDataRef = new Firebase('https://shining-torch-23.firebaseio.com/profileInfo/'+ profileUID);
       $scope.profileData = $firebaseObject(profileDataRef);
 
       //postData returns a list of post
-      var profilePostRef = new Firebase("https://shining-torch-23.firebaseio.com/posts/"+ profileUID);
+      var profilePostRef = new Firebase('https://shining-torch-23.firebaseio.com/posts/'+ profileUID);
       $scope.postData = $firebaseArray(profilePostRef);
-      console.log("Post data" + $scope.postData);
+      console.log('Post data' + $scope.postData);
 
       //timestamp
       var getTime = function() {
@@ -40,7 +40,7 @@ angular.module('projectsApp')
 
 
     //Find number of friends in common
-    var profileFriends = new Firebase("https://shining-torch-23.firebaseio.com/friends/"+ param.user);
+    var profileFriends = new Firebase('https://shining-torch-23.firebaseio.com/friends/'+ param.user);
     var profileObj = $firebaseObject(profileFriends);
     profileObj.$loaded()
     .then(function(data) {
@@ -48,7 +48,7 @@ angular.module('projectsApp')
       if (data.friendList !== undefined) {
           profileList = data.friendList;
       }
-      var userFriends = new Firebase("https://shining-torch-23.firebaseio.com/friends/"+ authData.uid);
+      var userFriends = new Firebase('https://shining-torch-23.firebaseio.com/friends/'+ authData.uid);
       var userObj = $firebaseObject(userFriends);
       userObj.$loaded()
       .then(function(data) {
@@ -61,7 +61,7 @@ angular.module('projectsApp')
             //ID Found
             //$scope.commonFriends.push(id);
             //console.log(id);
-            var profileInfo = new Firebase("https://shining-torch-23.firebaseio.com/profileInfo/"+ id);
+            var profileInfo = new Firebase('https://shining-torch-23.firebaseio.com/profileInfo/'+ id);
             var info = $firebaseObject(profileInfo);
             info.$loaded()
             .then(function(data) {
@@ -72,7 +72,7 @@ angular.module('projectsApp')
       });
     })
     .catch(function(error) {
-      console.error("Error:", error);
+      console.error('Error:', error);
     });
 
 
@@ -81,7 +81,7 @@ angular.module('projectsApp')
         var time = getTime();
         $scope.postData.$add({
           senderID: authData.uid,
-          messageType: "text",
+          messageType: 'text',
           postDate: time,
           timeStamp: Firebase.ServerValue.TIMESTAMP,
           senderPicture: $scope.myselfData.picture,
@@ -90,13 +90,13 @@ angular.module('projectsApp')
       };
 
       $scope.removePost = function(postID) {
-        var postDataRef = new Firebase("https://shining-torch-23.firebaseio.com/posts/"+ profileUID + "/" + postID);
+        var postDataRef = new Firebase('https://shining-torch-23.firebaseio.com/posts/'+ profileUID + '/' + postID);
         postDataRef.remove();
       };
 
 
       $scope.removeComment = function(postID, commentID) {
-        var postDataRef = new Firebase("https://shining-torch-23.firebaseio.com/posts/"+ profileUID + "/" + postID + "/comments/" + commentID);
+        var postDataRef = new Firebase('https://shining-torch-23.firebaseio.com/posts/'+ profileUID + '/' + postID + '/comments/' + commentID);
         postDataRef.remove();
       };
 
@@ -144,7 +144,7 @@ angular.module('projectsApp')
         var time = getTime();
         $scope.postData.$add({
           senderID: authData.uid,
-          messageType: "image",
+          messageType: 'image',
           postDate: time,
           timeStamp: Firebase.ServerValue.TIMESTAMP,
           senderPicture: $scope.myselfData.picture,
@@ -158,11 +158,11 @@ angular.module('projectsApp')
       $scope.addComment = function(postID, message) {
         var time = getTime();
         console.log('gonna post a comment');
-        var profilePostRef = new Firebase("https://shining-torch-23.firebaseio.com/posts/"+ profileUID + "/" +  postID + "/comments/");
+        var profilePostRef = new Firebase('https://shining-torch-23.firebaseio.com/posts/'+ profileUID + '/' +  postID + '/comments/');
         $scope.postComment = $firebaseArray(profilePostRef);
         $scope.postComment.$add({
           senderID: authData.uid,
-          messageType: "text",
+          messageType: 'text',
           postDate: time,
           timeStamp: Firebase.ServerValue.TIMESTAMP,
           senderPicture: $scope.myselfData.picture,

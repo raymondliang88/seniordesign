@@ -7,7 +7,7 @@
  * # userService
  * Service in the projectsApp.
  */
-// AngularJS will instantiate a singleton by calling "new" on this function
+// AngularJS will instantiate a singleton by calling 'new' on this function
 angular.module('projectsApp')
   .factory('userService', function (firebaseService) {
     var user;
@@ -34,7 +34,7 @@ angular.module('projectsApp')
     var saveMoreSettings = function(user, imageSrc) {
       console.log('saving more info...');
       if(user !== undefined){
-        // update the user with additional info that was submitted  
+        // update the user with additional info that was submitted
         if(user.birthday !== undefined){
           ref.child('profileInfo').child(authData.uid).update({
             birthday: user.birthday
@@ -66,7 +66,7 @@ angular.module('projectsApp')
           });
       } else {
           // choosing default image
-          imageSrc = "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg";
+          imageSrc = 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg';
           ref.child('profileInfo').child(authData.uid).update({
             picture: imageSrc
           });
@@ -85,20 +85,20 @@ angular.module('projectsApp')
       var ref = new Firebase(firebaseURL);
       var authObj = $firebaseAuth(ref);
       var authData = authObj.$getAuth();
-    
+
       $scope.firstName = '';
       $scope.lastName = '';
       //get user profile Data
-      var profileDataRef = new Firebase("https://shining-torch-23.firebaseio.com/profileInfo/"+ authData.uid);
+      var profileDataRef = new Firebase('https://shining-torch-23.firebaseio.com/profileInfo/'+ authData.uid);
       var profileData = $firebaseObject(profileDataRef);
       profileData.$loaded()
         .then(function(data) {
           console.log(data);
         //data.val.
-      
+
       })
     .catch(function(error) {
-      console.error("Error:", error);
+      console.error('Error:', error);
     });
 
       $scope.provider = authData.provider;
@@ -149,7 +149,7 @@ angular.module('projectsApp')
               facebookImport();
             break;
           default:
-            console("Invalid Provider!");
+            console('Invalid Provider!');
             break;
         }
       };
@@ -168,18 +168,18 @@ angular.module('projectsApp')
             if (error) {
               console.log('Login Failed!', error);
             } else {
-             console.log("Authenticated successfully with payload:", authData);
+             console.log('Authenticated successfully with payload:', authData);
 
              Facebook.api('/me', function(response) {
                 $scope.user = response;
-                console.log("FirstName: " + response.first_name + 
-                  " LastName: " + response.last_name + 
-                  " Gender: " + response.gender + 
-                  " Birthday: " + response.birthday + 
-                  " SchoolName: " + response.education[1].school.name + 
-                  " Concentration: " + response.education[1].concentration[0].name + 
-                  " Year: " + response.education[1].year.name + 
-                  " FavoriteTeam: " + response.favorite_teams[0].name);
+                console.log('FirstName: ' + response.first_name +
+                  ' LastName: ' + response.last_name +
+                  ' Gender: ' + response.gender +
+                  ' Birthday: ' + response.birthday +
+                  ' SchoolName: ' + response.education[1].school.name +
+                  ' Concentration: ' + response.education[1].concentration[0].name +
+                  ' Year: ' + response.education[1].year.name +
+                  ' FavoriteTeam: ' + response.favorite_teams[0].name);
 
 
                 if(response.birthday !== undefined){
@@ -198,7 +198,7 @@ angular.module('projectsApp')
               });
             }
           }, {
-              scope: "user_likes,email,user_birthday,public_profile,user_education_history,user_about_me" // permission requests
+              scope: 'user_likes,email,user_birthday,public_profile,user_education_history,user_about_me' // permission requests
             });
       };
 
@@ -244,10 +244,10 @@ angular.module('projectsApp')
       $scope.getFile = function (file) {
         // check if file size is 5MB+
         $scope.invalidFile = false;
-        $scope.invalidText = "";
+        $scope.invalidText = '';
         if (file.size > 5000000) {
           $scope.invalidFile = true;
-          $scope.invalidText = "File size is too big!!!";
+          $scope.invalidText = 'File size is too big!!!';
           $scope.$apply();
         } else {
         fileReader.readAsDataUrl(file, $scope)
@@ -275,7 +275,7 @@ angular.module('projectsApp')
 
     return {
       getMoreUserInfo: function(provisionSettings) {
-        console.log("provisionSettings: " + provisionSettings);
+        console.log('provisionSettings: ' + provisionSettings);
         if (provisionSettings == '0') {
           showAboutForm();
         }

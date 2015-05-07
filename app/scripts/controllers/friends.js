@@ -40,8 +40,8 @@ angular.module('projectsApp')
   //gets user profile info
   var getUserProfileInfo = function(userid) {
     console.log('Userid' + userid);
-    var ref = new Firebase('https://shining-torch-23.firebaseio.com/profileInfo/'+ userid);
-    var profileData = $firebaseObject(ref);
+    var userProfileRef = new Firebase('https://shining-torch-23.firebaseio.com/profileInfo/'+ userid);
+    var profileData = $firebaseObject(userProfileRef);
     profileData.$loaded(
       function(data) {
         friendProfileArr.push(data);
@@ -51,7 +51,7 @@ angular.module('projectsApp')
       }
     );
     $scope.friendProfiles = friendProfileArr;
-  }
+  };
 
   var friendRequestRef = new Firebase('https://shining-torch-23.firebaseio.com/pending/'+ authData.uid + '/senderList');
   var pendingFriendList = $firebaseArray(friendRequestRef);
@@ -106,9 +106,9 @@ angular.module('projectsApp')
 
         // TODO check if sender and receiver are friends
         // update pendingTotal
-        if (senderList[senderID] == undefined) {
-          pendingRef.child('pendingTotal').transaction(function(current_value) {
-            return (current_value || 0) + 1;
+        if (senderList[senderID] === undefined) {
+          pendingRef.child('pendingTotal').transaction(function(currentValue) {
+            return (currentValue || 0) + 1;
           });
 
           // add to senderList
@@ -129,7 +129,6 @@ angular.module('projectsApp')
   $scope.removeFriend = function(useruid) {
     var senderID = authData.uid;
     console.log('confirming ' + deletedID + ' as friend');
-
   };
 
   /**
@@ -153,8 +152,8 @@ angular.module('projectsApp')
         }
 
         // update pendingTotal
-        pendingRef.child('pendingTotal').transaction(function(current_value) {
-          return (current_value || 0) - 1;
+        pendingRef.child('pendingTotal').transaction(function(currentValue) {
+          return (currentValue || 0) - 1;
         });
 
         // remove sender from receiver's pending sender list
@@ -194,8 +193,8 @@ angular.module('projectsApp')
         }
         // update friendTotal
         if (friendList[friendID] !== undefined) {
-          ref.child('friendTotal').transaction(function(current_value) {
-            return (current_value || 0) - 1;
+          ref.child('friendTotal').transaction(function(currentValue) {
+            return (currentValue || 0) - 1;
           });
         }
         // remove from friendList
@@ -229,9 +228,9 @@ angular.module('projectsApp')
         }
 
         // update pendingTotal
-        if (friendList[senderID] == undefined) {
-          ref.child('friendTotal').transaction(function(current_value) {
-            return (current_value || 0) + 1;
+        if (friendList[senderID] === undefined) {
+          ref.child('friendTotal').transaction(function(currentValue) {
+            return (currentValue || 0) + 1;
           });
         }
 

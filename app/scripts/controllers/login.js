@@ -134,7 +134,7 @@ angular.module('projectsApp')
           console.log('Login Failed!', error);
         }
         else {
-          console.log("Authenticated successfully with payload:", authData);
+          console.log('Authenticated successfully with payload:', authData);
           userService.setCurrentUser(authData);
           ref.child('profileInfo').child(authData.uid).once('value', function (snapshot){
 
@@ -174,7 +174,7 @@ angular.module('projectsApp')
           });
         }
     }, {
-          scope: "user_likes, email, user_birthday, public_profile, user_education_history, user_about_me" // permission requests
+          scope: 'user_likes, email, user_birthday, public_profile, user_education_history, user_about_me' // permission requests
     });
   };
 
@@ -185,8 +185,8 @@ angular.module('projectsApp')
         }
         else {
           console.log('Authenticated successfully with payload:', authData);
-          
-          ref.child('profileInfo').child(authData.uid).once('value', function (snapshot){ 
+
+          ref.child('profileInfo').child(authData.uid).once('value', function (snapshot){
             if(snapshot.val() === null){
               console.log('making new user profile');
               //If account doesn't exist set new data
@@ -226,25 +226,25 @@ angular.module('projectsApp')
           });
       }
       },{
-        scope: "email, profile" // permission requests
+        scope: 'email, profile' // permission requests
       });
     };
 
 
     $scope.registerTwitter = function() {
-      ref.authWithOAuthPopup("twitter", function(error, authData) {
+      ref.authWithOAuthPopup('twitter', function(error, authData) {
         if (error) {
-          console.log("Login Failed!", error);
+          console.log('Login Failed!', error);
         }
         else {
-          console.log("Authenticated successfully with payload:", authData);
+          console.log('Authenticated successfully with payload:', authData);
           ref.child('profileInfo').child(authData.uid).once('value', function (snapshot){
             if(snapshot.val() === null){
-                  var name = authData.twitter.cachedUserProfile.name; name = name.split(" ");
+                  var name = authData.twitter.cachedUserProfile.name; name = name.split(' ');
                   var firstName = name[0];
                   var lastName = name[name.length-1];
                   var aboutMe = authData.twitter.cachedUserProfile.description;
-                  var twitterEmail = authData.twitter.cachedUserProfile.screen_name + "@ucrpal.com";
+                  var twitterEmail = authData.twitter.cachedUserProfile.screen_name + '@ucrpal.com';
                   var profileImage = authData.twitter.cachedUserProfile.profile_image_url;
 
                   ref.child('profileInfo').child(authData.uid).set({

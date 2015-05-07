@@ -13,7 +13,7 @@ angular.module('projectsApp')
     $scope.close = function () {
       $mdSidenav('right').close()
         .then(function () {
-          $log.debug("close RIGHT is done");
+          $log.debug('close RIGHT is done');
         });
     };
   })
@@ -23,7 +23,7 @@ angular.module('projectsApp')
     $scope.close = function () {
       $mdSidenav('left').close()
         .then(function () {
-          $log.debug("close RIGHT is done");
+          $log.debug('close RIGHT is done');
         });
     };
   })
@@ -53,7 +53,7 @@ angular.module('projectsApp')
       return function() {
         return $mdSidenav(navID).toggle()
           .then(function () {
-            $log.debug("toggle " + navID + " is done");
+            $log.debug('toggle ' + navID + ' is done');
           });
       }
     }
@@ -69,7 +69,7 @@ angular.module('projectsApp')
 
     //pass uid to go to
     $scope.goToProfile = function(userid) {
-      console.log("Sending to profile uid" + userid);
+      console.log('Sending to profile uid' + userid);
       $state.go('home.profile.user' , {user: userid});
       // $state.go('home.profile');
     };
@@ -99,7 +99,7 @@ angular.module('projectsApp')
     };
 
     $scope.logout = function(){
-      console.log("Logging Out!")
+      console.log('Logging Out!')
       ref.child('profileInfo').child(authData.uid).update({
         loggedIn: false
       });
