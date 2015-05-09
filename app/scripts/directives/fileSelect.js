@@ -10,11 +10,11 @@ angular.module('projectsApp')
 
         $scope.file = (e.srcElement || e.target).files[0];
         $scope.getFile($scope.file);
-      })
+      });
 
     }
 
-  }
+  };
 }).directive('ngFileUpload',function(){
 
   return {
@@ -24,11 +24,11 @@ angular.module('projectsApp')
         var img = e.target.nextElementSibling;
         $scope.file = (e.srcElement || e.target).files[0];
         $scope.getFile($scope.file, img);
-      })
+      });
 
     }
 
-  }
+  };
 })
 .directive('ngUpload',function(){
 
@@ -38,9 +38,9 @@ angular.module('projectsApp')
       el.bind('change', function(e){
         $scope.postFile = (e.srcElement || e.target).files[0];
         $scope.getPostFile($scope.postFile);
-      })
+      });
 
     }
 
-  }
+  };
 });
