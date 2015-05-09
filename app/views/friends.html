@@ -78,7 +78,7 @@
           two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
  -->        </p>
         <div class="md-actions" layout="row" layout-align="end center">
-          <md-button aria-label="Add Friend" class="md-fab" ng-click="addFriend(user.$id)">
+          <md-button aria-label="Add Friend" class="md-fab" ng-click="addFriend(user.$id, user.firstName, user.lastName)">
             Add
           </md-button>
         </div>
@@ -111,10 +111,10 @@
         </p>
 
         <div class="md-actions" layout="row" layout-align="end center">
-          <md-button class="md-fab" ng-click="confirmFriendRequest(request.$id, 1)" aria-label="Add">
+          <md-button class="md-fab" ng-click="confirmFriendRequest(request.$id, request.firstName, request.lastName, 1)" aria-label="Add">
             Add
           </md-button>
-          <md-button class="md-fab" ng-click="confirmFriendRequest(request.$id, 0)"aria-label="Reject">
+          <md-button class="md-fab" ng-click="confirmFriendRequest(request.$id, request.firstName, request.lastName, 0)"aria-label="Reject">
             Reject
           </md-button>
         </div>

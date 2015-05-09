@@ -14,14 +14,9 @@ angular.module('projectsApp')
   var authData = authObj.$getAuth();
   console.log('Logged in as:', authData.uid);
 
-  var ref = new Firebase('https://shining-torch-23.firebaseio.com/friends/'+ authData.uid + '/friendList');
-  $scope.messages = $firebaseArray(ref);
-
-  var list = $firebaseArray(ref);
   $scope.friendProfile = [];
   //gets list of all current users friends
   var friendsRef = new Firebase('https://shining-torch-23.firebaseio.com/friends/'+ authData.uid +'/friendList');
-  $scope.messages = $firebaseArray(friendsRef);
 
   //for each person in the friends array, loop through the array to get user profile
   var list = $firebaseArray(friendsRef);
@@ -35,7 +30,9 @@ angular.module('projectsApp')
     });
     // $scope.friendProfiles = friendProfile;
     }, function(error) {
+        console.error('Error:', error);
   });
+  
 
   //gets user profile info
   var getUserProfileInfo = function(userid) {
@@ -76,15 +73,9 @@ angular.module('projectsApp')
     console.error('Error:', error);
   });
 
-  $scope.addFriend = function(useruid) {
+  $scope.addFriend = function(useruid, firstName, lastName) {
     var userID = useruid;
     console.log('adding ' + userID + ' as friend');
-
-    /*
-     *$scope.messages.$add({
-     *  uid: userID
-     *});
-     */
 
     // add to pending list of requested friend only if the sender's uid isn't there
     var pendingRef = new Firebase('https://shining-torch-23.firebaseio.com/pending/'+ userID);
@@ -93,16 +84,13 @@ angular.module('projectsApp')
 
     pendingObj.$loaded()
       .then(function(data) {
-        console.log(data === pendingObj); //true
 
         var senderList = {};
         if (data.senderList !== undefined) {
           senderList = data.senderList;
         }
 
-        // TODO retrieve sender's full name
-        //var name = getUserFullName(senderID);
-        //console.log(name);
+        var name = firstName + ' ' + lastName;
 
         // TODO check if sender and receiver are friends
         // update pendingTotal
@@ -112,7 +100,7 @@ angular.module('projectsApp')
           });
 
           // add to senderList
-          senderList[senderID] = 'User\'s full name';
+          senderList[senderID] = name;
 
           // update Firebase endpoint
           pendingRef.update({
@@ -126,24 +114,31 @@ angular.module('projectsApp')
       });
   };
 
-  $scope.removeFriend = function(useruid) {
-    var senderID = authData.uid;
-    console.log('confirming ' + deletedID + ' as friend');
-  };
-
   /**
    * Confirms or rejects the friend request and removes the senderID from the receiverID's senderList
    * @param {string} useruid The user's uid that is pending confirmation.
    * @param {number} confirmValue Confirmation is 1 and rejection is 0.
    */
-  $scope.confirmFriendRequest = function(useruid, confirmValue) {
+  $scope.confirmFriendRequest = function(useruid, firstName, lastName, confirmValue) {
     var senderID = useruid;
-    console.log('confirming ' + senderID + ' as friend');
-
     var receiverID = authData.uid;
+    console.log('confirming ' + senderID + ' as friend');
+    var senderName = firstName + ' ' + lastName;
+
+    var receiverName;
+    var ref = new Firebase('https://shining-torch-23.firebaseio.com/profileInfo/'+ receiverID);
+    var profileData = $firebaseObject(ref);
+    profileData.$loaded(
+      function(data) {
+        receiverName = data.firstName + ' ' + data.lastName;
+      },
+      function(error) {
+        console.error('Error:', error);
+      }
+    );
+
     var pendingRef = new Firebase('https://shining-torch-23.firebaseio.com/pending/'+ receiverID);
     var pendingObj = $firebaseObject(pendingRef);
-
     pendingObj.$loaded()
       .then(function(data) {
         var senderList = {};
@@ -164,10 +159,10 @@ angular.module('projectsApp')
           senderList: senderList
         });
 
-        if (confirmValue == '1') {
+        if (confirmValue === 1) {
           // add sender to receiever's friends list and vice versa
-          addToFriendList(receiverID, senderID);
-          addToFriendList(senderID, receiverID);
+          addToFriendList(receiverID, senderID, senderName);
+          addToFriendList(senderID, receiverID, receiverName);
         }
 
       })
@@ -215,7 +210,7 @@ angular.module('projectsApp')
    * @param {string} receiverID The uid of the added friend.
    * @param {string} senderID The uid of the user performing the friend adding.
    */
-  var addToFriendList = function(receiverID, senderID) {
+  var addToFriendList = function(receiverID, senderID, name) {
     var ref = new Firebase('https://shining-torch-23.firebaseio.com/friends/' + receiverID);
     var obj = $firebaseObject(ref);
     obj.$loaded()
@@ -235,7 +230,7 @@ angular.module('projectsApp')
         }
 
         // add to friendList
-        friendList[senderID] = 'User\'s full name';
+        friendList[senderID] = name;
 
         // update Firebase endpoint
         ref.update({
@@ -246,50 +241,6 @@ angular.module('projectsApp')
       .catch(function(error) {
         console.error('Error:', error);
       });
-  };
-
-  var getUserFullName = function(userid) {
-    var ref = new Firebase('https://shining-torch-23.firebaseio.com/profileInfo/'+ userid);
-    var profileData = $firebaseObject(ref);
-    profileData.$loaded(
-      function(data) {
-        return data.firstName + ' ' + data.lastName;
-      },
-      function(error) {
-        console.error('Error:', error);
-      }
-    );
-  };
-
-  var getPendingUserProfileInfo = function(userid){
-    var userID = userid;
-    var ref = new Firebase('https://shining-torch-23.firebaseio.com/profileInfo/'+ userID);
-    var profileData = $firebaseObject(ref);
-    profileData.$loaded(
-      function(data) {
-        console.log(data.name); // true
-        pendingFriendProfile.push(data);
-      },
-      function(error) {
-        console.error('Error:', error);
-      }
-    );
-    $scope.friendRequests = pendingFriendProfile;
-  };
-
-  var getUserProfileInfo = function(userid){
-    var userID = userid;
-    //console.log('entered');
-    var ref = new Firebase('https://shining-torch-23.firebaseio.com/profileInfo/'+ userID);
-    var profileData = $firebaseObject(ref);
-    profileData.$loaded().then(function(data) {
-        $scope.friendProfile.push(data);
-      },
-      function(error) {
-        console.error('Error:', error);
-      }
-    );
-    $scope.friendProfiles = $scope.friendProfile;
   };
 
   $scope.removeFriendConfirm = function(friend, ev){
@@ -327,10 +278,10 @@ angular.module('projectsApp')
    $scope.pageChangeHandler = function(num) {
     console.log('going to page ' + num);
   };
-})
+});
 
 angular.module('projectsApp')
-.controller('OtherController', function($scope, $http) {
+.controller('OtherController', function($scope) {
   $scope.pageChangeHandler = function(num) {
     console.log('going to page ' + num);
   };
