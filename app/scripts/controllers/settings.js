@@ -15,6 +15,15 @@ angular.module('projectsApp')
       var authData = authObj.$getAuth();
       $scope.userCurrent;
 
+      $scope.user;
+      $scope.alert = '';
+      $scope.movie;
+      $scope.movies = [];
+      $scope.music;
+      $scope.musics = [];
+      $scope.savedStatus = '';
+      $scope.imageSrc;
+
       ref.child('profileInfo').child(authData.uid).once('value', function (snapshot) {
           var val = snapshot.val();
           console.log(val);
@@ -25,35 +34,39 @@ angular.module('projectsApp')
             $scope.userCurrent.firstName = val.firstName;
             $scope.userCurrent.lastName  = val.lastName;
             $scope.userCurrent.email  = val.email;
+            $scope.movies = val.movies;
+            $scope.musics = val.music;
         });
       });
 
-      $scope.user;
-      $scope.alert = '';
-      
-      //Added by Raymond
-      $scope.movie;
-      $scope.movies = [];
-      $scope.music;
-      $scope.musics = [];
-
-
       $scope.addMovie = function(name) {
         $scope.movies.push(name);
+        ref.child('profileInfo').child($scope.userCurrent.uid).update({
+            movies: $scope.movies
+          });
         $scope.movie = '';
       };
 
       $scope.removeMovie = function(index) {
         $scope.movies.splice(index,1);
+        ref.child('profileInfo').child($scope.userCurrent.uid).update({
+            movies: $scope.movies
+          });
       }
 
       $scope.addMusic = function(name) {
         $scope.musics.push(name);
+        ref.child('profileInfo').child($scope.userCurrent.uid).update({
+            music: $scope.musics
+          });
         $scope.music = null;
       };
 
       $scope.removeMusic = function(index) {
         $scope.musics.splice(index,1);
+        ref.child('profileInfo').child($scope.userCurrent.uid).update({
+            music: $scope.musics
+          });
       }
 
 
@@ -151,6 +164,7 @@ angular.module('projectsApp')
           });
           $scope.userCurrent.aboutMe = user.aboutMe;
         }
+        $scope.savedStatus = "Saved!";
       }
     };
 
@@ -170,7 +184,6 @@ angular.module('projectsApp')
       $scope.userCurrent.messagePrivacy = selection;
     };
 
-    $scope.imageSrc;
     $scope.getPostFile = function(file) {
       var reader = new FileReader();
       console.log(file);
