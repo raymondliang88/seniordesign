@@ -65,7 +65,11 @@ angular.module('projectsApp')
             var info = $firebaseObject(profileInfo);
             info.$loaded()
             .then(function(data) {
-              $scope.commonFriends.push(data.firstName + ' ' + data.lastName);
+              //$scope.commonFriends.push(data.firstName + ' ' + data.lastName);
+              var info = {firstName: data.firstName, lastName: data.lastName, picture: data.picture};
+              console.log('Name: ' + info.firstName + ' Picture: ' + info.picture);
+              $scope.commonFriends.push(info);
+
             });
           }
         }
@@ -87,6 +91,7 @@ angular.module('projectsApp')
           senderPicture: $scope.myselfData.picture,
           message: message
         });
+        document.getElementById("postForm").reset();
       };
 
       $scope.removePost = function(postID) {
@@ -172,6 +177,7 @@ angular.module('projectsApp')
           var id = ref.key();
           ref.update({commentID: id});
         });
+        document.getElementById("commentForm").reset();
       }
 
 
