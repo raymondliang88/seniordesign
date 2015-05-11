@@ -35,7 +35,7 @@
 
       async.parallel([
           function(callback){
-            //$scope.loadProfiles();
+            $scope.loadProfiles();
           }
         ]);
 
