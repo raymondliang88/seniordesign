@@ -56,6 +56,7 @@ angular.module('projectsApp')
         if(data.friendList !== undefined){
           userList = data.friendList;
         }
+
         for(var id in userList){
           if(profileList[id] !== undefined){
             //ID Found
@@ -66,10 +67,9 @@ angular.module('projectsApp')
             info.$loaded()
             .then(function(data) {
               //$scope.commonFriends.push(data.firstName + ' ' + data.lastName);
-              var info = {firstName: data.firstName, lastName: data.lastName, picture: data.picture};
+              var info = {friendID: data.$id, firstName: data.firstName, lastName: data.lastName, picture: data.picture};
               console.log('Name: ' + info.firstName + ' Picture: ' + info.picture);
               $scope.commonFriends.push(info);
-
             });
           }
         }
