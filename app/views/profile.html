@@ -14,19 +14,11 @@
       <div class="well panel panel-default">
         <div class="panel-body">
           <div class="row">
-            <div class="col-xs-12 col-sm-12">
+            <div class="col-md-7">
               <p ng-show="{{profileOwner}}">Welcome back!</p>
               <p><span class="btn btn-success" ng-show="profileData.loggedIn">Online</span> <span class="btn btn-default" ng-show="!profileData.loggedIn">off-line</span> </p>
+              
               <p><strong>About Me: </strong> {{profileData.aboutMe}}</p>
-            </div>
-            <!--/col-->
-            <div class="clearfix"></div>
-            <!--/col-->
-          </div>
-          <!--/row-->
-          <div class="row">
-            <div class="col-md-7">
-      
               <p><strong>Email: </strong> {{profileData.email}} </p>
               <p><strong>Studied: </strong> {{profileData.school}} </p>
               <p><strong>Birthday: </strong> {{profileData.birthday}} </p>
