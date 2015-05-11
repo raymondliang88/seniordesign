@@ -1,17 +1,23 @@
+
+    <div class="personal-profile">
+        <img align="left" class="personal-image-lg" src="http://orientation.ucr.edu/images/cropped-ucr-picture.jpg" alt="Profile image" />
+        <img align="left" class="personal-image-profile thumbnail" src={{profileData.picture}} alt="Profile image example"/>
+        <div class="personal-profile-text">
+            <h1>{{profileData.firstName}} {{profileData.lastName}}</h1>
+        </div>
+    </div>
+ 
+
 <div layout="column" flex layout-fill ng-controller='ToolBarCtrl' class="md-primary" md-padding>
-<h1 class="page-header">Profile</h1>
   <div class="row">
     <div class="col-md-5 col-xs-12">
       <div class="well panel panel-default">
         <div class="panel-body">
           <div class="row">
-            <div class="col-xs-7 col-sm-5 text-center">
-              <img src={{profileData.picture}}   width="170px" height="150px"/>
-            </div>
-            <!--/col-->
-            <div class="col-xs-7 col-sm-7">
-              <h2>{{profileData.firstName}} {{profileData.lastName}}</h2>
-              <p><strong>Online: </strong> {{profileData.loggedIn}} </p>
+            <div class="col-xs-12 col-sm-12">
+              <p ng-show="{{profileOwner}}">Welcome back!</p>
+              <p><span class="btn btn-success" ng-show="profileData.loggedIn">Online</span> <span class="btn btn-default" ng-show="!profileData.loggedIn">off-line</span> </p>
+              <p><strong>About Me: </strong> {{profileData.aboutMe}}</p>
             </div>
             <!--/col-->
             <div class="clearfix"></div>
@@ -19,17 +25,23 @@
           </div>
           <!--/row-->
           <div class="row">
-            <div class="col-xs-7 col-sm-7">
-              <p><strong>About Me: </strong> {{profileData.aboutMe}} </p>
+            <div class="col-md-7">
+      
               <p><strong>Email: </strong> {{profileData.email}} </p>
               <p><strong>Studied: </strong> {{profileData.school}} </p>
               <p><strong>Birthday: </strong> {{profileData.birthday}} </p>
               <!-- <p ng-repeat="friend in commonFriends"><i>{{friend.firstName}} {{friend.lastName}}</p> -->
             </div>
-            <div class="col-xs-4 col-sm-4">
-              <p><strong>Favorite Movie: </strong> {{profileData.movies}} </p>
-              Owner {{profileOwner}}
+            <div class="col-md-4">
+              <p><strong>Favorite Movie: </strong> </p>
+              <ul class="list-group">
+                <li class="label label-info" ng-repeat="movie in profileData.movies ">{{movie}}</li>
+              </ul>
 
+              <p><strong>Favorite Music: </strong> </p>
+              <ul class="list-group">
+                <li class="label label-info" ng-repeat="movie in profileData.music ">{{movie}}</li>
+              </ul>
             </div>
           </div>
         </div>
@@ -46,9 +58,9 @@
         <div class="row">
         <div class="event">
           <div class="row">
-            <div class="col-md-3 col-xs-4 text-center" ng-repeat="friend in commonFriends">
+            <div class="col-xs-6 col-md-3 text-center" ng-repeat="friend in commonFriends">
               <md-button ng-click="goToProfile(friend.friendID)">
-              <img src={{friend.picture}} height="100" /> <br >
+              <img src={{friend.picture}} class="img-responsive" /> <br >
               <small>{{friend.firstName}} {{friend.lastName}}</small>
               </img>
               </md-button><br />

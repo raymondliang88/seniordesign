@@ -132,6 +132,39 @@ body {
 }
 
 
+
+
+
+.personal-profile img.personal-image-lg{
+    z-index: 0;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.personal-image-profile
+{
+    margin: -90px 10px 0px 50px;
+    z-index: 9;
+    width: 20%; 
+}
+
+@media (max-width:768px)
+{
+    
+  .personal-profile-text > h1 {
+      font-weight: 700;
+      font-size:16px;
+  }
+
+  .personal-image-profile
+  {
+      margin: -45px 10px 0px 25px;
+      z-index: 9;
+      width: 20%; 
+  }
+}
+
+
 .dark-primary-color    { background: #303F9F; }
 .default-primary-color { background: #3F51B5; }
 .light-primary-color   { background: #C5CAE9; }
