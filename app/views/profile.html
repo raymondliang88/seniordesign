@@ -3,7 +3,7 @@
         <img align="left" class="personal-image-lg" src="http://orientation.ucr.edu/images/cropped-ucr-picture.jpg" alt="Profile image" />
         <img align="left" class="personal-image-profile thumbnail" src={{profileData.picture}} alt="Profile image example"/>
         <div class="personal-profile-text">
-            <h1>{{profileData.firstName}} {{profileData.lastName}}</h1>
+            <h1>{{profileData.firstName}} {{profileData.lastName}} <button ng-hide="showAddFriend(profileOwner, isMyFriend);"><small>Add Friend</small></button></h1>
         </div>
     </div>
  

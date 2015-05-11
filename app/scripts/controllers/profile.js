@@ -33,6 +33,15 @@ angular.module('projectsApp')
 
       $scope.commonFriends = [];
 
+
+      //Check if I already friend with this profile
+      $scope.isMyFriend = false;
+      var friendDataRef = new Firebase('https://shining-torch-23.firebaseio.com/friends/'+authData.uid+'/friendList/'+param.user);
+      var friendObject = $firebaseObject(friendDataRef);
+      friendObject.$loaded().then(function(data) {
+        $scope.isMyFriend = data.$value == null ? false: true;
+      })
+
   
       async.parallel([
           function(callback){
@@ -74,7 +83,6 @@ angular.module('projectsApp')
                       .then(function(data) {
                         //$scope.commonFriends.push(data.firstName + ' ' + data.lastName);
                         var info = {friendID: data.$id, firstName: data.firstName, lastName: data.lastName, picture: data.picture};
-                        console.log('Name: ' + info.firstName + ' Picture: ' + info.picture);
                         $scope.commonFriends.push(info);
                       });
                     }
@@ -202,14 +210,14 @@ angular.module('projectsApp')
         var imgID = imgSrc.getAttribute('id');
         $('#'+imgID).attr('src', e.target.result);
         $scope.imageSrc = e.target.result;
-        console.log($scope.imageSrc);
+        
       }
       reader.readAsDataURL(file);
     }
 
     $scope.getPostFile = function(file) {
       var reader = new FileReader();
-      console.log(file);
+      
       reader.onload = function (e) {
         $('#post-imagepreview').attr('src', e.target.result);
         //Set post file
@@ -223,5 +231,12 @@ angular.module('projectsApp')
       $scope.postFile = 0;
       $scope.imgSrc = 0;
       $('#post-imagepreview').attr('src', 0);
+    }
+
+    $scope.showAddFriend = function(owner, isFriend) {
+      if(owner || isFriend)
+        return true;
+      else
+        return false;
     }
 });
