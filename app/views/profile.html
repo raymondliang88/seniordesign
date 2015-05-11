@@ -118,21 +118,40 @@
     <div class="col-sm-12 col-md-12">
       <div class="user-info-block">
       </div>
-      <div class="user-body">
-        <div class="tab-content">
-          <form ng-submit="addTextPost(postText)" id="postForm">
-            <div id="information" class="tab-pane active">
-              <div class="input-group" style="z-index: 1;">
-                <input id="btn-input" type="text" class="form-control input-sm ng-pristine ng-valid ng-valid-maxlength ng-touched" placeholder="Share something here..." maxlength="200" ng-model="postText" tabindex="0" aria-invalid="false">
-                  <button class="btn btn-warning" id="btn-chat" tabindex="0"> Send</button>
-              </div>
-              <input class="btn btn-primary" name="post-file" ng-upload="getPostFile($files)" type="file"></input>
-              <button ng-click="removeUpload();">Remove</button>
-              <button class="btn btn-warning" id="btn-chat" ng-click="addImagePost('', postFile)" tabindex="0"> Send</button>
+      
+            <div id="tab" class="btn-group" data-toggle="buttons-radio">
+              <ul class="nav nav-tabs">
+                <li><a href="#new_post" class="btn" data-toggle="tab">New Post</a></li>
+                <li><a href="#new_upload" class="btn" data-toggle="tab">Upload</a></li>
+              </ul>
             </div>
-          </form>
+            <br />
+            <div class="tab-content">
+              <div class="tab-pane active" id="new_post">
+                <form ng-submit="addTextPost(postText)" id="postForm">
+                    <div class="input-group">
+                      <input type="text" class="form-control" placeholder="Share something here..." maxlength="200" ng-model="postText">
+                      <span class="input-group-btn">
+                        <button class="btn btn-warning">Send</button>
+                      </span>
+                    </div><!-- /input-group -->
+                </form>
+              </div>
+              <div class="tab-pane" id="new_upload">
+                  <div class="input-group">
+                    <input class="btn btn-primary form-control" name="post-file" ng-upload="getPostFile($files)" type="file" />
+                    <span class="input-group-btn">
+                      <button class="btn btn-warning" ng-click="addImagePost('', postFile)" tabindex="0"> Send</button>
+                    </span>
+                   
+                  </div>
+                   <button ng-click="removeUpload();">Remove</button>
+              </div>
+            </div>
+      
+            <br /><br />
+          </div>
         </div>
-      </div>
       <!-- Post section -->
       <div ng-repeat="post in postData | orderBy:'-timeStamp'">
 <!--         <div ng-class="date">
