@@ -1,31 +1,41 @@
+
+    <div class="personal-profile">
+        <img align="left" class="personal-image-lg" src="http://orientation.ucr.edu/images/cropped-ucr-picture.jpg" alt="Profile image" />
+        <img align="left" class="personal-image-profile thumbnail" src={{profileData.picture}} alt="Profile image example"/>
+        <div class="personal-profile-text">
+            <h1>{{profileData.firstName}} {{profileData.lastName}} <button ng-hide="showAddFriend(profileOwner, isMyFriend);"><small>Add Friend</small></button></h1>
+        </div>
+    </div>
+ 
+
 <div layout="column" flex layout-fill ng-controller='ToolBarCtrl' class="md-primary" md-padding>
-<h1 class="page-header">Profile</h1>
   <div class="row">
     <div class="col-md-5 col-xs-12">
       <div class="well panel panel-default">
         <div class="panel-body">
           <div class="row">
-            <div class="col-xs-12 col-sm-5 text-center">
-              <img src={{profileData.picture}}   width="140" height="120"/>
-            </div>
-            <!--/col-->
-            <div class="col-xs-12 col-sm-7">
-              <h2>{{profileData.firstName}} {{profileData.lastName}}</h2>
-              <p><strong>About Me: </strong> {{profileData.aboutMe}} </p>
-              <p><strong>Studied: </strong> {{profileData.school}} </p>
-              <p><strong>Online: </strong> {{profileData.loggedIn}} </p>
+            <div class="col-md-7">
+              <p ng-show="{{profileOwner}}">Welcome back!</p>
+              <p><span class="btn btn-success" ng-show="profileData.loggedIn">Online</span> <span class="btn btn-default" ng-show="!profileData.loggedIn">off-line</span> </p>
+              
+              <p><strong>About Me: </strong> {{profileData.aboutMe}}</p>
               <p><strong>Email: </strong> {{profileData.email}} </p>
+              <p><strong>Studied: </strong> {{profileData.school}} </p>
               <p><strong>Birthday: </strong> {{profileData.birthday}} </p>
-              <p><strong>Favorite Movie: </strong> {{profileData.movies}} </p>
-              Owner {{profileOwner}}
-              <p><strong>Friends In Common: </strong> {{commonFriends.length}} </p>
-              <p ng-repeat="friend in commonFriends"><i>{{friend}}</p>
+              <!-- <p ng-repeat="friend in commonFriends"><i>{{friend.firstName}} {{friend.lastName}}</p> -->
             </div>
-            <!--/col-->
-            <div class="clearfix"></div>
-            <!--/col-->
+            <div class="col-md-4">
+              <p><strong>Favorite Movie: </strong> </p>
+              <ul class="list-group">
+                <li class="label label-info" ng-repeat="movie in profileData.movies ">{{movie}}</li>
+              </ul>
+
+              <p><strong>Favorite Music: </strong> </p>
+              <ul class="list-group">
+                <li class="label label-info" ng-repeat="movie in profileData.music ">{{movie}}</li>
+              </ul>
+            </div>
           </div>
-          <!--/row-->
         </div>
         <!--/panel-body-->
       </div>
@@ -36,12 +46,16 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-xs-12 col-sm-12">
-        <h4>Friends - <small>6</small></h4>
+        <h4>Friends In Common - <small>{{commonFriends.length}}</small></h4>
         <div class="row">
-        <div class="col-sm-4 event">
-          <div class="thumbnail">
-            <div class="overlay"></div>
-            <!-- <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?1"> -->
+        <div class="event">
+            <div class="col-xs-6 col-md-3 text-center" ng-repeat="friend in commonFriends" 
+                style="width: 10em; height: 10em;">
+              <md-button ng-click="goToProfile(friend.friendID)" style="width: 50%; height: 50%">
+              <img src={{friend.picture}} class="img-responsive"/> <br >
+              <small>{{friend.firstName}} {{friend.lastName}}</small>
+              </img>
+              </md-button><br>
           </div>
         </div>
         </div>
@@ -90,72 +104,105 @@
     </script>
 
     <!-- Right-handed side -->
-<div class="col-md-7 col-xs-12">
+<div class="col-md-6 col-xs-12">
   <div class="row">
     <div class="col-sm-12 col-md-12">
       <div class="user-info-block">
       </div>
-      <div class="user-body">
-        <div class="tab-content">
-          <div id="information" class="tab-pane active">
-            <div class="input-group" style="z-index: 1;">
-              <input id="btn-input" type="text" class="form-control input-sm ng-pristine ng-valid ng-valid-maxlength ng-touched" placeholder="Share something here..." maxlength="200" ng-model="postText" tabindex="0" aria-invalid="false">
-                <button class="btn btn-warning" id="btn-chat" ng-click="addTextPost(postText)" tabindex="0"> Send</button>
+      
+            <div id="tab" class="btn-group" data-toggle="buttons-radio">
+              <ul class="nav nav-tabs">
+                <li><a href="#new_post" class="btn" data-toggle="tab">New Post</a></li>
+                <li><a href="#new_upload" class="btn" data-toggle="tab">Upload</a></li>
+              </ul>
             </div>
-              <input class="btn btn-primary" name="post-file" ng-upload="getPostFile($files)" type="file"></input>
-              <button ng-click="removeUpload();">Remove</button>
-              <button class="btn btn-warning" id="btn-chat" ng-click="addImagePost('', postFile)" tabindex="0"> Send</button>
+            <br />
+            <div class="tab-content">
+              <div class="tab-pane active" id="new_post">
+                <form ng-submit="addTextPost(postText)" id="postForm">
+                    <div class="input-group">
+                      <input type="text" class="form-control" placeholder="Share something here..." maxlength="200" ng-model="postText">
+                      <span class="input-group-btn">
+                        <button class="btn btn-warning">Send</button>
+                      </span>
+                    </div><!-- /input-group -->
+                </form>
+              </div>
+              <div class="tab-pane" id="new_upload">
+                  <div class="input-group">
+                    <input class="btn btn-primary form-control" name="post-file" ng-upload="getPostFile($files)" type="file" />
+                    <span class="input-group-btn">
+                      <button class="btn btn-warning" ng-click="addImagePost('', postFile)" tabindex="0"> Send</button>
+                    </span>
+                   
+                  </div>
+                   <button ng-click="removeUpload();">Remove</button>
+              </div>
+            </div>
+      
+            <br /><br />
           </div>
         </div>
-      </div>
       <!-- Post section -->
       <div ng-repeat="post in postData | orderBy:'-timeStamp'">
+<!--         <div ng-class="date">
+            <span ng-class="day">22</span><br>
+            <span ng-class="month">Apr</span>
+        </div> -->
         <md-card>
           <div class="md-actions accent-color" layout="row" layout-align="end end">
             <md-button style="color: white;" ng-show="profileOwner" ng-click="showConfirmDeletePost($event, post.$id)">Delete post</md-button>
           </div>
           <md-content class="md-default-theme md-padding">
-            <p>SenderID: {{post.senderID}}</p>
-            <p>message: {{post.message}}</p>
-            <p>Timestamp: {{post.postDate}}</p>
             <div class="row">
-              <div class="col-sm-3 col-md-3">
+              <div class="col-xs-5 col-md-4">
                <img ng-src="{{post.imageSrc}}"  width="100%" />
               </div>
              </div>
             <div class="row">
-              <div class="col-sm-2 col-md-2">
-                <img ng-src="{{post.senderPicture}}"  width="50px" height="100px" />
+              <div class="col-xs-4 col-md-4">
+              <md-button ng-click="goToProfile(post.senderID)" >
+                <img ng-src="{{post.senderPicture}}"  width="80px" height="100px" />
+              </md-button>
+              </div>
+              <div class="col-sm-10 col-md-10">
+                <md-button ng-click="goToProfile(post.senderID)" > {{post.senderID}}</md-button>
+                <font size="2"><div>Timestamp: {{post.postDate}}</div></font>
+                <div><font size="5">{{post.message}}</font></div>
               </div>
               <div class="col-sm-offset-10">
               </div>
             </div>
 
-            <md-button ng-click="goToProfile(post.senderID)"> {{post.senderID}}</md-button>
-
           </md-content>
             <md-divider/>
 
             <md-list class="divider-color">
-              <md-list-item class="md-3-line divider-color" ng-repeat="comment in post.comments">
+              <md-list-item class="md-1-line divider-color" ng-repeat="comment in post.comments">
                 <div class="md-list-item-text" style="background-color: #f5f5f5;">
-                      <div class="row">
-                        <div class="col-sm-2 col-md-2">
-                          <img ng-src="{{comment.senderPicture}}"  width="50px" height="100px" />
-                        </div>
-                        <div class="col-sm-offset-10">
-                        </div>
-                      </div>
-                  <p style="padding-left: 40px; padding-top: 10px;"> {{comment.senderID}} wrote: {{comment.message}}</strong></p>
-                  <p style="padding-left: 40px; padding-top: 10px;"> {{comment.postDate}}</p>
-                  <md-button ng-click="goToProfile(comment.senderID)"> {{comment.senderID}} </md-button>
-                   <md-button class="md-primary" ng-show="profileOwner" ng-click="showConfirmDeleteComment($event, post.$id, comment.commentID)">Delete post</md-button>
-                   <md-divider></md-divider>
-
+                  <div class="row">
+                    <!-- Commenter Pictutre Column -->
+                    <div class="col-xs-3 col-md-2">
+                      <img ng-src="{{comment.senderPicture}}"  width="20px" height="45px" align="left"/>
+                    </div>
+                    <!-- Comment Text Column -->
+                    <div class="col-xs-7 col-sm-7 col-md-7">
+                      <md-button ng-click="goToProfile(comment.senderID)">{{comment.senderID}}</md-button>
+                        <font size="1"><div> {{comment.postDate}}</div></font>
+                        <font size="2"><div>{{comment.message}}</strong></div></font>
+                    </div>
+                    <!-- Delete Icon Column -->
+                    <div class="col-xs-7 col-sm-7 col-md-2 text-right">
+                     <md-button ng-show="profileOwner" ng-click="showConfirmDeleteComment($event, post.$id, comment.commentID)">
+                      <img src="images/icons/trash.png" width="25px" height="25px"/>
+                     </md-button>
+                    </div> 
+                  </div>
+                  <md-divider></md-divider>
                 </div>
               </md-list-item>
             </md-list>
-            <form role="form">
+            <form role="form" ng-submit="addComment(post.$id, commentText)" id="commentForm">
               <div class="input-group" style="z-index: 1;">
                 <input type="text" class="form-control" placeholder="Write a comment..." ng-model="commentText" maxlength="200">
                 <span class="input-group-btn">

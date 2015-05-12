@@ -37,6 +37,7 @@ module.exports = function(config) {
       'bower_components/angular-utils-pagination/dirPagination.js',
       'bower_components/angular-facebook/lib/angular-facebook.js',
       'bower_components/angular-native-picker/build/angular-datepicker.js',
+      'bower_components/async/lib/async.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',
