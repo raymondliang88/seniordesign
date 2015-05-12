@@ -32,11 +32,12 @@
     $scope.loaded = true;
     };
 
-/*      async.parallel([
-          function(callback){
-            $scope.loadProfiles();
-          }
-        ]);*/
+    $scope.searchProfiles = function(name){
+      if(!$scope.loaded){
+        $scope.loadProfiles();
+        $scope.loaded = true;
+      }
+    };
 
     $scope.advancedSearch = function(input){
       if(!$scope.loaded){
@@ -96,8 +97,6 @@
         }
       }
       $scope.selections = s;
-      console.log('input: ', input);
-      console.log('total selections: ', $scope.selections);
     };
 
   }).directive('keyboardPoster', function($parse, $timeout){

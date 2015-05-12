@@ -50,12 +50,13 @@
         <div class="row">
         <div class="event">
             <div class="col-xs-6 col-md-3 text-center" ng-repeat="friend in commonFriends" 
-                style="width: 10em; height: 10em;">
-              <md-button ng-click="goToProfile(friend.friendID)" style="width: 50%; height: 50%">
+                style="width: 15em; height: 12em; padding: 0">
+              <md-button ng-click="goToProfile(friend.friendID)" style="width: 40%; height: 40%;">
               <img src={{friend.picture}} class="img-responsive"/> <br >
-              <small>{{friend.firstName}} {{friend.lastName}}</small>
               </img>
-              </md-button><br>
+              </md-button>
+              <br>
+              <small style="text-align:center;">{{friend.firstName}} {{friend.lastName}}</small>
           </div>
         </div>
         </div>
