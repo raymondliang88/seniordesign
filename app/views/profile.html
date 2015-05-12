@@ -1,6 +1,6 @@
 
     <div class="personal-profile">
-        <img align="left" class="personal-image-lg" src="http://orientation.ucr.edu/images/cropped-ucr-picture.jpg" alt="Profile image" />
+        <img align="left" class="personal-image-lg" src="images/cropped-ucr-picture.jpg" alt="Profile image" />
         <img align="left" class="personal-image-profile thumbnail" src={{profileData.picture}} alt="Profile image example"/>
         <div class="personal-profile-text">
             <h1>{{profileData.firstName}} {{profileData.lastName}} <button ng-hide="showAddFriend(profileOwner, isMyFriend);"><small>Add Friend</small></button></h1>
@@ -180,7 +180,7 @@
             <md-divider/>
 
             <md-list class="divider-color">
-              <md-list-item class="md-1-line divider-color md-padding" ng-repeat="comment in post.comments">
+              <md-list-item class="md-1-line divider-color md-padding" ng-repeat="comment in post.comments" >
                 <div class="md-list-item-text md-padding" style="background-color: #f5f5f5;">
                   <div class="row">
                     <!-- Commenter Pictutre Column -->
