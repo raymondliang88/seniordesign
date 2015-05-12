@@ -101,15 +101,6 @@
       <!-- end Video -->
     </div>
 
-    <script type="text/javascript">
-    $(function() {
-      $('#tab a').click(function (e) {
-        e.preventDefault()
-        $(this).tab('show')
-      })
-    })
-    </script>
-
     <!-- Right-handed side -->
 <div class="col-md-6 col-xs-12">
   <div class="row">
@@ -185,7 +176,9 @@
                   <div class="row">
                     <!-- Commenter Pictutre Column -->
                     <div class="col-xs-3 col-md-2">
-                      <img ng-src="{{comment.senderPicture}}" align="left" style="padding:5px;"/>
+                      <md-button ng-click="goToProfile(comment.senderID)" aria-label="">
+                        <img ng-src="{{comment.senderPicture}}" align="left" style="padding:5px;"/>
+                      <md-button>
                     </div>
                     <!-- Comment Text Column -->
                     <div class="col-s-6 col-sm-6 col-md-6">
