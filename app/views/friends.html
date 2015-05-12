@@ -19,7 +19,7 @@
   </md-content>
 
   <md-content dir-paginate="friend in friendProfiles | filter:q | itemsPerPage: pageSize" current-page="currentPage" ng-show="data.group1 == 'Friends'">
-    <md-toolbar class="md-accent" style="position: relative; z-index: 1;">
+    <md-toolbar class="md-primary md-hue-2" style="position: relative; z-index: 1;">
       <div class="md-toolbar-tools">
         <h2 class="md-headline md-flex">{{friend.firstName}}  {{friend.lastName}}</h2>
       </div>
@@ -52,7 +52,7 @@
 
   <md-content style="margin: 20px" dir-paginate="user in allProfiles | filter:q | itemsPerPage: pageSize" current-page="currentPage" ng-show="data.group1 == 'Everyone'">
     <md-card>
-      <md-toolbar class="md-accent" style="position: relative; z-index: 1;">
+      <md-toolbar class="md-primary md-hue-2" style="position: relative; z-index: 1;">
         <div class="md-toolbar-tools">
           <h2 class="md-headline md-flex">{{user.firstName}}  {{user.lastName}}</h2>
         </div>
@@ -78,7 +78,7 @@
           two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
  -->        </p>
         <div class="md-actions" layout="row" layout-align="end center">
-          <md-button aria-label="Add Friend" class="md-fab" ng-click="addFriend(user.$id, user.firstName, user.lastName)">
+          <md-button aria-label="Add Friend" style="position: relative; z-index: 1;" class="md-fab" ng-click="addFriend(user.$id, user.firstName, user.lastName)">
             Add
           </md-button>
         </div>
@@ -88,7 +88,7 @@
 
   <md-content style="margin: 20px" dir-paginate="request in friendRequests | filter:q | itemsPerPage: pageSize" current-page="currentPage" ng-show="data.group1 == 'FriendRequests'">
     <md-card>
-      <md-toolbar class="md-accent" style="position: relative; z-index: 1;">
+      <md-toolbar class="md-primary md-hue-2" style="position: relative; z-index: 1;">
         <div class="md-toolbar-tools">
           <h2 class="md-headline md-flex">{{request.firstName}}  {{request.lastName}}</h2>
         </div>
@@ -111,10 +111,10 @@
         </p>
 
         <div class="md-actions" layout="row" layout-align="end center">
-          <md-button class="md-fab" ng-click="confirmFriendRequest(request.$id, request.firstName, request.lastName, 1)" aria-label="Add">
+          <md-button class="md-fab"  style="position: relative; z-index: 1;" ng-click="confirmFriendRequest(request.$id, request.firstName, request.lastName, 1)" aria-label="Add">
             Add
           </md-button>
-          <md-button class="md-fab" ng-click="confirmFriendRequest(request.$id, request.firstName, request.lastName, 0)"aria-label="Reject">
+          <md-button class="md-fab" style="position: relative; z-index: 1;" ng-click="confirmFriendRequest(request.$id, request.firstName, request.lastName, 0)"aria-label="Reject">
             Reject
           </md-button>
         </div>

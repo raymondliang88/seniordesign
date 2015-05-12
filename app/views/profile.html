@@ -30,12 +30,12 @@
             <div class="col-md-4">
               <p><strong>Favorite Movie: </strong> </p>
               <ul class="list-group">
-                <li class="label label-info" ng-repeat="movie in profileData.movies ">{{movie}}</li>
+                <li class="label label-info" style="margin: 5px;" ng-repeat="movie in profileData.movies ">{{movie}}</li>
               </ul>
 
               <p><strong>Favorite Music: </strong> </p>
               <ul class="list-group">
-                <li class="label label-info" ng-repeat="movie in profileData.music ">{{movie}}</li>
+                <li class="label label-info" style="margin: 5px;" ng-repeat="movie in profileData.music ">{{movie}}</li>
               </ul>
             </div>
           </div>
@@ -145,7 +145,10 @@
       <div ng-repeat="post in postData | orderBy:'-timeStamp'">
         <md-card>
           <div class="md-actions default-primary-color" layout="row" layout-align="end end">
-            <md-button style="color: white;" ng-show="profileOwner" aria-label="" ng-click="showConfirmDeletePost($event, post.$id)">Delete post</md-button>
+            <md-button style="color: white;" ng-show="profileOwner" aria-label="" ng-click="showConfirmDeletePost($event, post.$id)">
+             <md-icon md-svg-src="images/icons/ic_cancel_48px.svg"></md-icon>
+
+            </md-button>
           </div>
 
           <div class="md-actions default-primary-color md-padding" layout="row" layout-align="end end">
