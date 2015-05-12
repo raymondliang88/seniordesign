@@ -13,8 +13,8 @@ angular.module('projectsApp')
       var ref = new Firebase(firebaseService.getFirebBaseURL());
       var authObj = $firebaseAuth(ref);
       var authData = authObj.$getAuth();
+      
       $scope.userCurrent;
-
       $scope.user;
       $scope.alert = '';
       $scope.movie;
@@ -52,7 +52,7 @@ angular.module('projectsApp')
         ref.child('profileInfo').child($scope.userCurrent.uid).update({
             movies: $scope.movies
           });
-      }
+      };
 
       $scope.addMusic = function(name) {
         $scope.musics.push(name);
@@ -67,7 +67,7 @@ angular.module('projectsApp')
         ref.child('profileInfo').child($scope.userCurrent.uid).update({
             music: $scope.musics
           });
-      }
+      };
 
 
       if (authData) {
@@ -164,7 +164,7 @@ angular.module('projectsApp')
           });
           $scope.userCurrent.aboutMe = user.aboutMe;
         }
-        $scope.savedStatus = "Saved!";
+        $scope.savedStatus = 'Saved!';
       }
     };
 
@@ -191,9 +191,9 @@ angular.module('projectsApp')
         $('#post-imagepreview').attr('src', e.target.result);
         $scope.imageSrc = e.target.result;
         $scope.addImagePost();
-      }
+      };
       reader.readAsDataURL(file); 
-    }
+    };
 
     //add an image post
       $scope.addImagePost = function() {
