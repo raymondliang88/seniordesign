@@ -6,7 +6,7 @@
             <h1>{{profileData.firstName}} {{profileData.lastName}} <button ng-hide="showAddFriend(profileOwner, isMyFriend);"><small>Add Friend</small></button></h1>
         </div>
     </div>
- 
+
 
 <div layout="column" flex layout-fill ng-controller='ToolBarCtrl' class="md-primary" md-padding>
   <div class="row">
@@ -17,7 +17,7 @@
             <div class="col-md-7">
               <p ng-show="{{profileOwner}}">Welcome back!</p>
               <p><span class="btn btn-success" ng-show="profileData.loggedIn">Online</span> <span class="btn btn-default" ng-show="!profileData.loggedIn">off-line</span> </p>
-              
+
               <p><strong>About Me: </strong> {{profileData.aboutMe}}</p>
               <p><strong>Email: </strong> {{profileData.email}} </p>
               <p><strong>Studied: </strong> {{profileData.school}} </p>
@@ -49,7 +49,7 @@
         <h4>Friends In Common - <small>{{commonFriends.length}}</small></h4>
         <div class="row">
         <div class="event">
-            <div class="col-xs-6 col-md-3 text-center" ng-repeat="friend in commonFriends" 
+            <div class="col-xs-6 col-md-3 text-center" ng-repeat="friend in commonFriends"
                 style="width: 10em; height: 10em;">
               <md-button ng-click="goToProfile(friend.friendID)" style="width: 50%; height: 50%">
               <img src={{friend.picture}} class="img-responsive"/> <br >
@@ -109,7 +109,7 @@
     <div class="col-sm-12 col-md-12">
       <div class="user-info-block">
       </div>
-      
+
             <div id="tab" class="btn-group" data-toggle="buttons-radio">
               <ul class="nav nav-tabs">
                 <li><a href="#new_post" class="btn" data-toggle="tab">New Post</a></li>
@@ -134,12 +134,12 @@
                     <span class="input-group-btn">
                       <button class="btn btn-warning" ng-click="addImagePost('', postFile)" tabindex="0"> Send</button>
                     </span>
-                   
+
                   </div>
                    <button ng-click="removeUpload();">Remove</button>
               </div>
             </div>
-      
+
             <br /><br />
           </div>
         </div>
@@ -151,7 +151,7 @@
         </div> -->
         <md-card>
           <div class="md-actions accent-color" layout="row" layout-align="end end">
-            <md-button style="color: white;" ng-show="profileOwner" ng-click="showConfirmDeletePost($event, post.$id)">Delete post</md-button>
+            <md-button style="color: white;" ng-show="profileOwner" aria-label="" ng-click="showConfirmDeletePost($event, post.$id)">Delete post</md-button>
           </div>
           <md-content class="md-default-theme md-padding">
             <div class="row">
@@ -161,7 +161,7 @@
              </div>
             <div class="row">
               <div class="col-xs-4 col-md-4">
-              <md-button ng-click="goToProfile(post.senderID)" >
+              <md-button ng-click="goToProfile(post.senderID)" aria-label="">
                 <img ng-src="{{post.senderPicture}}"  width="80px" height="100px" />
               </md-button>
               </div>
@@ -193,10 +193,10 @@
                     </div>
                     <!-- Delete Icon Column -->
                     <div class="col-xs-7 col-sm-7 col-md-2 text-right">
-                     <md-button ng-show="profileOwner" ng-click="showConfirmDeleteComment($event, post.$id, comment.commentID)">
+                     <md-button ng-show="profileOwner" aria-label="" ng-click="showConfirmDeleteComment($event, post.$id, comment.commentID)">
                       <img src="images/icons/trash.png" width="25px" height="25px"/>
                      </md-button>
-                    </div> 
+                    </div>
                   </div>
                   <md-divider></md-divider>
                 </div>
