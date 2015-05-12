@@ -107,6 +107,64 @@ body {
  width: 10%;
 }
 
+/* Added CSS */
+.day{
+  font-size: 32px;
+}
+
+.month{
+  font-size:12px
+}
+.date{
+  display:block ;
+  position: absolute;
+  left: 0px;
+  top: 50px; /* how far from the top do push it down */
+
+  background-color: #333;
+  color: #fff; /* text color */
+  width: 80px;
+  height: 80px;
+  border-radius: 50%; /* set radius 50% of the width */
+  text-align: center;
+  padding: 20px;
+  line-height: 14pt;
+}
+
+
+
+
+
+.personal-profile img.personal-image-lg{
+    z-index: 0;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.personal-image-profile
+{
+    margin: -90px 10px 0px 50px;
+    z-index: 9;
+    width: 20%; 
+}
+
+@media (max-width:768px)
+{
+    
+  .personal-profile-text > h1 {
+      font-weight: 700;
+      font-size:16px;
+  }
+
+  .personal-image-profile
+  {
+      margin: -45px 10px 0px 25px;
+      z-index: 9;
+      width: 20%; 
+  }
+}
+
+
 .dark-primary-color    { background: #303F9F; }
 .default-primary-color { background: #3F51B5; }
 .light-primary-color   { background: #C5CAE9; }

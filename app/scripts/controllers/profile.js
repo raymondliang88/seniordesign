@@ -19,11 +19,6 @@ angular.module('projectsApp')
       var profileDataRef = new Firebase('https://shining-torch-23.firebaseio.com/profileInfo/'+ profileUID);
       $scope.profileData = $firebaseObject(profileDataRef);
 
-      //postData returns a list of post
-      var profilePostRef = new Firebase('https://shining-torch-23.firebaseio.com/posts/'+ profileUID);
-      $scope.postData = $firebaseArray(profilePostRef);
-      console.log('Post data' + $scope.postData);
-
       //timestamp
       var getTime = function() {
         var date = new Date();
@@ -36,44 +31,71 @@ angular.module('projectsApp')
                 date.getMilliseconds()].join(':');
       }
 
-          $scope.commonFriends = [];
+      $scope.commonFriends = [];
 
 
-    //Find number of friends in common
-    var profileFriends = new Firebase('https://shining-torch-23.firebaseio.com/friends/'+ param.user);
-    var profileObj = $firebaseObject(profileFriends);
-    profileObj.$loaded()
-    .then(function(data) {
-      var profileList = {};
-      if (data.friendList !== undefined) {
-          profileList = data.friendList;
-      }
-      var userFriends = new Firebase('https://shining-torch-23.firebaseio.com/friends/'+ authData.uid);
-      var userObj = $firebaseObject(userFriends);
-      userObj.$loaded()
-      .then(function(data) {
-        var userList = {};
-        if(data.friendList !== undefined){
-          userList = data.friendList;
-        }
-        for(var id in userList){
-          if(profileList[id] !== undefined){
-            //ID Found
-            //$scope.commonFriends.push(id);
-            //console.log(id);
-            var profileInfo = new Firebase('https://shining-torch-23.firebaseio.com/profileInfo/'+ id);
-            var info = $firebaseObject(profileInfo);
-            info.$loaded()
-            .then(function(data) {
-              $scope.commonFriends.push(data.firstName + ' ' + data.lastName);
-            });
+      //Check if I already friend with this profile
+      $scope.isMyFriend = false;
+      var friendDataRef = new Firebase('https://shining-torch-23.firebaseio.com/friends/'+authData.uid+'/friendList/'+param.user);
+      var friendObject = $firebaseObject(friendDataRef);
+      friendObject.$loaded().then(function(data) {
+        $scope.isMyFriend = data.$value == null ? false: true;
+      })
+
+  
+      async.parallel([
+          function(callback){
+              //postData returns a list of post
+              var profilePostRef = new Firebase('https://shining-torch-23.firebaseio.com/posts/'+ profileUID);
+              $scope.postData = $firebaseArray(profilePostRef);
+              console.log('Post data' + $scope.postData);
+          
+          },
+          function(callback){
+
+
+            //Find number of friends in common
+              var profileFriends = new Firebase('https://shining-torch-23.firebaseio.com/friends/'+ param.user);
+              var profileObj = $firebaseObject(profileFriends);
+              profileObj.$loaded()
+              .then(function(data) {
+                var profileList = {};
+                if (data.friendList !== undefined) {
+                    profileList = data.friendList;
+                }
+                var userFriends = new Firebase('https://shining-torch-23.firebaseio.com/friends/'+ authData.uid);
+                var userObj = $firebaseObject(userFriends);
+                userObj.$loaded()
+                .then(function(data) {
+                  var userList = {};
+                  if(data.friendList !== undefined){
+                    userList = data.friendList;
+                  }
+
+                  for(var id in userList){
+                    if(profileList[id] !== undefined){
+                      //ID Found
+                      //$scope.commonFriends.push(id);
+                      //console.log(id);
+                      var profileInfo = new Firebase('https://shining-torch-23.firebaseio.com/profileInfo/'+ id);
+                      var info = $firebaseObject(profileInfo);
+                      info.$loaded()
+                      .then(function(data) {
+                        //$scope.commonFriends.push(data.firstName + ' ' + data.lastName);
+                        var info = {friendID: data.$id, firstName: data.firstName, lastName: data.lastName, picture: data.picture};
+                        $scope.commonFriends.push(info);
+                      });
+                    }
+                  }
+                });
+              })
+              .catch(function(error) {
+                console.error('Error:', error);
+              });
+
           }
-        }
-      });
-    })
-    .catch(function(error) {
-      console.error('Error:', error);
-    });
+      ]);
+
 
 
       //add a new post
@@ -87,6 +109,7 @@ angular.module('projectsApp')
           senderPicture: $scope.myselfData.picture,
           message: message
         });
+        document.getElementById("postForm").reset();
       };
 
       $scope.removePost = function(postID) {
@@ -172,6 +195,7 @@ angular.module('projectsApp')
           var id = ref.key();
           ref.update({commentID: id});
         });
+        document.getElementById("commentForm").reset();
       }
 
 
@@ -186,14 +210,14 @@ angular.module('projectsApp')
         var imgID = imgSrc.getAttribute('id');
         $('#'+imgID).attr('src', e.target.result);
         $scope.imageSrc = e.target.result;
-        console.log($scope.imageSrc);
+        
       }
       reader.readAsDataURL(file);
     }
 
     $scope.getPostFile = function(file) {
       var reader = new FileReader();
-      console.log(file);
+      
       reader.onload = function (e) {
         $('#post-imagepreview').attr('src', e.target.result);
         //Set post file
@@ -207,5 +231,12 @@ angular.module('projectsApp')
       $scope.postFile = 0;
       $scope.imgSrc = 0;
       $('#post-imagepreview').attr('src', 0);
+    }
+
+    $scope.showAddFriend = function(owner, isFriend) {
+      if(owner || isFriend)
+        return true;
+      else
+        return false;
     }
 });
