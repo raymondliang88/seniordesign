@@ -11,12 +11,15 @@
 <div layout="column" flex layout-fill ng-controller='ToolBarCtrl' class="md-primary" md-padding>
   <div class="row">
     <div class="col-md-5 col-xs-12">
+          <div class="md-actions default-primary-color md-padding" layout="row" layout-align="end end">
+            <md-button style="color: white;" ng-show="true" aria-label="">{{}}</md-button>
+          </div>
       <div class="well panel panel-default">
         <div class="panel-body">
           <div class="row">
             <div class="col-md-7">
               <p ng-show="{{profileOwner}}">Welcome back!</p>
-              <p><span class="btn btn-success" ng-show="profileData.loggedIn">Online</span> <span class="btn btn-default" ng-show="!profileData.loggedIn">off-line</span> </p>
+              <p><span class="btn btn-success" ng-show="profileData.loggedIn">Online</span> <span class="btn btn-danger" ng-show="!profileData.loggedIn">Offline</span> </p>
 
               <p><strong>About Me: </strong> {{profileData.aboutMe}}</p>
               <p><strong>Email: </strong> {{profileData.email}} </p>
@@ -43,6 +46,9 @@
 
       <!-- friends -->
 <div class="panel panel-default">
+          <div class="md-actions default-primary-color md-padding" layout="row" layout-align="end end">
+            <md-button style="color: white;" ng-show="true" aria-label="">{{}}</md-button>
+          </div>
   <div class="panel-body">
     <div class="row">
       <div class="col-xs-12 col-sm-12">
@@ -69,7 +75,7 @@
 </div>
 
       <!-- pictures -->
-<div class="panel panel-default">
+<div class="panel panel-default" ng-hide="true">
   <div class="panel-body">
     <div class="row">
       <div class="col-xs-12 col-sm-12">
@@ -124,7 +130,7 @@
                     <div class="input-group">
                       <input type="text" class="form-control" placeholder="Share something here..." maxlength="200" ng-model="postText">
                       <span class="input-group-btn">
-                        <button class="btn btn-warning">Send</button>
+                        <button class="btn btn-danger">Send</button>
                       </span>
                     </div><!-- /input-group -->
                 </form>
@@ -146,32 +152,27 @@
         </div>
       <!-- Post section -->
       <div ng-repeat="post in postData | orderBy:'-timeStamp'">
-<!--         <div ng-class="date">
-            <span ng-class="day">22</span><br>
-            <span ng-class="month">Apr</span>
-        </div> -->
         <md-card>
-          <div class="md-actions accent-color" layout="row" layout-align="end end">
+          <div class="md-actions default-primary-color" layout="row" layout-align="end end">
             <md-button style="color: white;" ng-show="profileOwner" aria-label="" ng-click="showConfirmDeletePost($event, post.$id)">Delete post</md-button>
           </div>
+
+          <div class="md-actions default-primary-color md-padding" layout="row" layout-align="end end">
+            <md-button style="color: white;" ng-show="!profileOwner" aria-label="">{{}}</md-button>
+          </div>
+
           <md-content class="md-default-theme md-padding">
             <div class="row">
-              <div class="col-xs-5 col-md-4">
-               <img ng-src="{{post.imageSrc}}"  width="100%" />
-              </div>
-             </div>
-            <div class="row">
               <div class="col-xs-4 col-md-4">
-              <md-button ng-click="goToProfile(post.senderID)" aria-label="">
-                <img ng-src="{{post.senderPicture}}"  width="80px" height="100px" />
-              </md-button>
+                <md-button ng-click="goToProfile(post.senderID)" aria-label="">
+                  <img ng-src="{{post.senderPicture}}"  />
+                </md-button>
               </div>
-              <div class="col-sm-10 col-md-10">
-                <md-button ng-click="goToProfile(post.senderID)" > {{post.senderID}}</md-button>
-                <font size="2"><div>Timestamp: {{post.postDate}}</div></font>
+              <div class="col-sm-6 col-md-6">
+                <md-button ng-click="goToProfile(post.senderID)">{{post.senderID}}</md-button>
+                <font size="1"><div>{{post.postDate}}</div></font>
                 <div><font size="5">{{post.message}}</font></div>
-              </div>
-              <div class="col-sm-offset-10">
+               <img ng-src="{{post.imageSrc}}"  width="100%" />
               </div>
             </div>
 
@@ -179,25 +180,25 @@
             <md-divider/>
 
             <md-list class="divider-color">
-              <md-list-item class="md-1-line divider-color" ng-repeat="comment in post.comments">
-                <div class="md-list-item-text" style="background-color: #f5f5f5;">
+              <md-list-item class="md-1-line divider-color md-padding" ng-repeat="comment in post.comments">
+                <div class="md-list-item-text md-padding" style="background-color: #f5f5f5;">
                   <div class="row">
                     <!-- Commenter Pictutre Column -->
                     <div class="col-xs-3 col-md-2">
-                      <img ng-src="{{comment.senderPicture}}"  width="20px" height="45px" align="left"/>
+                      <img ng-src="{{comment.senderPicture}}" align="left" style="padding:5px;"/>
                     </div>
                     <!-- Comment Text Column -->
-                    <div class="col-xs-7 col-sm-7 col-md-7">
+                    <div class="col-s-6 col-sm-6 col-md-6">
                       <md-button ng-click="goToProfile(comment.senderID)">{{comment.senderID}}</md-button>
                         <font size="1"><div> {{comment.postDate}}</div></font>
                         <font size="2"><div>{{comment.message}}</strong></div></font>
                     </div>
                     <!-- Delete Icon Column -->
-                    <div class="col-xs-7 col-sm-7 col-md-2 text-right">
-                     <md-button ng-show="profileOwner" aria-label="" ng-click="showConfirmDeleteComment($event, post.$id, comment.commentID)">
-                      <img src="images/icons/trash.png" width="25px" height="25px"/>
+                    <div class="md-actions" layout="row" layout-align="end end" layout-margin>
+                     <md-button ng-show="profileOwner" aria-label="" ng-click="showConfirmDeleteComment($event, post.$id, comment.commentID)" style="margin: 10px">
+                     <md-icon md-svg-src="images/icons/ic_delete_48px.svg"></md-icon>
                      </md-button>
-                    </div>
+                   </div>
                   </div>
                   <md-divider></md-divider>
                 </div>
@@ -207,7 +208,10 @@
               <div class="input-group" style="z-index: 1;">
                 <input type="text" class="form-control" placeholder="Write a comment..." ng-model="commentText" maxlength="200">
                 <span class="input-group-btn">
-                  <button class="btn btn-primary" type="button" ng-click="addComment(post.$id, commentText)">SEND</button>
+                  <md-button class="btn md-accent" type="button" ng-click="addComment(post.$id, commentText)">SEND
+                <md-icon md-svg-src="images/icons/ic_send_48px.svg"></md-icon>
+                    </md-button>
+                   <!-- <md-icon md-svg-src="images/icons/ic_send_48px.svg"></md-icon> -->
                 </span>
               </div>
             </form>
