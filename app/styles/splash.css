@@ -7,9 +7,16 @@
   background: #303F9F;
   margin-bottom: 4em;
 }
+.splash-info{
+  position: relative;
+  margin-top: 1em;
+  width: 100%;
+  background: #F5F5F5;
+  margin-bottom: 2em;
+}
 .splash-title {
   margin: 0 0;
-  font-family: 'Arial', sans-serif;
+  font-family: 'FontAwesome', sans-serif;
   display: block;
   letter-spacing: 1px;
   text-align: center;
