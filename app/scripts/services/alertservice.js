@@ -11,7 +11,7 @@
 angular.module('projectsApp')
   .service('alertService', function ($mdDialog) {
       return {
-        show: function(title,msg,event) {
+        show: function(title,msg) {
         $mdDialog.show(
           $mdDialog.alert()
             .title(title)
@@ -20,5 +20,5 @@ angular.module('projectsApp')
             .ok('close')
         );
         }
-      }
+      };
   });

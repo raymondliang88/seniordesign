@@ -18,21 +18,25 @@
     var ref = new Firebase(firebaseService.getFirebBaseURL());
     $scope.loadProfiles = function(){
       ref.child('profileInfo').once('value', function (snapshot) {
-        console.log('...fetch users...');
-        snapshot.forEach(function(child) {
-          var key = child.key();
-          var val = child.val();
-          var profile = {};
-          profile.key = key;
-          profile.val = val;
-          $scope.profiles.push(profile);
-        })
+      console.log('...fetch users...');
+      snapshot.forEach(function(child) {
+        var key = child.key();
+        var val = child.val();
+        var profile = {};
+        profile.key = key;
+        profile.val = val;
+        $scope.profiles.push(profile);
       });
-      //$scope.selections = $scope.profiles;
-      $scope.loaded = true;
+    });
+    //$scope.selections = $scope.profiles;
+    $scope.loaded = true;
     };
 
-    $scope.loadProfiles();
+/*      async.parallel([
+          function(callback){
+            $scope.loadProfiles();
+          }
+        ]);*/
 
     $scope.advancedSearch = function(input){
       if(!$scope.loaded){
@@ -110,7 +114,7 @@
         $timeout.cancel(currentTimeout)
       }
       currentTimeout = $timeout(function(){
-           poster(angular.element(element).val());
+        poster(angular.element(element).val());
       }, DELAY_TIME_BEFORE_POSTING)
     }
   }

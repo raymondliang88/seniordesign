@@ -6,13 +6,14 @@
           <md-icon md-svg-icon="images/icons/menu.svg" ></md-icon>
       </md-button>
       <span flex></span>
-      some cool logo
+      <img src="../../images/logo.png">
       <span flex></span>
       <span flex></span>
       <span ></span>
       <md-button ng-click='checkPending()'>
-        Pending Friends {{pendingTotal}}
+        <span class="btn btn-danger" ng-show="pendingTotal"> <i class="glyphicon glyphicon-user badge">{{pendingTotal}}</i></span>
       </md-button>
+      
 			<input ng-model="user.name" type="text" class="form-control" flex placeholder="Name">
 
     <!-- TODO: Add action="" to take to selectedProfile -->

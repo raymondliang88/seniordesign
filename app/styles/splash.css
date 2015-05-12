@@ -1,0 +1,103 @@
+@font-face{font-family:'FontAwesome';src:url('font/fontawesome-webfont.eot?v=4.0.1');src:url('font/fontawesome-webfont.eot?#iefix&v=4.0.1') format('embedded-opentype'),url('font/fontawesome-webfont.woff?v=4.0.1') format('woff'),url('font/fontawesome-webfont.ttf?v=4.0.1') format('truetype'),url('font/fontawesome-webfont.svg?v=4.0.1#fontawesomeregular') format('svg');font-weight:normal;font-style:normal}
+.backsplash {
+  position: relative;
+  margin-top: 0px;
+  width: 100%;
+  height: 32em;
+  background: #303F9F;
+  margin-bottom: 4em;
+}
+.splash-info{
+  position: relative;
+  margin-top: 1em;
+  width: 100%;
+  background: #F5F5F5;
+  margin-bottom: 2em;
+}
+.splash-title {
+  margin: 0 0;
+  font-family: 'FontAwesome', sans-serif;
+  display: block;
+  letter-spacing: 1px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 5em;
+  font-weight: 900;
+  color: #F5F5F5;
+}
+
+.envelope {
+  /* base of the envelope*/
+  margin: 0 auto;
+  width: 14em;
+  height: 8em;
+}
+
+.envelope:before,
+.envelope:after {
+  position: absolute;
+  content: '';
+  border: 0 solid transparent;
+  border-width: 4em 7.5em;
+}
+
+.envelope:after {
+  margin-top: 16em;
+  border-right-color: #ED4C50;
+  border-left-color: #FA565A;
+  border-bottom-color: #FA565A;
+  border-top-color: #FF4081;
+  border-radius: 0 0 .2em .2em;
+  transform: rotate(360deg);
+  box-shadow: 0 1em 1em rgba(0,0,0,.25);
+}
+
+.fadeIn {
+   animation-name: fadeIn;
+   animation-duration: 2s;
+   animation-timing-function: ease-in;
+   animation-iteration-count: 1;
+}
+
+@keyframes fadeIn{
+  0% {opacity: 0;}
+  50% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+.animated { 
+    -webkit-animation-duration: 1.5s; 
+    animation-duration: 1.5s; 
+    -webkit-animation-fill-mode: both; 
+    animation-fill-mode: both; 
+    -webkit-animation-timing-function: linear; 
+    animation-timing-function: linear; 
+} 
+
+@-webkit-keyframes fadeInDown { 
+    0% { 
+        opacity: 0; 
+        -webkit-transform: translateY(-8em); 
+    } 
+    100% { 
+        opacity: 1; 
+        -webkit-transform: translateY(0); 
+    } 
+} 
+
+@keyframes fadeInDown { 
+    0% { 
+        opacity: 0; 
+        transform: translateY(-8em); 
+    } 
+    100% { 
+        opacity: 1; 
+        transform: translateY(0); 
+    } 
+} 
+
+.fadeInDown { 
+    -webkit-animation-name: fadeInDown; 
+    animation-name: fadeInDown; 
+}

@@ -9,7 +9,7 @@
  */
 // AngularJS will instantiate a singleton by calling 'new' on this function
 angular.module('projectsApp')
-  .factory('userService', function (firebaseService) {
+  .factory('userService', function () {
     var user;
     return {
       setCurrentUser: function(val) {
@@ -22,14 +22,13 @@ angular.module('projectsApp')
         user.key = value;
         return user;
       }
-    }
+    };
   })
   .factory('provisionSettings', function ($firebaseAuth, $mdDialog, userService, Facebook) {
   	var firebaseURL = 'https://shining-torch-23.firebaseio.com/';
     var ref = new Firebase(firebaseURL);
     var authObj = $firebaseAuth(ref);
     var authData = authObj.$getAuth();
-    //userService.setCurrentUser(authData);
 
     var saveMoreSettings = function(user, imageSrc) {
       console.log('saving more info...');
@@ -94,8 +93,6 @@ angular.module('projectsApp')
       profileData.$loaded()
         .then(function(data) {
           console.log(data);
-        //data.val.
-
       })
     .catch(function(error) {
       console.error('Error:', error);
@@ -126,7 +123,7 @@ angular.module('projectsApp')
 
       $scope.removeMovie = function(index) {
         $scope.movies.splice(index,1);
-      }
+      };
 
       $scope.addMusic = function(name) {
         $scope.musics.push(name);
@@ -135,7 +132,7 @@ angular.module('projectsApp')
 
       $scope.removeMusic = function(index) {
         $scope.musics.splice(index,1);
-      }
+      };
 
       $scope.import = function(provider) {
         //$mdDialog.hide()
@@ -220,8 +217,7 @@ angular.module('projectsApp')
             console.log('About Me: ' + resp.aboutMe); //todo: add to text when added to about html
             if(resp.organizations !== undefined){
               for (var i = resp.organizations.length - 1; i >= 0; i--) {
-                if(resp.organizations[i].type == 'school'){
-                  console.log('School: ' + resp.organizations[i].name);
+                if(resp.organizations[i].type === 'school'){
                   $scope.$apply(function() {
                     $scope.user.school = resp.organizations[i].name;
                   });
@@ -239,7 +235,7 @@ angular.module('projectsApp')
             console.log('Error: ' + reason.result.error.message);
           });
         });
-      };
+      }
 
       $scope.getFile = function (file) {
         // check if file size is 5MB+
@@ -264,7 +260,7 @@ angular.module('projectsApp')
           //templateUrl: 'views/about.tmpl.html'
           templateUrl: 'views/provision.tmpl.html'
         })
-          .then(function(input){
+          .then(function(){
             //Confirmed, pass input
             console.log('confirming...');
           }, function(){
@@ -276,12 +272,12 @@ angular.module('projectsApp')
     return {
       getMoreUserInfo: function(provisionSettings) {
         console.log('provisionSettings: ' + provisionSettings);
-        if (provisionSettings == '0') {
+        if (provisionSettings === '0') {
           showAboutForm();
         }
       },
       getUserProvision: function(callback) {
-        var provisionedData = ref.child('privacySettings').child(authData.uid).child('provisionSettings').once('value', function (snapshot) {
+        ref.child('privacySettings').child(authData.uid).child('provisionSettings').once('value', function (snapshot) {
           var val = snapshot.val();
           callback(val);
           return val;
