@@ -107,14 +107,14 @@
     <div class="col-sm-12 col-md-12">
       <div class="user-info-block">
       </div>
-
             <div id="tab" class="btn-group" data-toggle="buttons-radio">
               <ul class="nav nav-tabs">
-                <li><a href="#new_post" class="btn" data-toggle="tab">New Post</a></li>
-                <li><a href="#new_upload" class="btn" data-toggle="tab">Upload</a></li>
+                <li><span href="#new_post" class="btn" data-toggle="tab">New Post</span></li>
+                <li><span href="#new_upload" class="btn" data-toggle="tab">Upload</span></li>
               </ul>
             </div>
-            <br />
+            <br/>
+
             <div class="tab-content">
               <div class="tab-pane active" id="new_post">
                 <form ng-submit="addTextPost(postText)" id="postForm">
@@ -127,18 +127,17 @@
                 </form>
               </div>
               <div class="tab-pane" id="new_upload">
-                  <div class="input-group">
-                    <input class="btn btn-primary form-control" name="post-file" ng-upload="getPostFile($files)" type="file" />
-                    <span class="input-group-btn">
-                      <button class="btn btn-danger" ng-click="addImagePost('', postFile)" tabindex="0"> Send</button>
-                    </span>
-
-                  </div>
-                   <button ng-click="removeUpload();">Remove</button>
+                <div class="input-group">
+                  <input class="btn btn-primary form-control" name="post-file" ng-upload="getPostFile($files)" type="file"/>
+                  <span class="input-group-btn">
+                    <button class="btn btn-danger" ng-click="addImagePost('', postFile)" tabindex="0"> Send</button>
+                  </span>
+                </div>
+                <button ng-click="removeUpload();">Remove</button>
               </div>
             </div>
 
-            <br /><br />
+            <br/><br/>
           </div>
         </div>
       <!-- Post section -->
