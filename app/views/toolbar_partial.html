@@ -43,7 +43,8 @@
   </md-toolbar>
 	<md-content ng-controller="LeftCtrl" layout-padding>
 	<!--dashboard  -->
-    Logged in as {{userid}}
+    <p> Logged in as {{userid}}</p>
+
 		<md-content layout-padding>
 			<md-button ng-click="goToDashboard()" class="md-primary">
 			  Dashboard
@@ -92,6 +93,13 @@
 		</md-content>
 
 	</md-content>
+
+  <div class="footer">
+      <div class="container">
+        <p>Made with <span class="glyphicon glyphicon-heart"></span> from the UCRPal team</p>
+      </div>
+  </div>
+
 </md-sidenav>
 
 <!--
