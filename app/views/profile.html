@@ -119,7 +119,7 @@
               <div class="tab-pane active" id="new_post">
                 <form ng-submit="addTextPost(postText)" id="postForm">
                     <div class="input-group">
-                      <input type="text" class="form-control" placeholder="Share something here..." maxlength="200" ng-model="postText">
+                      <input type="text" style="position: relative; z-index: 1;" class="form-control" placeholder="Share something here..." maxlength="200" ng-model="postText">
                       <span class="input-group-btn">
                         <button class="btn btn-danger">Send</button>
                       </span>
@@ -200,8 +200,8 @@
               </md-list-item>
             </md-list>
             <form role="form" ng-submit="addComment(post.$id, commentText)" id="commentForm">
-              <div class="input-group" style="z-index: 1;">
-                <input type="text" class="form-control" placeholder="Write a comment..." ng-model="commentText" maxlength="200">
+              <div class="input-group">
+                <input type="text" style="position: relative; z-index: 1;" class="form-control" placeholder="Write a comment..." ng-model="commentText" maxlength="200">
                 <span class="input-group-btn">
                   <md-button class="btn md-accent" type="button" ng-click="addComment(post.$id, commentText)">SEND
                 <md-icon md-svg-src="images/icons/ic_send_48px.svg"></md-icon>
