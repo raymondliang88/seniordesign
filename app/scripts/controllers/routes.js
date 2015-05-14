@@ -98,6 +98,10 @@ angular.module('projectsApp')
       $state.go('home.dashboard');
     };
 
+    $scope.goToForum = function() {
+      $state.go('home.forum');
+    };
+
     $scope.logout = function(){
       console.log('Logging Out!')
       ref.child('profileInfo').child(authData.uid).update({

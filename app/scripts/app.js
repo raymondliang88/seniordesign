@@ -221,6 +221,22 @@ angular
             }
           }
         }
+      })
+      .state('home.forum', {
+        url: '/forum',
+        views: {
+          'container@': {
+            templateUrl: '/views/forum.html',
+            controller: 'ToolBarCtrl',
+            resolve: {
+              'currentAuth': ['$firebaseAuth', function($firebaseAuth) {
+                var ref = new Firebase('https://shining-torch-23.firebaseio.com/');
+                var authObj = $firebaseAuth(ref);
+                return authObj.$requireAuth();
+              }]
+            }
+          }
+        }
       });
       FacebookProvider.init('1571917669752119');
   });
