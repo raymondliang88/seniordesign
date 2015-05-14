@@ -32,10 +32,10 @@ angular.module('projectsApp')
     var mm = today.getMonth()+1; //January is 0!
     var yyyy = today.getFullYear();
     if(dd<10) {
-        dd='0'+dd
+        dd='0'+dd;
     }
     if(mm<10) {
-        mm='0'+mm
+        mm='0'+mm;
     }
     today = mm+'/'+dd+'/'+yyyy;
     console.log(today);
@@ -101,7 +101,7 @@ angular.module('projectsApp')
           //logged in state
           goToDashboard(userData);
         }).catch(function (error) {
-          if(error.code == 'EMAIL_TAKEN')
+          if(error.code === 'EMAIL_TAKEN')
           {
             var title= 'Error Creating Account';
             var msg = 'The new user account cannot be created because the email is already in use.';
@@ -243,7 +243,8 @@ angular.module('projectsApp')
                   var name = authData.twitter.cachedUserProfile.name; name = name.split(' ');
                   var firstName = name[0];
                   var lastName = name[name.length-1];
-                  var aboutMe = authData.twitter.cachedUserProfile.description;
+                  // should aboutMe be included?
+                  // var aboutMe = authData.twitter.cachedUserProfile.description;
                   var twitterEmail = authData.twitter.cachedUserProfile.screen_name + '@ucrpal.com';
                   var profileImage = authData.twitter.cachedUserProfile.profile_image_url;
 

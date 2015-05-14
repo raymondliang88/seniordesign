@@ -23,7 +23,7 @@ angular.module('projectsApp')
     $scope.close = function () {
       $mdSidenav('left').close()
         .then(function () {
-          $log.debug('close RIGHT is done');
+          // $log.debug('close RIGHT is done');
         });
     };
   })
@@ -53,7 +53,7 @@ angular.module('projectsApp')
       return function() {
         return $mdSidenav(navID).toggle()
           .then(function () {
-            $log.debug('toggle ' + navID + ' is done');
+            // $log.debug('toggle ' + navID + ' is done');
           });
       }
     }
@@ -92,6 +92,10 @@ angular.module('projectsApp')
 
     $scope.goToSettings = function() {
       $state.go('home.settings');
+    };
+
+    $scope.goToFriendRequest = function() {
+      $state.go('home.friendRequests');
     };
 
     $scope.goToDashboard = function() {

@@ -1,0 +1,44 @@
+<!-- <md-content style="margin: 20px" dir-paginate="request in friendRequests | filter:q | itemsPerPage: pageSize" current-page="currentPage" ng-show="data.group1 == 'FriendRequests'">
+  <md-card>
+    <md-toolbar class="md-primary md-hue-2" style="position: relative; z-index: 1;">
+      <div class="md-toolbar-tools">
+        <h2 class="md-headline md-flex">{{request.firstName}}  {{request.lastName}}</h2>
+      </div>
+    </md-toolbar>
+    <md-card-content>
+      <img src={{request.picture}}   width="140" height="120"/>
+      <br>Online: {{request.loggedIn}}</br>
+      <br>Email: {{request.email}}</br>
+      <br>School: {{request.school}}</br>
+      <br>Birthday: {{request.birthday}}</br>
+      <br>Favorite Movie: {{request.movies}}</br>
+      <br>About Me: {{request.aboutMe}}</br>
+      <br></br>
+      <md-divider></md-divider>
+      <p>
+        {{request.aboutMe}}
+      </p>
+
+      <div class="md-actions" layout="row" layout-align="end center">
+        <md-button class="md-fab"  style="position: relative; z-index: 1;" ng-click="confirmFriendRequest(request.$id, request.firstName, request.lastName, 1)" aria-label="Add">
+          Add
+        </md-button>
+        <md-button class="md-fab" style="position: relative; z-index: 1;" ng-click="confirmFriendRequest(request.$id, request.firstName, request.lastName, 0)"aria-label="Reject">
+          Reject
+        </md-button>
+      </div>
+    </md-card-content>
+  </md-card>
+</md-content> -->
+
+<div layout="column" flex layout-fill>
+
+<div class="jumbotron">
+<h1 class="md-display-3">Friend Request</h1>
+  <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
+</div>
+
+</div>
+
+
+This is a friend Request page

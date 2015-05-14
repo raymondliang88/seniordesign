@@ -186,9 +186,27 @@ angular
           }
         }
       })
+      .state('home.friendRequests', {
+        url: '/friendRequests',
+        views: {
+          'container@': {
+            templateUrl: '/views/friendRequests.html',
+            controller: 'FriendRequestController',
+            resolve: {
+            // controller will not be loaded until $requireAuth resolves
+              'currentAuth': ['$firebaseAuth', function ($firebaseAuth) {
+                var ref = new Firebase('https://shining-torch-23.firebaseio.com/');
+                var authObj = $firebaseAuth(ref);
+                return authObj.$requireAuth();
+              }]
+            }
+          }
+        }
+      })
       .state('home.search', {
         url: '/search',
         onEnter: function(){
+
         },
         views: {
           'container@': {
