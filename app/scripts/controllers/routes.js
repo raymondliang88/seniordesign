@@ -29,7 +29,7 @@ angular.module('projectsApp')
   })
 
 angular.module('projectsApp')
-  .controller('ToolBarCtrl', function ($scope, $firebaseAuth, $location, $timeout, $mdSidenav, $log, $state, searchService ) {
+  .controller('ToolBarCtrl', function ($scope, $firebaseAuth, $location, $timeout, $mdSidenav, $log, $state, searchService ,  $firebaseObject) {
     var ref = new Firebase('https://shining-torch-23.firebaseio.com/');
     var authObj = $firebaseAuth(ref);
     var authData = authObj.$getAuth();
@@ -37,11 +37,14 @@ angular.module('projectsApp')
     $scope.userid = authData.uid;
 
     // notification: check # of pending friends
-    var pending = ref.child('pending').child(authData.uid).child('pendingTotal').once('value', function(snapshot) {
-      var val = snapshot.val();
-      $scope.pendingTotal = val;
-      return val;
-    });
+    // var pending = ref.child('pending').child(authData.uid).child('pendingTotal').once('value', function(snapshot) {
+    //   var val = snapshot.val();
+    //   $scope.pendingTotal = val;
+    //   return val;
+    // });
+
+    var friendRequestRef = new Firebase('https://shining-torch-23.firebaseio.com/pending/'+ authData.uid +  '/pendingTotal');
+    $scope.friendRequestObj = $firebaseObject(friendRequestRef);
 
     $scope.toggleRight = buildToggler('right');
     $scope.toggleLeft = buildToggler('left');
