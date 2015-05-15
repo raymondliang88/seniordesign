@@ -8,30 +8,29 @@
  * Controller of the projectsApp
  * */
  angular.module('projectsApp')
- .controller('SearchCtrl', function ($scope, firebaseService) {
+ .controller('ForumCtrl', function ($scope, firebaseService, $firebaseAuth, $firebaseArray) {
     
     var authRef = new Firebase(firebaseService.getFirebBaseURL())
-    var authObj = $firebaseAuth(ref);
+    var authObj = $firebaseAuth(authRef);
     var authData = authObj.$getAuth();
     var forumRef = new Firebase('https://shining-torch-23.firebaseio.com/forumPosts/');
+    $scope.forumData;
 
-    $scope.loadLatest{
-      //Query for the last 20 posts
-      var latest = forumRef.orderByChild("timestamp").limitToLast(20);
-      console.log(latest);
-    };
-
+    //fetch forum posts
     async.parallel([
       function(callback){
-        var profilePostRef = new Firebase('https://shining-torch-23.firebaseio.com/posts/'+ profileUID);
-        $scope.postData = $firebaseArray(profilePostRef);
-        console.log('Post data' + $scope.postData);
+        $scope.forumData = $firebaseArray(forumRef);
+        $scope.forumData.$loaded()
+        .then(function(data){
+          console.log(data);
+        });
       }
     ]);
-    3
-    $scope.createPost(text, title){
+
+    $scope.createThread = function(text, title){
+        $scope.forumData = $firebaseArray(forumRef);
         var time = getTime();
-        $scope.postData.$add({
+        $scope.forumData.$add({
           creatorID: authData.uid,
           postDate: time,
           timeStamp: Firebase.ServerValue.TIMESTAMP, 
@@ -39,18 +38,17 @@
           text: text
         });
         document.getElementById("postForm").reset();
-        $scope.loadLatest();
     };
 
     //timestamp
-      var getTime = function() {
-        var date = new Date();
-        return [date.getMonth()+1,
-                date.getDate(),
-                date.getFullYear()].join('/')+' '+
-                [date.getHours(),
-                date.getMinutes(),
-                date.getSeconds(),
-                date.getMilliseconds()].join(':');
+    var getTime = function() {
+      var date = new Date();
+      return [date.getMonth()+1,
+              date.getDate(),
+              date.getFullYear()].join('/')+' '+
+              [date.getHours(),
+              date.getMinutes(),
+              date.getSeconds(),
+              date.getMilliseconds()].join(':');
       }
  });

@@ -227,7 +227,7 @@ angular
         views: {
           'container@': {
             templateUrl: '/views/forum.html',
-            controller: 'ToolBarCtrl',
+            controller: 'ForumCtrl',
             resolve: {
               'currentAuth': ['$firebaseAuth', function($firebaseAuth) {
                 var ref = new Firebase('https://shining-torch-23.firebaseio.com/');

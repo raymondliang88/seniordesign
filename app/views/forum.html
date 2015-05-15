@@ -2,12 +2,16 @@
         <img align="left" class="personal-image-lg" src="images/cropped-ucr-picture.jpg" alt="Profile image" />
         <img align="left" class="personal-image-profile thumbnail" src={{profileData.picture}} alt="Profile image example"/>
 </div>
-  <form ng-submit="createPost(postText, postTitle)" id="postForm">
+<div layout="column" flex layout-fill ng-controller='ToolBarCtrl' class="md-primary" md-padding>
+  <form ng-submit="createThread(postText, postTitle)" id="postForm">
      <div class="input-group">
       <input type="text" style="position: relative; z-index: 1;" class="form-control" placeholder="Title" ng-model="postTitle" required>
       <input type="text" style="position: relative; z-index: 1;" class="form-control" placeholder="Create a post." ng-model="postText">
+      </div>
       <span class="input-group-btn">
         <button class="btn btn-danger">Send</button>
       </span>
-      </div>
   </form>
+</div>
+
+{{forumData}}
