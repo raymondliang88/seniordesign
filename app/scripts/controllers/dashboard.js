@@ -29,7 +29,6 @@ angular.module('projectsApp')
         console.error('Error:', error);
   });
 
-
   //gets user profile info
   var getUserProfileInfo = function(userid) {
     var userProfileRef = new Firebase('https://shining-torch-23.firebaseio.com/profileInfo/'+ userid);
@@ -48,9 +47,6 @@ angular.module('projectsApp')
 
   $scope.clicked = function() {
     console.log("clicked");
-
-
-
   }
 
   //Chat
