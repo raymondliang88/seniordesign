@@ -271,7 +271,7 @@ angular.module('projectsApp')
     return {
       getMoreUserInfo: function(provisionSettings) {
         console.log('provisionSettings: ' + provisionSettings);
-        if (provisionSettings === '0') {
+        if (provisionSettings === 0) {
           showAboutForm();
         }
       },
