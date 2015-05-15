@@ -1,6 +1,22 @@
-<div layout="column" flex layout-fill ng-controller='ToolBarCtrl'>
-  <div class="jumbotron">
-  <h1 class="md-display-3">Dashboard</h1>
-    <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
-  </div>
+<div layout="column" flex layout-fill class="col-md-3" style="padding-top: 24px;">
+
+<md-card>
+	<md-toolbar class="md-default-theme md-padding">
+	  <h2 class="md-toolbar-tools">
+	    <span>Full Bleed</span>
+	  </h2>
+	</md-toolbar>
+	<md-content>
+	  <md-list>
+	    <md-list-item class="md-3-line md-padding" ng-repeat="friend in friendProfiles">
+	      <div class="md-list-item-text" style="padding: 10px;" ng-click="clicked()">
+	        <h3>{{friend.firstName}} {{friend.lastName}}</h3>
+	        <h4>{{friend.loggedIn}}</h4>
+	      </div>
+	      <md-divider></md-divider>
+	    </md-list-item>
+	  </md-list>
+	</md-content>
+</md-card>
 </div>
+

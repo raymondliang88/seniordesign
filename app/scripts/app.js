@@ -85,7 +85,19 @@ angular
           'container@': {
             templateUrl: '/views/dashboard.html',
             //should use separate controller
-            controller: 'ToolBarCtrl',
+            controller: 'DashboardController',
+            resolve: {
+            // controller will not be loaded until $requireAuth resolves
+              'currentAuth': ['$firebaseAuth', function ($firebaseAuth) {
+                var ref = new Firebase('https://shining-torch-23.firebaseio.com/');
+                var authObj = $firebaseAuth(ref);
+                return authObj.$requireAuth();
+              }]
+            }
+          },
+          'view2@' : {
+            templateUrl: '/views/chat.html',
+            controller: 'ChatController',
             resolve: {
             // controller will not be loaded until $requireAuth resolves
               'currentAuth': ['$firebaseAuth', function ($firebaseAuth) {
