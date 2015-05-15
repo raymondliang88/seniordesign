@@ -18,6 +18,7 @@
     $scope.forumData;
     $scope.profileData;
     $scope.profilePics = {};
+    $scope.profileName = {}
 
     //fetch forum posts, profile data
     async.parallel([
@@ -34,7 +35,8 @@
               //create hash table of poster pics to reference
               var uid = posterInfo.$id;
               $scope.profilePics[uid] = posterInfo.picture;
-              console.log($scope.profilePics);
+              $scope.profileName[uid] = posterInfo.firstName + " " + posterInfo.lastName;
+              console.log($scope.profileName);
             });
           };
         });

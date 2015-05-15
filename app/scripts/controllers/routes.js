@@ -102,6 +102,10 @@ angular.module('projectsApp')
       $state.go('home.forum');
     };
 
+    $scope.goToThread = function(threadid) {
+      $state.go('home.forum.thread', {thread: threadid})
+    }
+
     $scope.logout = function(){
       console.log('Logging Out!')
       ref.child('profileInfo').child(authData.uid).update({

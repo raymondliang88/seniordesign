@@ -29,18 +29,17 @@
 
     <md-content class="md-default-theme md-padding">
       <div class="row">
-        <div class="col-xs-4 col-md-4">
-          <md-button ng-click="goToProfile(post.creatorID)" aria-label="">
-            <img ng-src="{{profilePics[post.creatorID]}}"  />
+        <div class="col-xxs-3 col-md-2">
+          <md-button ng-click="goToProfile(post.creatorID)" aria-label="" ng-controller="ToolBarCtrl">
+            <img ng-src="{{profilePics[post.creatorID]}}" align="left" style="padding:5px;" />
             {{profilePics.post.creatorID}}
           </md-button>
         </div>
         <div class="col-sm-6 col-md-6">
           <h1>{{post.title}}</h1>
-          <md-button ng-click="goToProfile(post.creatorID)">{{post.creatorID}}</md-button>
+          <md-button ng-click="goToProfile(post.creatorID)" ng-controller="ToolBarCtrl">{{profileName[post.creatorID]}}</md-button>
           <font size="1"><div>{{post.postDate}}</div></font>
           <div><font size="5">{{post.text}}</font></div>
-          <img ng-src="{{post.imageSrc}}"  width="100%" />
         </div>
         </div>
 

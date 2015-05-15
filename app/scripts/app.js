@@ -237,6 +237,23 @@ angular
             }
           }
         }
+      })
+      .state('home.forum.thread', {
+        url: '/:thread',
+        views: {
+          'container@': {
+            templateUrl: '/views/thread.html',
+            controller: 'ForumCtrl',
+            resolve: {
+            // controller will not be loaded until $requireAuth resolves
+              'currentAuth': ['$firebaseAuth', function ($firebaseAuth) {
+                var ref = new Firebase('https://shining-torch-23.firebaseio.com/');
+                var authObj = $firebaseAuth(ref);
+                return authObj.$requireAuth();
+              }]
+            }
+          }
+        }
       });
       FacebookProvider.init('1571917669752119');
   });
