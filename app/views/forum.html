@@ -14,4 +14,37 @@
   </form>
 </div>
 
-{{forumData}}
+<!-- Post section -->
+<div ng-repeat="post in forumData | orderBy:'-timeStamp'">
+  <md-card>
+    <div class="md-actions default-primary-color" layout="row" layout-align="end end">
+      <md-button style="color: white;" ng-show="profileOwner" aria-label="" ng-click="showConfirmDeletePost($event, post.$id)">
+        <md-icon md-svg-src="images/icons/ic_cancel_48px.svg"></md-icon>
+      </md-button>
+    </div>
+
+    <div class="md-actions default-primary-color md-padding" layout="row" layout-align="end end">
+      <md-button style="color: white;" ng-show="!profileOwner" aria-label="">{{}}</md-button>
+    </div>
+
+    <md-content class="md-default-theme md-padding">
+      <div class="row">
+        <div class="col-xs-4 col-md-4">
+          <md-button ng-click="goToProfile(post.creatorID)" aria-label="">
+            <img ng-src="{{profilePics[post.creatorID]}}"  />
+            {{profilePics.post.creatorID}}
+          </md-button>
+        </div>
+        <div class="col-sm-6 col-md-6">
+          <h1>{{post.title}}</h1>
+          <md-button ng-click="goToProfile(post.creatorID)">{{post.creatorID}}</md-button>
+          <font size="1"><div>{{post.postDate}}</div></font>
+          <div><font size="5">{{post.text}}</font></div>
+          <img ng-src="{{post.imageSrc}}"  width="100%" />
+        </div>
+        </div>
+
+    </md-content>
+    <md-divider/></md-divider>
+  </md-card>
+</div>

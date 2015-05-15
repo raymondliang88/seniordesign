@@ -8,27 +8,43 @@
  * Controller of the projectsApp
  * */
  angular.module('projectsApp')
- .controller('ForumCtrl', function ($scope, firebaseService, $firebaseAuth, $firebaseArray) {
+ .controller('ForumCtrl', function ($scope, firebaseService, $firebaseAuth, $firebaseArray, $firebaseObject) {
     
     var authRef = new Firebase(firebaseService.getFirebBaseURL())
     var authObj = $firebaseAuth(authRef);
     var authData = authObj.$getAuth();
     var forumRef = new Firebase('https://shining-torch-23.firebaseio.com/forumPosts/');
+    var profileRef = new Firebase('https://shining-torch-23.firebaseio.com/profileInfo/'+ authData.uid);
     $scope.forumData;
+    $scope.profileData;
+    $scope.profilePics = {};
 
-    //fetch forum posts
+    //fetch forum posts, profile data
     async.parallel([
       function(callback){
         $scope.forumData = $firebaseArray(forumRef);
         $scope.forumData.$loaded()
         .then(function(data){
-          console.log(data);
+          //grab poster's image
+          for (var i = data.length - 1; i >= 0; i--) {
+            var posterRef = new Firebase('https://shining-torch-23.firebaseio.com/profileInfo/'+ data[i].creatorID);
+            var posterInfo = $firebaseObject(posterRef);
+            posterInfo.$loaded()
+            .then(function(profile){
+              //create hash table of poster pics to reference
+              var uid = posterInfo.$id;
+              $scope.profilePics[uid] = posterInfo.picture;
+              console.log($scope.profilePics);
+            });
+          };
         });
+      },
+      function(callback){
+        $scope.profileData = $firebaseObject(profileRef);
       }
     ]);
 
     $scope.createThread = function(text, title){
-        $scope.forumData = $firebaseArray(forumRef);
         var time = getTime();
         $scope.forumData.$add({
           creatorID: authData.uid,
