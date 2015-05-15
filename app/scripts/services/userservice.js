@@ -257,7 +257,6 @@ angular.module('projectsApp')
     var showAboutForm = function() {
         $mdDialog.show({
           controller: MoreInfoController,
-          //templateUrl: 'views/about.tmpl.html'
           templateUrl: 'views/provision.tmpl.html'
         })
           .then(function(){
