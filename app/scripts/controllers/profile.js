@@ -6,8 +6,7 @@ angular.module('projectsApp')
       var ref = new Firebase(firebaseService.getFirebBaseURL())
       var authObj = $firebaseAuth(ref);
       var authData = authObj.$getAuth();
-      console.log('Logged in as:' +  authData.uid);
-
+      
       var myselfDataRef = new Firebase('https://shining-torch-23.firebaseio.com/profileInfo/'+ authData.uid);
       $scope.myselfData = $firebaseObject(myselfDataRef);
       //get all parameters passed into this controller
