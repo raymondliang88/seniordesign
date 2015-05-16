@@ -188,6 +188,26 @@
 
           </div>
 
+         <br />
+          <hr />
+          <br />
+          <div layout layout-sm="row">
+            <md-container flex>
+            <input ng-model="user.passwordOld" type="password" placeholder="Enter current password"><br />
+            <input ng-model="user.passwordNew" type="password" placeholder="Enter new password"><br />
+            <md-button class="md-raised md-primary" ng-click="updatePassword(user.passwordOld, user.passwordNew)">Update password</md-button>
+            </md-container>
+          </div>
+
+          <br />
+          <hr />
+          <br />
+          <div layout layout-sm="row">
+            <md-container flex>
+            <input ng-model="user.password" type="password" placeholder="Enter current password"><md-button class="md-raised md-warn" ng-click="showDeleteAccountConfirmation(user.password)">Delete my account</md-button>
+            </md-container>
+          </div>
+
         <md-card-footer>
         <p></p>
         </md-card-footer>

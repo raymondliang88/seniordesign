@@ -9,7 +9,8 @@
  */
 angular.module('projectsApp')
   .controller('SettingsCtrl',
-    function ($scope, $mdDialog, firebaseService, userService, $firebaseAuth, $firebaseArray) {
+    function ($scope, $mdDialog, firebaseService, userService, $firebaseAuth, alertService, $firebaseArray) {
+
       var ref = new Firebase(firebaseService.getFirebBaseURL());
       var authObj = $firebaseAuth(ref);
       var authData = authObj.$getAuth();
@@ -275,4 +276,42 @@ angular.module('projectsApp')
             }
         });
     };
+
+
+    $scope.showDeleteAccountConfirmation = function(password) {
+
+      alertService.removeAccount($scope, $scope.userCurrent.email, password, authData.uid);
+
+    }
+
+    $scope.updatePassword = function(passwordOld, passwordNew) {
+
+      var reffire = new Firebase("https://shining-torch-23.firebaseio.com/");
+      ref.changePassword({
+        email: $scope.userCurrent.email,
+        oldPassword: passwordOld,
+        newPassword: passwordNew
+      }, function(error) {
+        if (error) {
+          switch (error.code) {
+            case "INVALID_PASSWORD":
+              console.log("The specified user account password is incorrect.");
+              alert("The specified user account password is incorrect.");
+              break;
+            case "INVALID_USER":
+              console.log("The specified user account does not exist.");
+              alert("The specified user account does not exist.");
+              break;
+            default:
+              console.log("Error changing password:", error);
+              alert("Error changing password");
+          }
+        } else {
+          console.log("User password changed successfully!");
+          alert("User password changed successfully!");
+        }
+      });
+
+    }
+
 });
