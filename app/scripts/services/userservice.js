@@ -21,8 +21,85 @@ angular.module('projectsApp')
       updateKey: function(key, value){
         user.key = value;
         return user;
+      },
+      deleteCurrentUser: function(email, password, uid) {
+
+
+        // an example using an object instead of an array
+        async.series({
+            one: function(callback){
+
+              //remove posts
+              var postURL = 'https://shining-torch-23.firebaseio.com/posts/'+uid;
+              var postRef = new Firebase(postURL);
+              postRef.remove();
+                setTimeout(function(){
+                    callback(null, 1);
+                }, 200);
+            },
+            two: function(callback){
+
+                //remove privacy
+                var privacyURL = 'https://shining-torch-23.firebaseio.com/privacySettings/'+uid;
+                var privacyRef = new Firebase(privacyURL);
+                privacyRef.remove();
+
+                setTimeout(function(){
+                    callback(null, 2);
+                }, 100);
+            },
+            three: function(callback){
+
+                //remove profileinfo
+                var profileInfoURL = 'https://shining-torch-23.firebaseio.com/profileInfo/'+uid;
+                var profileRef = new Firebase(profileInfoURL);
+                profileRef.remove();
+
+                setTimeout(function(){
+                    callback(null, 2);
+                }, 100);
+            },
+            four: function(callback){
+
+                //remove profileinfo
+                var profileInfoURL = 'https://shining-torch-23.firebaseio.com/photos/'+uid;
+                var profileRef = new Firebase(profileInfoURL);
+                profileRef.remove();
+
+                setTimeout(function(){
+                    callback(null, 2);
+                }, 100);
+            }
+        },
+        function(err, results) {
+            // results is now equal to: {one: 1, two: 2}
+        });
+
+      
+                // remove posts
+                var ref = new Firebase("https://shining-torch-23.firebaseio.com/");
+                ref.removeUser({
+                  email: email,
+                  password: password
+                }, function(error) {
+                  if (error) {
+                    switch (error.code) {
+                      case "INVALID_USER":
+                        console.log("The specified user account does not exist.");
+                        break;
+                      case "INVALID_PASSWORD":
+                        console.log("The specified user account password is incorrect.");
+                        break;
+                      default:
+                        console.log("Error removing user:", error);
+                    }
+                  } else {
+                    console.log("User account deleted successfully!");
+                  }
+                });
+
       }
-    };
+    }
   })
   .factory('provisionSettings', function ($firebaseAuth, $mdDialog, userService, Facebook) {
   	var firebaseURL = 'https://shining-torch-23.firebaseio.com/';
