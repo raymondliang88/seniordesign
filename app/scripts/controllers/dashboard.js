@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('projectsApp')
-.controller('DashboardController',  function($scope, $http, $firebaseAuth, $firebaseArray, $firebaseObject , firebaseService, profileService, $mdDialog) {
+.controller('DashboardController',  function($scope, $http, $firebaseAuth, $firebaseArray, $firebaseObject , firebaseService, profileService, chatService, $mdDialog) {
 
   var ref = new Firebase(firebaseService.getFirebBaseURL());
   var authObj = $firebaseAuth(ref);
@@ -44,9 +44,15 @@ angular.module('projectsApp')
     $scope.friendProfiles = friendProfileArr;
   };
 
-  $scope.clicked = function() {
-    console.log("clicked");
-  }
+  $scope.clicked = function(friendUID) {
+    console.log("clicked" + friendUID);
+    chatService.addFriendChat(friendUID);
+    // communicate to service
+
+
+
+
+  };
 
   //Chat
   // var chatRef = new Firebase('https://shining-torch-23.firebaseio.com/chats/'+ authData.uid);

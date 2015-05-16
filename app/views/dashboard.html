@@ -1,17 +1,27 @@
-<div layout="column" flex layout-fill class="col-md-3" style="padding-top: 24px;">
+<div layout="column" flex layout-fill class="col-md-3" style="padding-top: 30px;">
 
 <md-card>
-	<md-toolbar class="md-default-theme md-padding">
+	<md-toolbar class="md-default-theme">
 	  <h2 class="md-toolbar-tools">
-	    <span>Full Bleed</span>
+	    <span>Friends</span>
 	  </h2>
 	</md-toolbar>
 	<md-content>
 	  <md-list>
-	    <md-list-item class="md-3-line md-padding" ng-repeat="friend in friendProfiles">
-	      <div class="md-list-item-text" style="padding: 10px;" ng-click="clicked()">
-	        <h3>{{friend.firstName}} {{friend.lastName}}</h3>
-	        <h4>{{friend.loggedIn}}</h4>
+	    <!-- <md-list-item class="md-3-line" ng-repeat="friend in friendProfiles" | groupBy: 'loggedIn'"> -->
+	    <md-list-item class="md-3-line" ng-repeat="friend in friendProfiles">
+	      <div class="md-list-item-text" style="padding: 10px 10px;" ng-click="clicked(friend)">
+
+	      <p> <strong>{{friend.firstName}} {{friend.lastName}}</strong>
+
+
+          <span class="btn btn-success" style="float: right;" ng-show="friend.loggedIn">Online</span> <span class="btn btn-danger" ng-show="!friend.loggedIn" style="float: right;" >Offline</span>
+
+
+          </p>
+
+
+	        <!-- <h4>{{friend.loggedIn}}</h4> -->
 	      </div>
 	      <md-divider></md-divider>
 	    </md-list-item>

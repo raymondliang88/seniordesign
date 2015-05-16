@@ -9,16 +9,32 @@
  */
 // AngularJS will instantiate a singleton by calling "new" on this function
 angular.module('projectsApp')
-  .service('chatService', function ($mdDialog) {
-      return {
-        show: function(title,msg) {
-        $mdDialog.show(
-          $mdDialog.alert()
-            .title(title)
-            .content(msg)
-            .ariaLabel('Alert Dialog')
-            .ok('close')
-        );
+  .service('chatService', function () {
+    // holds who the current user is talking to
+    var currentChatList = [];
+
+    // add
+    var addFriendChat = function(friendUID) {
+        //check if friendUID is inside array before push
+        if ($.inArray( friendUID, currentChatList) == -1){
+          currentChatList.push(friendUID);
+          console.log("pushed");
         }
-      };
-  });
+        else{
+          console.log("already inside array");
+        }
+    };
+
+    var getFriendChat = function(){
+        return currentChatList;
+    };
+
+    return {
+      addFriendChat: addFriendChat,
+      getFriendChat: getFriendChat
+    };
+
+
+
+
+});
