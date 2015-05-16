@@ -35,7 +35,6 @@ angular.module('projectsApp')
     var profileData = $firebaseObject(userProfileRef);
     profileData.$loaded(
       function(data) {
-
         friendProfileArr.push(data);
       },
       function(error) {
