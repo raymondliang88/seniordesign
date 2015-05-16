@@ -30,8 +30,8 @@
     <![endif]-->
       <div id="content" ui-view> </div>
       <div ui-view="header"></div>
-      <div style="margin: 15px; padding-top: 20px" ui-view="container"></div>
-
+      <div style="margin: 2px; padding-top: 45px;" ui-view="container"></div>
+      <div ui-view="view2" style="padding-top: 5px;" layout="column" flex ></div>
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -65,17 +65,19 @@
     <script src="scripts/controllers/search.js"></script>
     <script src="scripts/controllers/routes.js"></script>
     <script src="scripts/controllers/friends.js"></script>
+    <script src="scripts/controllers/dashboard.js"></script>
     <script src="scripts/controllers/profile.js"></script>
     <script src="scripts/controllers/photos.js"></script>
     <script src="scripts/controllers/forum.js"></script>
     <script src="scripts/controllers/thread.js"></script>
+    <script src="scripts/controllers/chat.js"></script>
+    <script src="scripts/controllers/friendRequests.js"></script>
     <script src="scripts/services/myservice.js"></script>
     <script src="scripts/services/userservice.js"></script>
     <script src="scripts/services/alertservice.js"></script>
     <script src="scripts/services/searchservice.js"></script>
     <script src="scripts/services/friendservice.js"></script>
     <script src="scripts/directives/fileSelect.js"></script>
-
-        <!-- endbuild -->
+    <!-- endbuild -->
     </body>
 </html>
