@@ -9,10 +9,11 @@ angular.module('projectsApp')
 
       //get all parameters passed into this controller
       var param = $stateParams;
-      console.log(param);
       // this profile's uid
       var profileUID = param.user;
-      console.log('profile uid ' + profileUID);
+
+      //true if current photos page belongs to the user
+      $scope.photosOwner = (authData.uid === profileUID);
 
       var photosRef = new Firebase('https://shining-torch-23.firebaseio.com/photos/'+ profileUID);
       $scope.photosData = $firebaseArray(photosRef);
@@ -30,7 +31,7 @@ angular.module('projectsApp')
                 date.getMilliseconds()].join(':');
       };
 
-      //add a photo/image
+      //add an image 
       $scope.addImage = function(imageTag, imageSrc) {
         var time = getTime();
         $scope.photosData.$add({
@@ -41,16 +42,20 @@ angular.module('projectsApp')
         });
       };
 
-      $scope.getFile = function(file, imgSrc) {
+      $scope.removeImage = function(imageID) {
+        var imageDataRef = new Firebase('https://shining-torch-23.firebaseio.com/photos/'+ profileUID + '/' + imageID);
+        imageDataRef.remove();
+      };
 
-      $scope.file = file;
-      var reader = new FileReader();
-      reader.onload = function (e) {
-          var imgID = imgSrc.getAttribute('id');
-          console.log('imgID ' + imgID);
-          $('#'+imgID).attr('src', e.target.result);
-          $scope.imageSrc = e.target.result;
-          
+      $scope.getFile = function(file, imgSrc) {
+        $scope.file = file;
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var imgID = imgSrc.getAttribute('id');
+            console.log('imgID ' + imgID);
+            $('#'+imgID).attr('src', e.target.result);
+            $scope.imageSrc = e.target.result;
+            
         };
         reader.readAsDataURL(file);
       };

@@ -27,10 +27,15 @@
     <div ng-repeat="photo in photosData | orderBy:'-timeStamp'">
       <md-card>
         <md-content class="md-default-theme md-padding">
-          <div class="row">
-            <div class="col-sm-6 col-md-6">
-              <img ng-src="{{photo.imageSrc}}" width=100% />
-            </div>
+          <div class="col-sm-6 col-md-6">
+            <img ng-src="{{photo.imageSrc}}" width=100% />
+          </div>
+
+          <!-- Delete Icon Column -->
+          <div class="md-actions" layout="row" layout-align="end end" layout-margin>
+            <md-button ng-show="photosOwner" aria-label="" ng-click="removeImage(photo.$id)" style="margin: 10px">
+              <md-icon md-svg-src="images/icons/ic_delete_48px.svg"></md-icon>
+            </md-button>
           </div>
         </md-content>
       </md-card>
