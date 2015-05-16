@@ -51,8 +51,22 @@ angular.module('projectsApp')
         var imageDataRef = new Firebase('https://shining-torch-23.firebaseio.com/photos/'+ photosUID + '/photos/' + imageID);
         imageDataRef.remove();
         photosTotalRef.transaction(function(currentValue) {
-          return (currentValue || 0) - 1;
+          return currentValue - 1;
         });
+      };
+
+      $scope.expandImage = function(ev, imageSrc){
+        $mdDialog.show({
+          templateUrl: 'views/expand_img.tmpl.html',
+          targetEvent: ev,
+          controller: ExpandImageCtrl
+        });
+        function ExpandImageCtrl($scope, $mdDialog) {
+          $scope.cancel = function() {
+            $mdDialog.cancel();
+          };
+          $scope.imageSrc = imageSrc;
+        };
       };
 
       $scope.getFile = function(file, imgSrc) {

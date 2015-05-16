@@ -15,25 +15,35 @@
       </div>
       <button ng-click="removeUpload();">Remove</button>
     </div>
+</div>
 
-    <!--photos-->
-    <div ng-repeat="photo in photosData | orderBy:'-timeStamp'">
-      <md-card>
-        <md-content class="md-default-theme md-padding">
-          <div class="col-sm-6 col-md-6">
-            <img ng-src="{{photo.imageSrc}}" width=100% />
-          </div>
+    <!--
+       -<md-grid-list
+       -      md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6"
+       -      md-row-height-gt-md="1:1" md-row-height="4:3"
+       -      md-gutter="8px" md-gutter-gt-sm="4px" 
+       -      class="md-default-theme md-padding">
+       -->
+    <md-grid-list
+          md-cols-sm="1" md-cols-md="2" md-cols-gt-md="5"
+          md-row-height-gt-md="1:1" md-row-height="4:3"
+          md-gutter="8px" md-gutter-gt-sm="4px" 
+          class="md-default-theme md-padding">
+      <md-grid-tile ng-repeat="photo in photosData"
+                  md-rowspan="1" md-colspan="1"
+                  md-colspan-sm="1">
+        <img ng-src="{{photo.imageSrc}}" width=100% height=100% />
+        <md-grid-tile-footer>
+          <md-button ng-show="photosOwner" aria-label="" ng-click="removeImage(photo.$id)" style="margin: 10px">
+            <md-icon md-svg-src="images/icons/ic_delete_48px.svg"></md-icon>
+          </md-button>
+          <md-button aria-label="" ng-click="expandImage(ev, photo.imageSrc)" style="margin: 10px">
+            <md-icon md-svg-src="images/icons/ic_fullscreen_24px.svg"></md-icon>
+          </md-button>
+        </md-grid-tile-footer>
+      </md-grid-tile>
+    </md-grid-list>
 
-          <!-- Delete Icon Column -->
-          <div class="md-actions" layout="row" layout-align="end end" layout-margin>
-            <md-button ng-show="photosOwner" aria-label="" ng-click="removeImage(photo.$id)" style="margin: 10px">
-              <md-icon md-svg-src="images/icons/ic_delete_48px.svg"></md-icon>
-            </md-button>
-          </div>
-        </md-content>
-      </md-card>
-    </div>
-    <!--end photos-->
-  </div>
+  <!--</div>-->
 
 </div>
