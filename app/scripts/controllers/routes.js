@@ -16,7 +16,7 @@ angular.module('projectsApp')
           $log.debug('close RIGHT is done');
         });
     };
-  })
+  });
 
 angular.module('projectsApp')
  .controller('LeftCtrl', function ($scope, $timeout, $mdSidenav, $log) {
@@ -26,7 +26,7 @@ angular.module('projectsApp')
           $log.debug('close RIGHT is done');
         });
     };
-  })
+  });
 
 angular.module('projectsApp')
   .controller('ToolBarCtrl', function ($scope, $firebaseAuth, $location, $timeout, $mdSidenav, $log, $state, searchService ) {
@@ -55,7 +55,7 @@ angular.module('projectsApp')
           .then(function () {
             $log.debug('toggle ' + navID + ' is done');
           });
-      }
+      };
     }
 
     $scope.checkPending = function() {
@@ -71,15 +71,15 @@ angular.module('projectsApp')
     $scope.goToProfile = function(userid) {
       console.log('Sending to profile uid' + userid);
       $state.go('home.profile.user' , {user: userid});
-      // $state.go('home.profile');
     };
 
     $scope.goToFriends = function() {
       $state.go('home.settings');
     };
 
-    $scope.goToPhotos = function() {
-      $state.go('home.photos');
+    $scope.goToPhotos = function(userid) {
+      console.log('Sending to photos uid ' + userid);
+      $state.go('home.photos.user' , {user: userid});
     };
 
     $scope.goToMessages = function() {
@@ -98,8 +98,17 @@ angular.module('projectsApp')
       $state.go('home.dashboard');
     };
 
+    $scope.goToForum = function() {
+      $state.go('home.forum');
+    };
+
+    $scope.goToThread = function(threadid) {
+      $state.go('home.forum.thread', {thread: threadid});
+      console.log('going to comment section');
+    }
+
     $scope.logout = function(){
-      console.log('Logging Out!')
+      console.log('Logging Out!');
       ref.child('profileInfo').child(authData.uid).update({
         loggedIn: false
       });

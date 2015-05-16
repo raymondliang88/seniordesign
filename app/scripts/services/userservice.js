@@ -334,7 +334,6 @@ angular.module('projectsApp')
     var showAboutForm = function() {
         $mdDialog.show({
           controller: MoreInfoController,
-          //templateUrl: 'views/about.tmpl.html'
           templateUrl: 'views/provision.tmpl.html'
         })
           .then(function(){
@@ -349,7 +348,7 @@ angular.module('projectsApp')
     return {
       getMoreUserInfo: function(provisionSettings) {
         console.log('provisionSettings: ' + provisionSettings);
-        if (provisionSettings === '0') {
+        if (provisionSettings === 0) {
           showAboutForm();
         }
       },

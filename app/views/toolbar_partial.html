@@ -74,7 +74,7 @@
 
 	<!--Photos -->
 		<md-content layout-padding>
-			<md-button ng-click="goToPhotos()" class="md-primary">
+			<md-button ng-click="goToPhotos(userid)" class="md-primary">
 			Photos
 			</md-button>
 		</md-content>
@@ -85,6 +85,13 @@
 			Messages
 			</md-button>
 		</md-content>
+
+    <!--Forum -->
+    <md-content layout-padding>
+      <md-button ng-click="goToForum()" class="md-primary">
+      Forum
+      </md-button>
+    </md-content>
 
 		<md-content layout-padding>
 			<md-button ng-click="logout()" class="btn-danger btn-raised">
