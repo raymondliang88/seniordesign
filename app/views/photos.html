@@ -6,24 +6,17 @@
   </div>
 
   <div class="col-md-6 col-xs-12">
-    <div class="row">
-      <div class="col-sm-12 col-md-12">
-        <div class="user-info-block">
-        </div>
-
-        <div>
-          <div class="input-group">
-            <input class="btn btn-primary form-control" name="post-file" ng-upload="getPostFile($files)" type="file"/>
-            <span class="input-group-btn">
-              <button class="btn btn-danger" ng-click="addImage('', postFile)" tabindex="0">Add Image</button>
-            </span>
-          </div>
-          <button ng-click="removeUpload();">Remove</button>
-        </div>
-
+    <div>
+      <div class="input-group">
+        <input class="btn btn-primary form-control" name="post-file" ng-upload="getPostFile($files)" type="file" accept="image/*" />
+        <span class="input-group-btn">
+          <button class="btn btn-danger" ng-click="addImage('', imageFile)" tabindex="0">Add Image</button>
+        </span>
       </div>
+      <button ng-click="removeUpload();">Remove</button>
     </div>
 
+    <!--photos-->
     <div ng-repeat="photo in photosData | orderBy:'-timeStamp'">
       <md-card>
         <md-content class="md-default-theme md-padding">
@@ -40,6 +33,7 @@
         </md-content>
       </md-card>
     </div>
+    <!--end photos-->
   </div>
 
 </div>

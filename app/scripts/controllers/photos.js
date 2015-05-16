@@ -10,14 +10,14 @@ angular.module('projectsApp')
       //get all parameters passed into this controller
       var param = $stateParams;
       // this profile's uid
-      var profileUID = param.user;
+      var photosUID = param.user;
 
       //true if current photos page belongs to the user
-      $scope.photosOwner = (authData.uid === profileUID);
+      $scope.photosOwner = (authData.uid === photosUID);
 
-      var photosRef = new Firebase('https://shining-torch-23.firebaseio.com/photos/'+ profileUID);
+      var photosRef = new Firebase('https://shining-torch-23.firebaseio.com/photos/'+ photosUID + '/photos');
+      var photosTotalRef = new Firebase('https://shining-torch-23.firebaseio.com/photos/'+ photosUID + '/photosTotal');
       $scope.photosData = $firebaseArray(photosRef);
-      console.log('Photos data' + $scope.photosData);
 
       //timestamp
       var getTime = function() {
@@ -32,19 +32,27 @@ angular.module('projectsApp')
       };
 
       //add an image 
+      //total photos must not be more than 25 and 10MB each
       $scope.addImage = function(imageTag, imageSrc) {
         var time = getTime();
+        photosTotalRef.transaction(function(currentValue) {
+          return (currentValue || 0) + 1;
+        });
+
         $scope.photosData.$add({
           postDate: time,
           timeStamp: Firebase.ServerValue.TIMESTAMP,
           imageTag: imageTag,
-          imageSrc: $scope.postFile
+          imageSrc: $scope.imageFile
         });
       };
 
       $scope.removeImage = function(imageID) {
-        var imageDataRef = new Firebase('https://shining-torch-23.firebaseio.com/photos/'+ profileUID + '/' + imageID);
+        var imageDataRef = new Firebase('https://shining-torch-23.firebaseio.com/photos/'+ photosUID + '/photos/' + imageID);
         imageDataRef.remove();
+        photosTotalRef.transaction(function(currentValue) {
+          return (currentValue || 0) - 1;
+        });
       };
 
       $scope.getFile = function(file, imgSrc) {
@@ -62,18 +70,18 @@ angular.module('projectsApp')
 
       $scope.getPostFile = function(file) {
         var reader = new FileReader();
-        
+        console.log('file array size...' + file);
         reader.onload = function (e) {
           $('#post-imagepreview').attr('src', e.target.result);
-          //Set post file
-          $scope.postFile = e.target.result;
+          //Set image file
+          $scope.imageFile = e.target.result;
           $scope.imageSrc = e.target.result;
         };
         reader.readAsDataURL(file);
       };
 
       $scope.removeUpload = function() {
-        $scope.postFile = 0;
+        $scope.imageFile = 0;
         $scope.imgSrc = 0;
         $('#post-imagepreview').attr('src', 0);
       }
