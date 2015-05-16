@@ -6,7 +6,7 @@
   </div>
 
   <div class="col-md-6 col-xs-12">
-    <div>
+    <div ng-show="!photosLimit">
       <div class="input-group">
         <input class="btn btn-primary form-control" name="post-file" ng-upload="getPostFile($files)" type="file" accept="image/*" />
         <span class="input-group-btn">
@@ -14,36 +14,28 @@
         </span>
       </div>
       <button ng-click="removeUpload();">Remove</button>
+      <p>{{photosTotal}} out of 25 used</p>
     </div>
-</div>
+  </div>
 
-    <!--
-       -<md-grid-list
-       -      md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6"
-       -      md-row-height-gt-md="1:1" md-row-height="4:3"
-       -      md-gutter="8px" md-gutter-gt-sm="4px" 
-       -      class="md-default-theme md-padding">
-       -->
-    <md-grid-list
-          md-cols-sm="1" md-cols-md="2" md-cols-gt-md="5"
-          md-row-height-gt-md="1:1" md-row-height="4:3"
-          md-gutter="8px" md-gutter-gt-sm="4px" 
-          class="md-default-theme md-padding">
-      <md-grid-tile ng-repeat="photo in photosData"
-                  md-rowspan="1" md-colspan="1"
-                  md-colspan-sm="1">
-        <img ng-src="{{photo.imageSrc}}" width=100% height=100% />
-        <md-grid-tile-footer>
-          <md-button ng-show="photosOwner" aria-label="" ng-click="removeImage(photo.$id)" style="margin: 10px">
-            <md-icon md-svg-src="images/icons/ic_delete_48px.svg"></md-icon>
-          </md-button>
-          <md-button aria-label="" ng-click="expandImage(ev, photo.imageSrc)" style="margin: 10px">
-            <md-icon md-svg-src="images/icons/ic_fullscreen_24px.svg"></md-icon>
-          </md-button>
-        </md-grid-tile-footer>
-      </md-grid-tile>
-    </md-grid-list>
-
-  <!--</div>-->
+  <md-grid-list
+        md-cols-sm="1" md-cols-md="2" md-cols-gt-md="5"
+        md-row-height-gt-md="1:1" md-row-height="4:3"
+        md-gutter="8px" md-gutter-gt-sm="4px"
+        class="md-default-theme md-padding">
+    <md-grid-tile ng-repeat="photo in photosData"
+                md-rowspan="1" md-colspan="1"
+                md-colspan-sm="1">
+      <img ng-src="{{photo.imageSrc}}" width=100% height=100% />
+      <md-grid-tile-footer>
+        <md-button ng-show="photosOwner" aria-label="" ng-click="removeImage(photo.$id)" style="margin: 10px">
+          <md-icon md-svg-src="images/icons/ic_delete_48px.svg"></md-icon>
+        </md-button>
+        <md-button aria-label="" ng-click="expandImage(ev, photo.imageSrc)" style="margin: 10px">
+          <md-icon md-svg-src="images/icons/ic_fullscreen_24px.svg"></md-icon>
+        </md-button>
+      </md-grid-tile-footer>
+    </md-grid-tile>
+  </md-grid-list>
 
 </div>

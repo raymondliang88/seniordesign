@@ -47,6 +47,17 @@ angular.module('projectsApp')
         });
       };
 
+      photosTotalRef.on('value', function(dataSnapshot) {
+        $scope.photosTotal = dataSnapshot.val();
+        // if photosTotal >= 25, set limit
+        if (dataSnapshot.val() >= 25) {
+          console.log('total is 25+... Photos Limit Reached');
+          $scope.photosLimit = true;
+        } else {
+          $scope.photosLimit = false;
+        }
+      });
+
       $scope.removeImage = function(imageID) {
         var imageDataRef = new Firebase('https://shining-torch-23.firebaseio.com/photos/'+ photosUID + '/photos/' + imageID);
         imageDataRef.remove();
