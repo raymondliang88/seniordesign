@@ -103,7 +103,8 @@ angular.module('projectsApp')
     };
 
     $scope.goToThread = function(threadid) {
-      $state.go('home.forum.thread', {thread: threadid})
+      $state.go('home.forum.thread', {thread: threadid});
+      console.log('going to comment section');
     }
 
     $scope.logout = function(){

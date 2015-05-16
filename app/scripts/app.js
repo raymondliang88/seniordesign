@@ -239,11 +239,11 @@ angular
         }
       })
       .state('home.forum.thread', {
-        url: '/:thread',
+        url: '/thread/:thread',
         views: {
           'container@': {
             templateUrl: '/views/thread.html',
-            controller: 'ForumCtrl',
+            controller: 'ThreadCtrl',
             resolve: {
             // controller will not be loaded until $requireAuth resolves
               'currentAuth': ['$firebaseAuth', function ($firebaseAuth) {

@@ -3,19 +3,14 @@
         <img align="left" class="personal-image-profile thumbnail" src={{profileData.picture}} alt="Profile image example"/>
 </div>
 <div layout="column" flex layout-fill ng-controller='ToolBarCtrl' class="md-primary" md-padding>
-  <form ng-submit="createThread(postText, postTitle)" id="postForm">
-     <div class="input-group">
-      <input type="text" style="position: relative; z-index: 1;" class="form-control" placeholder="Title" ng-model="postTitle" required>
-      <input type="text" style="position: relative; z-index: 1;" class="form-control" placeholder="Message" ng-model="postText" required>
-    </div>
-    <span class="input-group-btn">
-      <button class="btn btn-danger">Create Post</button>
-    </span>
-  </form>
+  <span class="input-group-btn">
+    <button class="btn" ng-click="goToForum()">Go Back to Forums.</button>
+  </span>
 </div>
 
+
 <!-- Post section -->
-<div ng-repeat="post in forumData | orderBy:'-timeStamp'">
+<div ng-repeat="post in commentData | orderBy:'timeStamp'">
   <md-card>
     <div class="md-actions default-primary-color" layout="row" layout-align="end end">
       <md-button style="color: white;" ng-show="profileOwner" aria-label="" ng-click="showConfirmDeletePost($event, post.$id)">
@@ -32,21 +27,27 @@
         <div class="col-xxs-3 col-md-2">
           <md-button ng-click="goToProfile(post.creatorID)" aria-label="" ng-controller="ToolBarCtrl">
             <img ng-src="{{profilePics[post.creatorID]}}" align="left" style="padding:5px;" />
-            {{profilePics.post.creatorID}}
           </md-button>
         </div>
         <div class="col-sm-6 col-md-6">
-          <h1>{{post.title}}</h1>
           <md-button ng-click="goToProfile(post.creatorID)" ng-controller="ToolBarCtrl">{{profileName[post.creatorID]}}</md-button>
           <font size="1"><div style="display: inline;">{{post.postDate}}</div></font>
           <div><font size="5">{{post.text}}</font></div>
-          <md-button ng-click="goToThread(post.$id)" class='md-primary' ng-controller="ToolBarCtrl">
-            Go to comments.
-          </md-button>
         </div>
         </div>
 
     </md-content>
     <md-divider/></md-divider>
   </md-card>
+</div>
+<!--Post Comment-->
+<div layout="column" flex layout-fill class="md-primary" md-padding ng-controller="ThreadCtrl">
+  <form ng-submit="createComment(postText)" id="postForm">
+     <div class="input-group">
+      <input type="text" style="position: relative; z-index: 1;" class="form-control" placeholder="Message" ng-model="postText" required>
+      </div>
+      <span class="input-group-btn">
+        <button class="btn btn-danger">Post Comment</button>
+      </span>
+  </form>
 </div>
