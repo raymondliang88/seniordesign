@@ -101,7 +101,7 @@
                                   <input class="form-control" ng-model="movie" type="text">
                                 </div>
                                 <div class="col-xs-4">
-                                  <button class="btn btn-default" type="submit" ng-click="addMovie(movie);">Add</button>
+                                  <button class="btn btn-default" type="submit" ng-click="addMovie(movie)">Add</button>
                                 </div>
                             </div>
                             <span ng-repeat="item in movies" ng-click="removeMovie($index)">{{item}} <i class="glyphicon glyphicon-remove"></i></span>
@@ -109,7 +109,7 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="col-lg-3 control-label">Favorite Movies:</label>
+                        <label class="col-lg-3 control-label">Favorite Music:</label>
 
                         <div class="col-lg-8">
                           <div class="btn-group" data-toggle="buttons">
@@ -165,7 +165,6 @@
             </md-container>
           </section>
 
-
           <!-- These should be saved pull downs -->
           <div layout layout-sm="row">
             <md-container flex>
@@ -192,6 +191,72 @@
         <md-card-footer>
         <p></p>
         </md-card-footer>
+
+          <div layout layout-sm="row">
+            <md-container flex>
+              Profile Settings:
+              <md-select placeholder="Select" ng-model="viewerProfileSetting">
+                <md-option value="everyone">Everyone</md-option>
+                <md-option value="friends">Friends</md-option>
+                <md-option value="custom">Custom</md-option>
+              </md-select>
+              <br>
+              <md-select placeholder="Select" ng-model="privacyTypePro" ng-change="updateSetting(viewerProfileSetting, privacyTypePro, 'profilePrivacy')" ng-show="showPrivacySettings(viewerProfileSetting)">
+                <md-option value="public">Public</md-option>
+                <md-option value="private">Private</md-option>
+              </md-select>
+              <!-- Custom User Input -->
+              <div class="form-group" ng-show="isCustom(viewerProfileSetting, privacyTypePro)">
+                <label class="col-lg-3 control-label">Custom User List:</label>
+                <div class="col-lg-8">
+                  <div class="btn-group" data-toggle="buttons">
+                    <div class="row">
+                       <div class="col-xs-8">
+                          <input class="form-control" ng-model="userPro" type="text">
+                        </div>
+                        <div class="col-xs-4">
+                          <button class="btn btn-default" type="submit" ng-click="customSetting(userPro, privacyTypePro, 'profilePrivacy')">Add</button>
+                        </div>
+                    </div>
+                    <!-- <span ng-repeat="item in musics" ng-click="removeMusic($index)">{{item}} <i class="glyphicon glyphicon-remove"></i></span> -->
+                  </div>
+                </div>
+              </div>
+            </md-container>
+          </div>
+
+          <div layout layout-sm="row">
+            <md-container flex>
+              Picture Settings:
+              <md-select placeholder="Select" ng-model="viewerPictureSetting">
+                <md-option value="everyone">Everyone</md-option>
+                <md-option value="friends">Friends</md-option>
+                <md-option value="custom">Custom</md-option>
+              </md-select>
+              <br>
+              <md-select placeholder="Select" ng-model="privacyTypePic" ng-change="updateSetting(viewerPictureSetting, privacyTypePic, 'picturePrivacy')" ng-show="showPrivacySettings(viewerPictureSetting)">
+                <md-option value="public">Public</md-option>
+                <md-option value="private">Private</md-option>
+              </md-select>
+              <!-- Custom User Input -->
+              <div class="form-group" ng-show="isCustom(viewerPictureSetting, privacyTypePic)">
+                <label class="col-lg-3 control-label">Custom User List:</label>
+                <div class="col-lg-8">
+                  <div class="btn-group" data-toggle="buttons">
+                    <div class="row">
+                       <div class="col-xs-8">
+                          <input class="form-control" ng-model="userPic" type="text">
+                        </div>
+                        <div class="col-xs-4">
+                          <button class="btn btn-default" type="submit" ng-click="customSetting(userPic, privacyTypePic, 'picturePrivacy')">Add</button>
+                        </div>
+                    </div>
+                    <!-- <span ng-repeat="viewers in customPicPrivacyList" ng-click="removeCustomViewer(viewers)">{{viewers.fullName}} - {{viewers.setting}} <i class="glyphicon glyphicon-remove"></i></span> -->
+                  </div>
+                </div>
+              </div>
+            </md-container>
+          </div>
 
         </form>
 
