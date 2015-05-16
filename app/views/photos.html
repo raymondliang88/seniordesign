@@ -10,10 +10,10 @@
       <div class="input-group">
         <input class="btn btn-primary form-control" name="post-file" ng-upload="getPostFile($files)" type="file" accept="image/*" />
         <span class="input-group-btn">
-          <button class="btn btn-danger" ng-click="addImage('', imageFile)" tabindex="0">Add Image</button>
+          <button class="btn btn-danger" ng-disabled="invalidFile" ng-click="addImage('', imageFile)" tabindex="0">{{addImageText}}</button>
         </span>
       </div>
-      <button ng-click="removeUpload();">Remove</button>
+      <!--<button ng-click="removeUpload();">Remove</button>-->
       <p>{{photosTotal}} out of 25 used</p>
     </div>
   </div>
