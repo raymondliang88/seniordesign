@@ -10,7 +10,7 @@
       <span flex></span>
       <span ></span>
       <md-button ng-click='checkPending()' class="md-accent">
-        <span class="btn btn-danger" ng-show="pendingTotal"> <i class="glyphicon glyphicon-user badge">{{pendingTotal}}</i></span>
+        <span class="btn btn-danger" ng-show="friendRequestObj" ng-click="goToFriendRequest()"> <i class="glyphicon glyphicon-user badge">{{friendRequestObj.$value}}</i></span>
       </md-button>
 
 			<!-- <input ng-model="user.name" type="text" class="form-control" flex placeholder="Name"> -->

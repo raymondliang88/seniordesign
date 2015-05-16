@@ -6,7 +6,7 @@ angular.module('projectsApp')
       var ref = new Firebase(firebaseService.getFirebBaseURL())
       var authObj = $firebaseAuth(ref);
       var authData = authObj.$getAuth();
-      
+
       var myselfDataRef = new Firebase('https://shining-torch-23.firebaseio.com/profileInfo/'+ authData.uid);
       $scope.myselfData = $firebaseObject(myselfDataRef);
       //get all parameters passed into this controller
@@ -41,14 +41,14 @@ angular.module('projectsApp')
         $scope.isMyFriend = data.$value == null ? false: true;
       })
 
-  
+
       async.parallel([
           function(callback){
               //postData returns a list of post
               var profilePostRef = new Firebase('https://shining-torch-23.firebaseio.com/posts/'+ profileUID);
               $scope.postData = $firebaseArray(profilePostRef);
               console.log('Post data' + $scope.postData);
-          
+
           },
           function(callback){
 
@@ -209,14 +209,14 @@ angular.module('projectsApp')
         var imgID = imgSrc.getAttribute('id');
         $('#'+imgID).attr('src', e.target.result);
         $scope.imageSrc = e.target.result;
-        
+
       }
       reader.readAsDataURL(file);
     }
 
     $scope.getPostFile = function(file) {
       var reader = new FileReader();
-      
+
       reader.onload = function (e) {
         $('#post-imagepreview').attr('src', e.target.result);
         //Set post file

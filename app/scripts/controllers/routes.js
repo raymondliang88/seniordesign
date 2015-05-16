@@ -23,13 +23,13 @@ angular.module('projectsApp')
     $scope.close = function () {
       $mdSidenav('left').close()
         .then(function () {
-          $log.debug('close RIGHT is done');
+          // $log.debug('close RIGHT is done');
         });
     };
   });
 
 angular.module('projectsApp')
-  .controller('ToolBarCtrl', function ($scope, $firebaseAuth, $location, $timeout, $mdSidenav, $log, $state, searchService ) {
+  .controller('ToolBarCtrl', function ($scope, $firebaseAuth, $location, $timeout, $mdSidenav, $log, $state, searchService ,  $firebaseObject) {
     var ref = new Firebase('https://shining-torch-23.firebaseio.com/');
     var authObj = $firebaseAuth(ref);
     var authData = authObj.$getAuth();
@@ -37,11 +37,14 @@ angular.module('projectsApp')
     $scope.userid = authData.uid;
 
     // notification: check # of pending friends
-    var pending = ref.child('pending').child(authData.uid).child('pendingTotal').once('value', function(snapshot) {
-      var val = snapshot.val();
-      $scope.pendingTotal = val;
-      return val;
-    });
+    // var pending = ref.child('pending').child(authData.uid).child('pendingTotal').once('value', function(snapshot) {
+    //   var val = snapshot.val();
+    //   $scope.pendingTotal = val;
+    //   return val;
+    // });
+
+    var friendRequestRef = new Firebase('https://shining-torch-23.firebaseio.com/pending/'+ authData.uid +  '/pendingTotal');
+    $scope.friendRequestObj = $firebaseObject(friendRequestRef);
 
     $scope.toggleRight = buildToggler('right');
     $scope.toggleLeft = buildToggler('left');
@@ -53,7 +56,7 @@ angular.module('projectsApp')
       return function() {
         return $mdSidenav(navID).toggle()
           .then(function () {
-            $log.debug('toggle ' + navID + ' is done');
+            // $log.debug('toggle ' + navID + ' is done');
           });
       };
     }
@@ -92,6 +95,10 @@ angular.module('projectsApp')
 
     $scope.goToSettings = function() {
       $state.go('home.settings');
+    };
+
+    $scope.goToFriendRequest = function() {
+      $state.go('home.friendRequests');
     };
 
     $scope.goToDashboard = function() {
