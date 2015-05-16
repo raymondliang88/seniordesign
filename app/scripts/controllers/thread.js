@@ -25,25 +25,30 @@
     async.parallel([
       function(callback){
         $scope.commentData = $firebaseArray(commentRef);
+        console.log($scope.commentData);
         $scope.commentData.$loaded()
         .then(function(data){
-          console.log('comment data', data);
           //grab poster's image
           for (var i = data.length - 1; i >= 0; i--) {
             var posterRef = new Firebase('https://shining-torch-23.firebaseio.com/profileInfo/'+ data[i].creatorID);
             var posterInfo = $firebaseObject(posterRef);
             posterInfo.$loaded()
             .then(function(profile){
-              //create hash table of poster pics to reference
               var uid = posterInfo.$id;
               $scope.profilePics[uid] = posterInfo.picture;
               $scope.profileName[uid] = posterInfo.firstName + ' ' + posterInfo.lastName;
             });
-          };
+          }
         });
       },
       function(callback){
         $scope.profileData = $firebaseObject(profileRef);
+        $scope.profileData.$loaded()
+        .then(function(data){
+          var uid = data.$id;
+          $scope.profilePics[uid] = data.picture;
+          $scope.profileName[uid] = data.firstName + ' ' + data.lastName;  
+        });
       }
     ]);
 
