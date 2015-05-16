@@ -1,0 +1,52 @@
+<div class="personal-profile">
+        <img align="left" class="personal-image-lg" src="images/cropped-ucr-picture.jpg" alt="Profile image" />
+        <img align="left" class="personal-image-profile thumbnail" src={{profileData.picture}} alt="Profile image example"/>
+</div>
+<div layout="column" flex layout-fill ng-controller='ToolBarCtrl' class="md-primary" md-padding>
+  <form ng-submit="createThread(postText, postTitle)" id="postForm">
+     <div class="input-group">
+      <input type="text" style="position: relative; z-index: 1;" class="form-control" placeholder="Title" ng-model="postTitle" required>
+      <input type="text" style="position: relative; z-index: 1;" class="form-control" placeholder="Message" ng-model="postText" required>
+    </div>
+    <span class="input-group-btn">
+      <button class="btn btn-danger">Create Post</button>
+    </span>
+  </form>
+</div>
+
+<!-- Post section -->
+<div ng-repeat="post in forumData | orderBy:'-timeStamp'">
+  <md-card>
+    <div class="md-actions default-primary-color" layout="row" layout-align="end end">
+      <md-button style="color: white;" ng-show="profileOwner" aria-label="" ng-click="showConfirmDeletePost($event, post.$id)">
+        <md-icon md-svg-src="images/icons/ic_cancel_48px.svg"></md-icon>
+      </md-button>
+    </div>
+
+    <div class="md-actions default-primary-color md-padding" layout="row" layout-align="end end">
+      <md-button style="color: white;" ng-show="!profileOwner" aria-label="">{{}}</md-button>
+    </div>
+
+    <md-content class="md-default-theme md-padding">
+      <div class="row">
+        <div class="col-xxs-3 col-md-2">
+          <md-button ng-click="goToProfile(post.creatorID)" aria-label="" ng-controller="ToolBarCtrl">
+            <img ng-src="{{profilePics[post.creatorID]}}" align="left" style="padding:5px;" />
+            {{profilePics.post.creatorID}}
+          </md-button>
+        </div>
+        <div class="col-sm-6 col-md-6">
+          <h1>{{post.title}}</h1>
+          <md-button ng-click="goToProfile(post.creatorID)" ng-controller="ToolBarCtrl">{{profileName[post.creatorID]}}</md-button>
+          <font size="1"><div style="display: inline;">{{post.postDate}}</div></font>
+          <div><font size="5">{{post.text}}</font></div>
+          <md-button ng-click="goToThread(post.$id)" class='md-primary' ng-controller="ToolBarCtrl">
+            Go to comments.
+          </md-button>
+        </div>
+        </div>
+
+    </md-content>
+    <md-divider/></md-divider>
+  </md-card>
+</div>
