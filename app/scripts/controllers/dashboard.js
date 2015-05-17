@@ -20,8 +20,6 @@ angular.module('projectsApp')
     //loops through and gets profile data, adds to friendprofile array
     //friend profile array contains array of userprofileData objects
     x.forEach(function(entry) {
-      // console.log(entry.$value);
-      console.log(entry);
       getUserProfileInfo(entry.$id);
     });
     // $scope.friendProfiles = friendProfile;
@@ -45,7 +43,7 @@ angular.module('projectsApp')
   };
 
   $scope.clicked = function(friendUID) {
-    console.log("clicked" + friendUID);
+    // console.log("clicked" + friendUID);
     chatService.addFriendChat(friendUID);
     // communicate to service
 

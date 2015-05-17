@@ -8,15 +8,42 @@
     <md-tabs md-selected="selectedIndex" md-border-bottom>
       <md-tab ng-repeat="tab in products"
               ng-disabled="tab.disabled"
-              label="{{tab.firstName}} {{tab.lastName}}">
-        <div class="demo-tab tab{{$index%4}}" style="padding: 25px; text-align: center;">
+              label="{{tab.firstName}} {{tab.lastName}}" >
+        <div class="demo-tab tab{{$index%4}}" >
+					<!-- {{chatSentList}} -->
+					<!-- <div ng-repeat="chat in chatList" ng-class="{'myMessages': chat.senderID !== myUID,    }"> -->
+					<div ng-repeat="chat in chatList" ng-class="chat.senderID !== myUID ? 'friendMessage' :  'myMessages'   ">
+							<md-card>
+					      <md-card-content>
+<!-- 								<md-button aria-label="">
+									<img ng-src="{{comment.senderPicture}}" align="left" style="padding:5px;"/>
+								<md-button>
+ -->					        <p>
+								    <span>{{chat.message}}</span>
+					        </p>
+					      </md-card-content>
+<!-- 					      <div class="md-actions" layout="row" layout-align="end end">
+					        <md-button>Action 1</md-button>
+					      </div>
+ -->					    </md-card>
 
-        <div ng-repeat="chat in chats(tab.$id)">
-					{{chat}}
-        </div>
 
 
 
+
+					</div>
+
+          <form role="form" ng-submit="sendMessage(commentText)" id="commentForm">
+            <div class="input-group">
+              <input type="text" style="position: relative; z-index: 1;" class="form-control" placeholder="Write a comment..." ng-model="commentText" maxlength="200">
+              <span class="input-group-btn">
+                <md-button class="btn md-accent" type="button" ng-click="sendMessage(commentText)">SEND
+              <md-icon md-svg-src="images/icons/ic_send_48px.svg"></md-icon>
+                  </md-button>
+                 <!-- <md-icon md-svg-src="images/icons/ic_send_48px.svg"></md-icon> -->
+              </span>
+            </div>
+          </form>
 
 
 

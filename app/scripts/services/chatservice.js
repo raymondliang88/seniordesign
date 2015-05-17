@@ -18,12 +18,19 @@ angular.module('projectsApp')
         //check if friendUID is inside array before push
         if ($.inArray( friendUID, currentChatList) == -1){
           currentChatList.push(friendUID);
-          console.log("pushed");
+          // console.log("pushed");
         }
         else{
-          console.log("already inside array");
+          // console.log("already inside array at position");
         }
     };
+
+    var getFriendInfo = function(positionID) {
+      // console.log("received" + positionID);
+      return currentChatList[positionID];
+    }
+
+
 
     var getFriendChat = function(){
         return currentChatList;
@@ -31,7 +38,8 @@ angular.module('projectsApp')
 
     return {
       addFriendChat: addFriendChat,
-      getFriendChat: getFriendChat
+      getFriendChat: getFriendChat,
+      getFriendInfo: getFriendInfo
     };
 
 
