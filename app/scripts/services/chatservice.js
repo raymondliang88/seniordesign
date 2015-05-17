@@ -16,7 +16,7 @@ angular.module('projectsApp')
     // add
     var addFriendChat = function(friendUID) {
         //check if friendUID is inside array before push
-        if ($.inArray( friendUID, currentChatList) == -1){
+        if ($.inArray( friendUID, currentChatList) === -1){
           currentChatList.push(friendUID);
           // console.log("pushed");
         }
@@ -28,7 +28,7 @@ angular.module('projectsApp')
     var getFriendInfo = function(positionID) {
       // console.log("received" + positionID);
       return currentChatList[positionID];
-    }
+    };
 
 
 

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('projectsApp')
-.controller('DashboardController',  function($scope, $http, $firebaseAuth, $firebaseArray, $firebaseObject , firebaseService, profileService, chatService, $mdDialog) {
+.controller('DashboardController',  function($scope, $http, $firebaseAuth, $firebaseArray, $firebaseObject , firebaseService, profileService, chatService) {
 
   var ref = new Firebase(firebaseService.getFirebBaseURL());
   var authObj = $firebaseAuth(ref);

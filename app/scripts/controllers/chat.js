@@ -11,24 +11,16 @@ angular.module('projectsApp')
   $scope.myUID = authData.uid;
 
   $scope.products = chatService.getFriendChat();
-  //Chat
-  // var chatRef = new Firebase('https://shining-torch-23.firebaseio.com/chats/'+ authData.uid);
-  // $scope.chatList = $firebaseArray(chatRef);
   $scope.selectedIndex = 1;
+
   //when user clicks a new tab, load info about current chat
   $scope.$watch('selectedIndex', function(current){
-    // console.log(chatService.getFriendInfo(current));
     var fbInfo = chatService.getFriendInfo(current);
-    // $scope.chatMessages = [];
-    //fbInfo.$id = person you want to talk to
     var chatHashArr = [];
+    var fbInfoIDNumber = fbInfo.$id.split(':')[1];
+    var authDataIDNumber = authData.uid.split(':')[1];
+    var chatHash = '';
 
-    var fbInfoIDNumber = fbInfo.$id.split(":")[1];
-    var authDataIDNumber = authData.uid.split(":")[1];
-    console.log(fbInfoIDNumber);
-    console.log(authDataIDNumber);
-
-    var chatHash = 'test';
     if (parseInt(fbInfoIDNumber) < parseInt(authDataIDNumber) ){
       chatHash = fbInfo.$id.concat( authData.uid);
     }
@@ -36,18 +28,8 @@ angular.module('projectsApp')
       chatHash = authData.uid.concat( fbInfo.$id);
     }
 
-
-    // chatHashArr.push();
-    // chatHashArr.push(authData.uid);
-    // chatHashArr.sort();
-    // console.log(chatHashArr);
-
-    // var chatHash = chatHashArr[0].concat(chatHashArr[1]);
-    console.log(chatHash);
     var chatRef = new Firebase('https://shining-torch-23.firebaseio.com/chat/'+ chatHash);
     $scope.chatList = $firebaseArray(chatRef);
-
-
   });
 
   $scope.sendMessage = function(message) {
@@ -55,22 +37,6 @@ angular.module('projectsApp')
           senderID: authData.uid,
           timeStamp: Firebase.ServerValue.TIMESTAMP,
           message: message
-        });
+    });
   }
-
-  $scope.style1 = 'myMessages';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 });
