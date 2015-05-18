@@ -25,7 +25,6 @@
     async.parallel([
       function(callback){
         $scope.commentData = $firebaseArray(commentRef);
-        console.log($scope.commentData);
         $scope.commentData.$loaded()
         .then(function(data){
           //grab poster's image
@@ -34,9 +33,8 @@
             var posterInfo = $firebaseObject(posterRef);
             posterInfo.$loaded()
             .then(function(profile){
-              var uid = posterInfo.$id;
-              $scope.profilePics[uid] = posterInfo.picture;
-              $scope.profileName[uid] = posterInfo.firstName + ' ' + posterInfo.lastName;
+              $scope.profilePics[profile.$id] = profile.picture;
+              $scope.profileName[profile.$id] = profile.firstName + ' ' + profile.lastName;
             });
           }
         });
@@ -45,18 +43,16 @@
         $scope.profileData = $firebaseObject(profileRef);
         $scope.profileData.$loaded()
         .then(function(data){
-          var uid = data.$id;
-          $scope.profilePics[uid] = data.picture;
-          $scope.profileName[uid] = data.firstName + ' ' + data.lastName;  
+          $scope.profilePics[data.$id] = data.picture;
+          $scope.profileName[data.$id] = data.firstName + ' ' + data.lastName;  
         });
       }
     ]);
 
     $scope.createComment = function(text){
       var time = getTime();
-      console.log('making comment...');
       $scope.commentData.$add({
-        creatorID: authData.uid,
+        creatorID: $scope.profileData.$id,
         postDate: time,
         timeStamp: Firebase.ServerValue.TIMESTAMP, 
         text: text
