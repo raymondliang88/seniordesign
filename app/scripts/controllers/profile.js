@@ -3,7 +3,7 @@
 angular.module('projectsApp')
   .controller('ProfileCtrl',
     function ($scope, $stateParams, firebaseService, userService, $firebaseAuth, $state, $firebaseArray, $firebaseObject, $mdDialog) {
-      var ref = new Firebase(firebaseService.getFirebBaseURL())
+      var ref = new Firebase(firebaseService.getFirebBaseURL());
       var authObj = $firebaseAuth(ref);
       var authData = authObj.$getAuth();
 
@@ -17,6 +17,7 @@ angular.module('projectsApp')
       //get user profile Data
       var profileDataRef = new Firebase('https://shining-torch-23.firebaseio.com/profileInfo/'+ profileUID);
       $scope.profileData = $firebaseObject(profileDataRef);
+      //console.log($scope.profileData);
 
       //timestamp
       var getTime = function() {
@@ -28,8 +29,18 @@ angular.module('projectsApp')
                 date.getMinutes(),
                 date.getSeconds(),
                 date.getMilliseconds()].join(':');
-      }
+      };
 
+      var photosRef = new Firebase('https://shining-torch-23.firebaseio.com/photos/'+ profileUID + '/photos');
+      var photosTotalRef = new Firebase('https://shining-torch-23.firebaseio.com/photos/'+ profileUID + '/photosTotal');
+
+      $scope.photos = $firebaseArray(photosRef);
+      var photosData = $firebaseObject(photosTotalRef);
+      photosData.$loaded()
+        .then(function(data) {
+          $scope.photosTotal = data.$value;
+        });
+     
       $scope.commonFriends = [];
 
 
@@ -39,8 +50,7 @@ angular.module('projectsApp')
       var friendObject = $firebaseObject(friendDataRef);
       friendObject.$loaded().then(function(data) {
         $scope.isMyFriend = data.$value == null ? false: true;
-      })
-
+      });
 
       async.parallel([
           function(callback){
@@ -108,7 +118,7 @@ angular.module('projectsApp')
           senderPicture: $scope.myselfData.picture,
           message: message
         });
-        document.getElementById("postForm").reset();
+        document.getElementById('postForm').reset();
       };
 
       $scope.removePost = function(postID) {
@@ -139,7 +149,7 @@ angular.module('projectsApp')
 
       });
 
-    }
+    };
 
 
     $scope.showConfirmDeletePost = function(ev, postID){
@@ -156,10 +166,8 @@ angular.module('projectsApp')
           $scope.removePost(postID);
 
       }, function() {
-
       });
-
-    }
+    };
 
       //add an image post
       $scope.addImagePost = function(message, imageSrc) {
@@ -194,7 +202,7 @@ angular.module('projectsApp')
           var id = ref.key();
           ref.update({commentID: id});
         });
-        document.getElementById("commentForm").reset();
+        document.getElementById('commentForm').reset();
       }
 
 

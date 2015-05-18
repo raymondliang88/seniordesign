@@ -48,7 +48,11 @@ angular.module('projectsApp')
       };
 
       photosTotalRef.on('value', function(dataSnapshot) {
-        $scope.photosTotal = dataSnapshot.val();
+        if (dataSnapshot.val() === null) {
+          $scope.photosTotal = 0;
+        } else {
+          $scope.photosTotal = dataSnapshot.val();
+        }
         // if photosTotal >= 25, set limit
         if (dataSnapshot.val() >= 25) {
           console.log('total is 25+... Photos Limit Reached');
