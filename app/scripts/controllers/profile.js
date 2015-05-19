@@ -38,7 +38,7 @@ angular.module('projectsApp')
       var friendDataRef = new Firebase('https://shining-torch-23.firebaseio.com/friends/'+authData.uid+'/friendList/'+param.user);
       var friendObject = $firebaseObject(friendDataRef);
       friendObject.$loaded().then(function(data) {
-        $scope.isMyFriend = (data.$value === null || param.user === authData.uid) ? false: true;
+        $scope.isMyFriend = data.$value === null ? false: true;
       });
 
       // Check if PROFILE is pirvate
@@ -56,7 +56,7 @@ angular.module('projectsApp')
           proPrivacyRef = new Firebase('https://shining-torch-23.firebaseio.com/privacySettings/'+ param.user + '/profilePrivacy/custom/' + authData.uid + '/setting');
           proPrivacyObj = $firebaseObject(proPrivacyRef);
           proPrivacyObj.$loaded().then(function(data){
-            if(data.$value === 'public'){
+            if(data.$value === 'public'  || param.user === authData.uid){
               // public because custom setting
               $scope.isProfilePrivate = false;
             }
@@ -80,7 +80,7 @@ angular.module('projectsApp')
           picPrivacyRef = new Firebase('https://shining-torch-23.firebaseio.com/privacySettings/'+ param.user + '/picturePrivacy/custom/' + authData.uid + '/setting');
           picPrivacyObj = $firebaseObject(picPrivacyRef);
           picPrivacyObj.$loaded().then(function(data){
-            if(data.$value === null || data.$value === 'public'){
+            if(data.$value === 'public' || param.user === authData.uid){
               // public because custom setting
               $scope.isPicturePrivate = false;
             }
