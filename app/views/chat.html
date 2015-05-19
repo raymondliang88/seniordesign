@@ -12,23 +12,14 @@
         <div class="demo-tab tab{{$index%4}}" >
 					<!-- {{chatSentList}} -->
 					<!-- <div ng-repeat="chat in chatList" ng-class="{'myMessages': chat.senderID !== myUID,    }"> -->
-					<div ng-repeat="chat in chatList" ng-class="chat.senderID !== myUID ? 'friendMessage' :  'myMessages'   ">
-							<md-card>
-					      <md-card-content>
-<!-- 								<md-button aria-label="">
-									<img ng-src="{{comment.senderPicture}}" align="left" style="padding:5px;"/>
-								<md-button>
- -->					        <p>
-								    <span>{{chat.message}}</span>
-					        </p>
-					      </md-card-content>
-<!-- 					      <div class="md-actions" layout="row" layout-align="end end">
-					        <md-button>Action 1</md-button>
-					      </div>
- -->					    </md-card>
-					</div>
-
-          <form role="form" ng-submit="sendMessage(commentText)" id="commentForm">
+					        <div class="row" style="text-align: center;">
+					           <!-- <div class="col-xs-6 col-md-6"> -->
+							        <md-button ng-click="goToProfile(tab.$id)" aria-label="">
+							          <img ng-src="{{tab.picture}}" align="middle" style="width: 100%; height: 100%;"/>
+							        <md-button>
+	      					<!-- </div> -->
+	      				</div>
+	      				          <form role="form" ng-submit="sendMessage(commentText)" id="commentForm">
             <div class="input-group">
               <input type="text" style="position: relative; z-index: 1;" class="form-control" placeholder="Write a comment..." ng-model="commentText" maxlength="200">
               <span class="input-group-btn">
@@ -39,6 +30,18 @@
               </span>
             </div>
           </form>
+					<div ng-repeat="chat in chatList | reverse | limitTo: 16">
+							<md-card>
+					      <md-card-content ng-class="chat.senderID !== myUID ? 'friendMessage' :  'myMessages'   ">
+					      {{chat.senderFirstName}} :
+								    <span>{{chat.message}}</span>
+					      </md-card-content>
+<!-- 					      <div class="md-actions" layout="row" layout-align="end end">
+					        <md-button>Action 1</md-button>
+					      </div>
+ -->					    </md-card>
+					</div>
+
           <md-button class="md-primary md-raised" ng-click="removeTab( tab )" ng-disabled="tabs.length <= 1">Remove Tab</md-button>
         </div>
       </md-tab>

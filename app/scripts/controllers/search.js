@@ -8,7 +8,7 @@
  * Controller of the projectsApp
  * */
  angular.module('projectsApp')
- .controller('SearchCtrl', function ($scope, $timeout, firebaseService) {
+ .controller('SearchCtrl', function ($scope, $timeout, firebaseService,  $stateParams) {
 
     $scope.selectedProfile = {};
     $scope.loaded = false;
@@ -104,11 +104,11 @@
   return function(scope, elem, attrs) {
     var element = angular.element(elem)[0];
     var currentTimeout = null;
-   
+
     element.oninput = function() {
       var model = $parse(attrs.postFunction);
       var poster = model(scope);
-      
+
       if(currentTimeout) {
         $timeout.cancel(currentTimeout)
       }

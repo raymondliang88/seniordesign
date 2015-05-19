@@ -32,11 +32,22 @@ angular.module('projectsApp')
     $scope.chatList = $firebaseArray(chatRef);
   });
 
+  var myselfDataRef = new Firebase('https://shining-torch-23.firebaseio.com/profileInfo/'+ authData.uid);
+  $scope.myselfData = $firebaseObject(myselfDataRef);
+
   $scope.sendMessage = function(message) {
     $scope.chatList.$add({
           senderID: authData.uid,
           timeStamp: Firebase.ServerValue.TIMESTAMP,
-          message: message
+          message: message,
+          senderFirstName: $scope.myselfData.firstName,
+          senderLastName: $scope.myselfData.lastName
     });
   }
+
+
+
+
+
+
 });

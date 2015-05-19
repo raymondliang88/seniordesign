@@ -30,8 +30,6 @@ angular.module('projectsApp')
       return currentChatList[positionID];
     };
 
-
-
     var getFriendChat = function(){
         return currentChatList;
     };
