@@ -220,28 +220,21 @@
                 <md-option value="friends">Friends</md-option>
                 <md-option value="custom">Custom</md-option>
               </md-select>
-              <br>
               <md-select placeholder="Select" ng-model="privacyTypePro" ng-change="updateSetting(viewerProfileSetting, privacyTypePro, 'profilePrivacy')" ng-show="showPrivacySettings(viewerProfileSetting)">
                 <md-option value="public">Public</md-option>
                 <md-option value="private">Private</md-option>
               </md-select>
-              <!-- Custom User Input -->
-              <div class="form-group" ng-show="isCustom(viewerProfileSetting, privacyTypePro)">
-                <label class="col-lg-3 control-label">Custom User List:</label>
-                <div class="col-lg-8">
-                  <div class="btn-group" data-toggle="buttons">
-                    <div class="row">
-                       <div class="col-xs-8">
-                          <input class="form-control" ng-model="userPro" type="text">
-                        </div>
-                        <div class="col-xs-4">
-                          <button class="btn btn-default" type="submit" ng-click="customSetting(userPro, privacyTypePro, 'profilePrivacy')">Add</button>
-                        </div>
-                    </div>
-                    <!-- <span ng-repeat="item in musics" ng-click="removeMusic($index)">{{item}} <i class="glyphicon glyphicon-remove"></i></span> -->
-                  </div>
-                </div>
-              </div>
+              <!-- Custom User -->
+              <md-select placeholder="Select" ng-model="proCustomViewer" ng-show="isCustom(viewerProfileSetting, privacyTypePro)">
+                <md-option value="select">Select</md-option>
+                <span ng-repeat="friend in friends"> 
+                  <md-option value={{friend.$id}},{{friend.$value}}>{{friend.$value}}</md-option>
+                </span>
+              </md-select>
+              <span ng-show="isCustom(viewerProfileSetting, privacyTypePro)">
+                <button class="btn btn-default" type="submit" ng-click="customSetting(proCustomViewer, privacyTypePro, 'profilePrivacy')">Add</button>
+              </span>
+              <div ng-repeat="proViewers in customProPrivacyList" ng-click="removeCustomViewer(proViewers, 'profilePrivacy')">{{proViewers.fullName}} - {{proViewers.setting}} <i class="glyphicon glyphicon-remove"></i></div>
             </md-container>
           </div>
 
@@ -253,28 +246,21 @@
                 <md-option value="friends">Friends</md-option>
                 <md-option value="custom">Custom</md-option>
               </md-select>
-              <br>
               <md-select placeholder="Select" ng-model="privacyTypePic" ng-change="updateSetting(viewerPictureSetting, privacyTypePic, 'picturePrivacy')" ng-show="showPrivacySettings(viewerPictureSetting)">
                 <md-option value="public">Public</md-option>
                 <md-option value="private">Private</md-option>
               </md-select>
-              <!-- Custom User Input -->
-              <div class="form-group" ng-show="isCustom(viewerPictureSetting, privacyTypePic)">
-                <label class="col-lg-3 control-label">Custom User List:</label>
-                <div class="col-lg-8">
-                  <div class="btn-group" data-toggle="buttons">
-                    <div class="row">
-                       <div class="col-xs-8">
-                          <input class="form-control" ng-model="userPic" type="text">
-                        </div>
-                        <div class="col-xs-4">
-                          <button class="btn btn-default" type="submit" ng-click="customSetting(userPic, privacyTypePic, 'picturePrivacy')">Add</button>
-                        </div>
-                    </div>
-                    <!-- <span ng-repeat="viewers in customPicPrivacyList" ng-click="removeCustomViewer(viewers)">{{viewers.fullName}} - {{viewers.setting}} <i class="glyphicon glyphicon-remove"></i></span> -->
-                  </div>
-                </div>
-              </div>
+              <!-- Custom User -->
+              <md-select placeholder="Select" ng-model="picCustomViewer" ng-show="isCustom(viewerPictureSetting, privacyTypePic)">
+                <md-option value="select">Select</md-option>
+                <span ng-repeat="friend in friends"> 
+                  <md-option value={{friend.$id}},{{friend.$value}}>{{friend.$value}}</md-option>
+                </span>
+              </md-select>
+              <span ng-show="isCustom(viewerPictureSetting, privacyTypePic)">
+                <button class="btn btn-default" type="submit" ng-click="customSetting(picCustomViewer, privacyTypePic, 'picturePrivacy')">Add</button>
+              </span>
+              <div ng-repeat="picViewers in customPicPrivacyList" ng-click="removeCustomViewer(picViewers, 'picturePrivacy')">{{picViewers.fullName}} - {{picViewers.setting}} <i class="glyphicon glyphicon-remove"></i></div>
             </md-container>
           </div>
 

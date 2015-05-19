@@ -3,7 +3,7 @@
 angular.module('projectsApp')
   .controller('ProfileCtrl',
     function ($scope, $stateParams, firebaseService, userService, $firebaseAuth, $state, $firebaseArray, $firebaseObject, $mdDialog) {
-      var ref = new Firebase(firebaseService.getFirebBaseURL())
+      var ref = new Firebase(firebaseService.getFirebBaseURL());
       var authObj = $firebaseAuth(ref);
       var authData = authObj.$getAuth();
 
@@ -16,7 +16,7 @@ angular.module('projectsApp')
 
       //get user profile Data
       var profileDataRef = new Firebase('https://shining-torch-23.firebaseio.com/profileInfo/'+ profileUID);
-      $scope.profileData = $firebaseObject(profileDataRef);
+      $scope.profileData = $firebaseObject(profileDataRef); // REMOVE PROFILE INFORATION WHEN PRIVATE
 
       //timestamp
       var getTime = function() {
@@ -28,7 +28,7 @@ angular.module('projectsApp')
                 date.getMinutes(),
                 date.getSeconds(),
                 date.getMilliseconds()].join(':');
-      }
+      };
 
       $scope.commonFriends = [];
 
@@ -38,15 +38,62 @@ angular.module('projectsApp')
       var friendDataRef = new Firebase('https://shining-torch-23.firebaseio.com/friends/'+authData.uid+'/friendList/'+param.user);
       var friendObject = $firebaseObject(friendDataRef);
       friendObject.$loaded().then(function(data) {
-        $scope.isMyFriend = data.$value == null ? false: true;
-      })
+        $scope.isMyFriend = (data.$value === null || param.user === authData.uid) ? false: true;
+      });
 
+      // Check if PROFILE is pirvate
+      $scope.isProfilePrivate = false;
+      var proPrivacyRef = new Firebase('https://shining-torch-23.firebaseio.com/privacySettings/'+ param.user + '/profilePrivacy/');
+      var proPrivacyObj = $firebaseObject(proPrivacyRef);
+      proPrivacyObj.$loaded().then(function(data){
+        if(data.privacy === 'public' && ((data.viewers === 'friends' && $scope.isMyFriend) || data.viewers === 'everyone')){
+          // public
+          $scope.isProfilePrivate = false;
+        }
+        else{
+          // private
+          $scope.isProfilePrivate = true;
+          proPrivacyRef = new Firebase('https://shining-torch-23.firebaseio.com/privacySettings/'+ param.user + '/profilePrivacy/custom/' + authData.uid + '/setting');
+          proPrivacyObj = $firebaseObject(proPrivacyRef);
+          proPrivacyObj.$loaded().then(function(data){
+            if(data.$value === 'public'){
+              // public because custom setting
+              $scope.isProfilePrivate = false;
+            }
+          });
+        }
+      });
+
+      // Check if PICTURES are private
+      $scope.isPicCustom = false;
+      $scope.isPicturePrivate = false;
+      var picPrivacyRef = new Firebase('https://shining-torch-23.firebaseio.com/privacySettings/'+ param.user + '/picturePrivacy/');
+      var picPrivacyObj = $firebaseObject(picPrivacyRef);
+      picPrivacyObj.$loaded().then(function(data){
+        if(data.privacy === 'public' && ((data.viewers === 'friends' && $scope.isMyFriend) || data.viewers === 'everyone')){
+          // public
+          $scope.isPicturePrivate = false;
+        }
+        else{
+          // private
+          $scope.isPicturePrivate = true;
+          picPrivacyRef = new Firebase('https://shining-torch-23.firebaseio.com/privacySettings/'+ param.user + '/picturePrivacy/custom/' + authData.uid + '/setting');
+          picPrivacyObj = $firebaseObject(picPrivacyRef);
+          picPrivacyObj.$loaded().then(function(data){
+            if(data.$value === null || data.$value === 'public'){
+              // public because custom setting
+              $scope.isPicturePrivate = false;
+            }
+          });
+
+        }
+      });
 
       async.parallel([
           function(callback){
               //postData returns a list of post
               var profilePostRef = new Firebase('https://shining-torch-23.firebaseio.com/posts/'+ profileUID);
-              $scope.postData = $firebaseArray(profilePostRef);
+              $scope.postData = $firebaseArray(profilePostRef); // REMOVE POSTS WHEN PRIVATE
               console.log('Post data' + $scope.postData);
 
           },
@@ -96,6 +143,16 @@ angular.module('projectsApp')
       ]);
 
 
+      $scope.isPrivate = function(isPrivateParam){
+        if(isPrivateParam === true ){
+          console.log('Returning true. isPrivateParam: ' + isPrivateParam);
+          return true;
+        }
+        else{
+          console.log('Returning false isPrivateParam: ' + isPrivateParam);
+          return false;
+        }
+      };
 
       //add a new post
       $scope.addTextPost = function(message) {
@@ -139,7 +196,7 @@ angular.module('projectsApp')
 
       });
 
-    }
+    };
 
 
     $scope.showConfirmDeletePost = function(ev, postID){
@@ -159,7 +216,7 @@ angular.module('projectsApp')
 
       });
 
-    }
+    };
 
       //add an image post
       $scope.addImagePost = function(message, imageSrc) {
@@ -194,8 +251,8 @@ angular.module('projectsApp')
           var id = ref.key();
           ref.update({commentID: id});
         });
-        document.getElementById("commentForm").reset();
-      }
+        document.getElementById('commentForm').reset();
+      };
 
 
       //true if current profile belongs to the user
@@ -210,9 +267,9 @@ angular.module('projectsApp')
         $('#'+imgID).attr('src', e.target.result);
         $scope.imageSrc = e.target.result;
 
-      }
+      };
       reader.readAsDataURL(file);
-    }
+    };
 
     $scope.getPostFile = function(file) {
       var reader = new FileReader();
@@ -222,20 +279,20 @@ angular.module('projectsApp')
         //Set post file
         $scope.postFile = e.target.result;
         $scope.imageSrc = e.target.result;
-      }
+      };
       reader.readAsDataURL(file);
-    }
+    };
 
     $scope.removeUpload = function() {
       $scope.postFile = 0;
       $scope.imgSrc = 0;
       $('#post-imagepreview').attr('src', 0);
-    }
+    };
 
     $scope.showAddFriend = function(owner, isFriend) {
       if(owner || isFriend)
         return true;
       else
         return false;
-    }
+    };
 });
