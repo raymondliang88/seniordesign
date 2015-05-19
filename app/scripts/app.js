@@ -301,6 +301,23 @@ angular
             }
           }
         }
+      })
+      .state('home.culture', {
+        url: '/culture',
+        views: {
+          'container@': {
+            templateUrl: '/views/culture.html',
+            controller: 'CultureCtrl',
+            resolve: {
+            // controller will not be loaded until $requireAuth resolves
+              'currentAuth': ['$firebaseAuth', function ($firebaseAuth) {
+                var ref = new Firebase('https://shining-torch-23.firebaseio.com/');
+                var authObj = $firebaseAuth(ref);
+                return authObj.$requireAuth();
+              }]
+            }
+          }
+        }
       });
       FacebookProvider.init('1571917669752119');
   });

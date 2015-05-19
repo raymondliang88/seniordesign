@@ -72,7 +72,6 @@ angular.module('projectsApp')
 
     //pass uid to go to
     $scope.goToProfile = function(userid) {
-      console.log('Sending to profile uid' + userid);
       $state.go('home.profile.user' , {user: userid});
     };
 
@@ -111,8 +110,11 @@ angular.module('projectsApp')
 
     $scope.goToThread = function(threadid) {
       $state.go('home.forum.thread', {thread: threadid});
-      console.log('going to comment section');
-    }
+    };
+
+    $scope.goToCulture = function() {
+      $state.go('home.culture');
+    };
 
     $scope.logout = function(){
       console.log('Logging Out!');
