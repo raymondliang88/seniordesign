@@ -203,7 +203,7 @@ angular.module('projectsApp')
           ref.update({commentID: id});
         });
         document.getElementById('commentForm').reset();
-      }
+      };
 
 
       //true if current profile belongs to the user
@@ -218,9 +218,9 @@ angular.module('projectsApp')
         $('#'+imgID).attr('src', e.target.result);
         $scope.imageSrc = e.target.result;
 
-      }
+      };
       reader.readAsDataURL(file);
-    }
+    };
 
     $scope.getPostFile = function(file) {
       var reader = new FileReader();
@@ -230,20 +230,21 @@ angular.module('projectsApp')
         //Set post file
         $scope.postFile = e.target.result;
         $scope.imageSrc = e.target.result;
-      }
+      };
       reader.readAsDataURL(file);
-    }
+    };
 
     $scope.removeUpload = function() {
       $scope.postFile = 0;
       $scope.imgSrc = 0;
       $('#post-imagepreview').attr('src', 0);
-    }
+    };
 
     $scope.showAddFriend = function(owner, isFriend) {
-      if(owner || isFriend)
+      if(owner || isFriend) {
         return true;
-      else
+      } else {
         return false;
-    }
+      }
+    };
 });
