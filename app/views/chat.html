@@ -1,8 +1,69 @@
-<div layout="column" flex layout-fill class="col-sm-12"  style="padding-top: 24px;">
-  <div class="jumbotron">
-  <h1 class="md-display-3">Chat</h1>
-    <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
-  </div>
+<div layout="column" flex layout-fill class="col-sm-12" >
+	<md-toolbar class="md-default-theme">
+	  <h2 class="md-toolbar-tools">
+	    <span>Chat</span>
+	  </h2>
+	</md-toolbar>
+	<md-content class="md-padding">
+    <md-tabs md-selected="selectedIndex" md-border-bottom>
+      <md-tab ng-repeat="tab in products"
+              ng-disabled="tab.disabled"
+              label="{{tab.firstName}} {{tab.lastName}}" >
+        <div class="demo-tab tab{{$index%4}}" >
+					<!-- {{chatSentList}} -->
+					<!-- <div ng-repeat="chat in chatList" ng-class="{'myMessages': chat.senderID !== myUID,    }"> -->
+					        <div class="row" style="text-align: center;">
+					           <!-- <div class="col-xs-6 col-md-6"> -->
+							        <md-button ng-click="goToProfile(tab.$id)" aria-label="">
+							          <img ng-src="{{tab.picture}}" align="middle" style="width: 100%; height: 100%;"/>
+							        <md-button>
+	      					<!-- </div> -->
+	      				</div>
+	      				          <form role="form" ng-submit="sendMessage(commentText)" id="commentForm">
+            <div class="input-group">
+              <input type="text" style="position: relative; z-index: 1;" class="form-control" placeholder="Write a comment..." ng-model="commentText" maxlength="200">
+              <span class="input-group-btn">
+                <md-button class="btn md-accent" type="button" ng-click="sendMessage(commentText)">SEND
+              <md-icon md-svg-src="images/icons/ic_send_48px.svg"></md-icon>
+                  </md-button>
+                 <!-- <md-icon md-svg-src="images/icons/ic_send_48px.svg"></md-icon> -->
+              </span>
+            </div>
+          </form>
+					<div ng-repeat="chat in chatList | reverse | limitTo: 16">
+							<md-card>
+					      <md-card-content ng-class="chat.senderID !== myUID ? 'friendMessage' :  'myMessages'   ">
+					      {{chat.senderFirstName}} :
+								    <span>{{chat.message}}</span>
+					      </md-card-content>
+<!-- 					      <div class="md-actions" layout="row" layout-align="end end">
+					        <md-button>Action 1</md-button>
+					      </div>
+ -->					    </md-card>
+					</div>
+
+          <md-button class="md-primary md-raised" ng-click="removeTab( tab )" ng-disabled="tabs.length <= 1">Remove Tab</md-button>
+        </div>
+      </md-tab>
+    </md-tabs>
+  </md-content>
+<!--   <form ng-submit="addTab(tTitle,tContent)" layout="column" class="md-padding" style="padding-top: 0;">
+    <div layout="row" layout-sm="column">
+      <div flex style="position: relative;">
+        <h2 class="md-subhead" style="position: absolute; bottom: 0; left: 0; margin: 0; font-weight: 500; text-transform: uppercase; line-height: 35px; white-space: nowrap;">Add a new Tab:</h2>
+      </div>
+      <md-input-container>
+        <label for="label">Label</label>
+        <input type="text" id="label" ng-model="tTitle">
+      </md-input-container>
+      <md-input-container>
+        <label for="content">Content</label>
+        <input type="text" id="content" ng-model="tContent">
+      </md-input-container>
+      <md-button class="add-tab md-primary md-raised" ng-disabled="!tTitle || !tContent" type="submit" style="margin-right: 0;">Add Tab</md-button>
+    </div>
+  </form>
+ -->
 
 
 <!-- 	<div ng-repeat="friend in friendProfiles">

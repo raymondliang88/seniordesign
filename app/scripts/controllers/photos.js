@@ -43,46 +43,73 @@ angular.module('projectsApp')
           postDate: time,
           timeStamp: Firebase.ServerValue.TIMESTAMP,
           imageTag: imageTag,
-          imageSrc: $scope.imageFile
+          imageSrc: imageSrc 
         });
       };
+
+      photosTotalRef.on('value', function(dataSnapshot) {
+        if (dataSnapshot.val() === null) {
+          $scope.photosTotal = 0;
+        } else {
+          $scope.photosTotal = dataSnapshot.val();
+        }
+        // if photosTotal >= 25, set limit
+        if (dataSnapshot.val() >= 25) {
+          console.log('total is 25+... Photos Limit Reached');
+          $scope.photosLimit = true;
+        } else {
+          $scope.photosLimit = false;
+        }
+      });
 
       $scope.removeImage = function(imageID) {
         var imageDataRef = new Firebase('https://shining-torch-23.firebaseio.com/photos/'+ photosUID + '/photos/' + imageID);
         imageDataRef.remove();
         photosTotalRef.transaction(function(currentValue) {
-          return (currentValue || 0) - 1;
+          return currentValue - 1;
         });
       };
 
-      $scope.getFile = function(file, imgSrc) {
-        $scope.file = file;
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            var imgID = imgSrc.getAttribute('id');
-            console.log('imgID ' + imgID);
-            $('#'+imgID).attr('src', e.target.result);
-            $scope.imageSrc = e.target.result;
-            
-        };
-        reader.readAsDataURL(file);
+      $scope.expandImage = function(ev, imageSrc){
+        function ExpandImageCtrl($scope, $mdDialog) {
+          $scope.cancel = function() {
+            $mdDialog.cancel();
+          };
+          $scope.imageSrc = imageSrc;
+        }
+
+        $mdDialog.show({
+          templateUrl: 'views/expand_img.tmpl.html',
+          targetEvent: ev,
+          controller: ExpandImageCtrl
+        });
       };
 
+      $scope.addImageText = 'Add Image';
       $scope.getPostFile = function(file) {
-        var reader = new FileReader();
-        console.log('file array size...' + file);
-        reader.onload = function (e) {
-          $('#post-imagepreview').attr('src', e.target.result);
-          //Set image file
-          $scope.imageFile = e.target.result;
-          $scope.imageSrc = e.target.result;
-        };
-        reader.readAsDataURL(file);
+        // check if file size is 10MB+
+        $scope.invalidFile = false;
+        if (file.size > 10000000) {
+          $scope.invalidFile = true;
+          $scope.addImageText = 'File size is too big!!!';
+          $scope.$apply();
+        } else {
+          $scope.invalidFile = false;
+          $scope.addImageText = 'Add Image';
+          $scope.$apply();
+
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            //Set image file
+            $scope.imageFile = e.target.result;
+            $scope.imageSrc = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        }
       };
 
       $scope.removeUpload = function() {
         $scope.imageFile = 0;
         $scope.imgSrc = 0;
-        $('#post-imagepreview').attr('src', 0);
-      }
+      };
 });

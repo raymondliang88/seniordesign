@@ -5,7 +5,6 @@
   width: 100%;
   height: 30em;
   background: #303F9F;
-  background-image: url("paper.gif");
   margin-bottom: 4em;
 }
 .splash-info{
@@ -44,7 +43,7 @@
 }
 
 .envelope:after {
-  margin-top: 16em;
+  margin-top: 4em;
   border-right-color: #ED4C50;
   border-left-color: #FA565A;
   border-bottom-color: #FA565A;
