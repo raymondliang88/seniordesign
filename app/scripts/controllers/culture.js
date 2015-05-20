@@ -9,19 +9,29 @@
  * */
  angular.module('projectsApp')
  .controller('CultureCtrl', function ($scope, firebaseService, $firebaseAuth, $firebaseArray, $firebaseObject) {
-    var langList = ['English',
-                    'Spanish',
-                    'German',
-                    'Cantonese',
-                    'Mandarin',
-                    'Japanese',
-                    'French',
-                    'Korean',
-                    'Portugese',
-                    'Zulu',
-                    'Mongolian',
-                    'Greek',
-                    'Italian',
-                    'Russian'];
-    
+
+  var authRef = new Firebase(firebaseService.getFirebBaseURL())
+  var authObj = $firebaseAuth(authRef);
+  var authData = authObj.$getAuth
+  var profileRef = new Firebase('https://shining-torch-23.firebaseio.com/profileInfo');
+  $scope.selections;
+  var profiles;    
+
+  async.parallel([
+      function(callback){
+        profiles = $firebaseObject(profileRef);
+      }
+    ]);
+
+  $scope.search = function(input){
+    if(input !== undefined){
+      if(input.language !== undefined){
+
+      }
+      if(input.language !== undefined){
+        
+      }
+    }
+  };
+
 });

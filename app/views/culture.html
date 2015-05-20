@@ -1,0 +1,17 @@
+<div layout="column" flex layout-fill ng-controller='CultureCtrl'>
+
+  <!-- Culture Search Form -->
+  <form>
+    <label>Language</label>
+      <input type='text' ng-model='input.language' class='form-control' placeholder='Language'/>
+    <label>Country</label>
+      <input type='text' ng-model='input.country' class='form-control' placeholder='Country'/>
+    <md-button ng-click='search(input)' class='md-primary'>
+      Search
+    </md-button>
+
+    <div ng-repeat="profile in selections">{{ profile.val.firstName }} {{ profile.val.lastName }}</div>
+  </form>
+</div>
+
+</div>
