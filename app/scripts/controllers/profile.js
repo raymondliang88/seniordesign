@@ -63,8 +63,8 @@ angular.module('projectsApp')
           proPrivacyRef = new Firebase('https://shining-torch-23.firebaseio.com/privacySettings/'+ param.user + '/profilePrivacy/custom/' + authData.uid + '/setting');
           proPrivacyObj = $firebaseObject(proPrivacyRef);
           proPrivacyObj.$loaded().then(function(data){
-            if(data.$value === 'private'  || param.user === authData.uid){
-              // public because custom setting
+            if(data.$value === 'private'){
+              // custom setting
               $scope.isProfilePrivate = true;
             }
           });
@@ -76,7 +76,7 @@ angular.module('projectsApp')
           proPrivacyObj = $firebaseObject(proPrivacyRef);
           proPrivacyObj.$loaded().then(function(data){
             if(data.$value === 'public'  || param.user === authData.uid){
-              // public because custom setting
+              // custom setting
               $scope.isProfilePrivate = false;
             }
           });
@@ -96,7 +96,7 @@ angular.module('projectsApp')
           picPrivacyObj = $firebaseObject(picPrivacyRef);
           picPrivacyObj.$loaded().then(function(data){
             if(data.$value === 'private'){
-              // public because custom setting
+              // custom setting
               $scope.isPicturePrivate = true;
             }
           });
@@ -108,7 +108,7 @@ angular.module('projectsApp')
           picPrivacyObj = $firebaseObject(picPrivacyRef);
           picPrivacyObj.$loaded().then(function(data){
             if(data.$value === 'public'){
-              // public because custom setting
+              // custom setting
               $scope.isPicturePrivate = false;
             }
           });
