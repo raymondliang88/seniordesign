@@ -9,8 +9,7 @@
  */
 angular.module('projectsApp')
   .controller('SettingsCtrl',
-    function ($scope, $mdDialog, firebaseService, userService, $firebaseAuth, alertService, $firebaseArray) {
-
+    function ($scope, $mdDialog, firebaseService, userService, $firebaseAuth, $firebaseArray) {
       var ref = new Firebase(firebaseService.getFirebBaseURL());
       var authObj = $firebaseAuth(ref);
       var authData = authObj.$getAuth();
@@ -19,11 +18,13 @@ angular.module('projectsApp')
       $scope.user;
       $scope.alert = '';
       $scope.movie;
-      $scope.movies = [''];
+      $scope.movies = [];
       $scope.music;
-      $scope.musics = [''];
+      $scope.musics = [];
       $scope.savedStatus = '';
       $scope.imageSrc;
+      $scope.friends = [];
+      $scope.customProPrivacyList = [];
       $scope.customPicPrivacyList = [];
 
       ref.child('profileInfo').child(authData.uid).once('value', function (snapshot) {
@@ -171,6 +172,14 @@ angular.module('projectsApp')
       }
     };
 
+
+    $scope.displayFriends = function(){
+      console.log('Will Display All Friends');
+      var customViewerRef = new Firebase('https://shining-torch-23.firebaseio.com/friends/'+ $scope.userCurrent.uid + '/friendList/');
+      console.log('Path: ' + customViewerRef.toString());
+      $scope.friends = $firebaseArray(customViewerRef);
+    };
+
     $scope.postSettings = function (selection) {
       console.log('Setting post privacy: ' + selection);
       ref.child('privacySettings').child($scope.userCurrent.uid).update({
@@ -188,13 +197,13 @@ angular.module('projectsApp')
     };
 
     $scope.customSetting = function(user, privacyType, settingType){
+      console.log('User: ' + user);
       if(user!==undefined){
-        //var removeRef = new Firebase('https://shining-torch-23.firebaseio.com/privacySettings/'+ $scope.userCurrent.uid + '/' + settingType);
-        //removeRef.remove(); // remove previous settings
-        console.log(settingType + ' Custom: ' + user + ' - ' + privacyType);
-        var customUserRef = new Firebase('https://shining-torch-23.firebaseio.com/privacySettings/'+ $scope.userCurrent.uid + '/' + settingType + '/custom/' + user);
-        customUserRef.set({ 'fullName': user, 'setting': privacyType });
-        $scope.getCustomList(settingType);
+        var uid = user.split(',')[0];
+        user = user.split(',')[1];
+        //console.log(settingType + ' Custom: ' + user  + ' - ' + privacyType);
+        var customUserRef = new Firebase('https://shining-torch-23.firebaseio.com/privacySettings/'+ $scope.userCurrent.uid + '/' + settingType + '/custom/' + uid);
+        customUserRef.set({ 'fullName': user, 'uid': uid, 'setting': privacyType });
       }
     };
 
@@ -204,13 +213,16 @@ angular.module('projectsApp')
         var customUserRef = new Firebase('https://shining-torch-23.firebaseio.com/privacySettings/'+ $scope.userCurrent.uid + '/' + settingType + '/');
         customUserRef.set({ 'viewers': viewerSetting, 'privacy': privacyType });
       }
+      $scope.displayFriends();
+      $scope.getCustomList(settingType);
     };
 
     $scope.getCustomList = function(settingType){
       console.log('Fetching viewers from ' + settingType);
       var customUserRef = new Firebase('https://shining-torch-23.firebaseio.com/privacySettings/'+ $scope.userCurrent.uid + '/' + settingType + '/custom/');
       customUserRef.on("value", function(snapshot) {
-        $scope.customPicPrivacyList = snapshot.val();
+        if(settingType==='profilePrivacy') $scope.customProPrivacyList = snapshot.val();
+        else $scope.customPicPrivacyList = snapshot.val();
         console.log('ARRAY: ' + snapshot.val());
       }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
@@ -231,11 +243,11 @@ angular.module('projectsApp')
       return false;
     };
 
-    $scope.removeCustomViewer = function(user){
-      console.log('Removing custom privacy for ' + user);
-      var customUserRef = new Firebase('https://shining-torch-23.firebaseio.com/privacySettings/'+ $scope.userCurrent.uid + '/profilePrivacy/custom/' + user);
+    $scope.removeCustomViewer = function(user, settingType){
+      console.log('Removing custom privacy for ' + user.fullName  + ' on ' + settingType);
+      var customUserRef = new Firebase('https://shining-torch-23.firebaseio.com/privacySettings/'+ $scope.userCurrent.uid + '/' + settingType + '/custom/' + user.uid);
       console.log('ListPath: ' + customUserRef.toString());
-      //customUserRef.remove();
+      customUserRef.remove();
     };
 
     $scope.getPostFile = function(file) {
@@ -276,42 +288,4 @@ angular.module('projectsApp')
             }
         });
     };
-
-
-    $scope.showDeleteAccountConfirmation = function(password) {
-
-      alertService.removeAccount($scope, $scope.userCurrent.email, password, authData.uid);
-
-    }
-
-    $scope.updatePassword = function(passwordOld, passwordNew) {
-
-      var reffire = new Firebase("https://shining-torch-23.firebaseio.com/");
-      ref.changePassword({
-        email: $scope.userCurrent.email,
-        oldPassword: passwordOld,
-        newPassword: passwordNew
-      }, function(error) {
-        if (error) {
-          switch (error.code) {
-            case "INVALID_PASSWORD":
-              console.log("The specified user account password is incorrect.");
-              alert("The specified user account password is incorrect.");
-              break;
-            case "INVALID_USER":
-              console.log("The specified user account does not exist.");
-              alert("The specified user account does not exist.");
-              break;
-            default:
-              console.log("Error changing password:", error);
-              alert("Error changing password");
-          }
-        } else {
-          console.log("User password changed successfully!");
-          alert("User password changed successfully!");
-        }
-      });
-
-    }
-
 });
