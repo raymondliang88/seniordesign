@@ -60,6 +60,10 @@ angular
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl'
       })
+      // .state('notFound', {
+      //   url: '/notFound',
+      //   templateUrl: '404.html',
+      // })
       .state('home',{
         url: '/home',
         abstract: true,

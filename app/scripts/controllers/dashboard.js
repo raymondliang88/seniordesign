@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('projectsApp')
-.controller('DashboardController',  function($scope, $http, $firebaseAuth, $firebaseArray, $firebaseObject , firebaseService, profileService, $mdDialog) {
+.controller('DashboardController',  function($scope, $http, $firebaseAuth, $firebaseArray, $firebaseObject , firebaseService, profileService, chatService) {
 
   var ref = new Firebase(firebaseService.getFirebBaseURL());
   var authObj = $firebaseAuth(ref);
@@ -20,8 +20,6 @@ angular.module('projectsApp')
     //loops through and gets profile data, adds to friendprofile array
     //friend profile array contains array of userprofileData objects
     x.forEach(function(entry) {
-      // console.log(entry.$value);
-      console.log(entry);
       getUserProfileInfo(entry.$id);
     });
     // $scope.friendProfiles = friendProfile;
@@ -35,7 +33,6 @@ angular.module('projectsApp')
     var profileData = $firebaseObject(userProfileRef);
     profileData.$loaded(
       function(data) {
-
         friendProfileArr.push(data);
       },
       function(error) {
@@ -45,9 +42,15 @@ angular.module('projectsApp')
     $scope.friendProfiles = friendProfileArr;
   };
 
-  $scope.clicked = function() {
-    console.log("clicked");
-  }
+  $scope.clicked = function(friendUID) {
+    // console.log("clicked" + friendUID);
+    chatService.addFriendChat(friendUID);
+    // communicate to service
+
+
+
+
+  };
 
   //Chat
   // var chatRef = new Firebase('https://shining-torch-23.firebaseio.com/chats/'+ authData.uid);
