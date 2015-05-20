@@ -17,8 +17,7 @@ angular.module('projectsApp')
       //get user profile Data
       var profileDataRef = new Firebase('https://shining-torch-23.firebaseio.com/profileInfo/'+ profileUID);
 
-      $scope.profileData = $firebaseObject(profileDataRef);
-      //console.log($scope.profileData);
+      $scope.profileData = $firebaseObject(profileDataRef); // REMOVE PROFILE INFORATION WHEN PRIVATE
 
       //timestamp
       var getTime = function() {
@@ -61,6 +60,14 @@ angular.module('projectsApp')
         if(param.user === authData.uid || (data.privacy === 'public' && ((data.viewers === 'friends' && $scope.isMyFriend) || data.viewers === 'everyone'))){
           // public
           $scope.isProfilePrivate = false;
+          proPrivacyRef = new Firebase('https://shining-torch-23.firebaseio.com/privacySettings/'+ param.user + '/profilePrivacy/custom/' + authData.uid + '/setting');
+          proPrivacyObj = $firebaseObject(proPrivacyRef);
+          proPrivacyObj.$loaded().then(function(data){
+            if(data.$value === 'private'  || param.user === authData.uid){
+              // public because custom setting
+              $scope.isProfilePrivate = true;
+            }
+          });
         }
         else{
           // private
@@ -85,6 +92,14 @@ angular.module('projectsApp')
         if(param.user === authData.uid || (data.privacy === 'public' && ((data.viewers === 'friends' && $scope.isMyFriend) || data.viewers === 'everyone'))){
           // public
           $scope.isPicturePrivate = false;
+          picPrivacyRef = new Firebase('https://shining-torch-23.firebaseio.com/privacySettings/'+ param.user + '/picturePrivacy/custom/' + authData.uid + '/setting');
+          picPrivacyObj = $firebaseObject(picPrivacyRef);
+          picPrivacyObj.$loaded().then(function(data){
+            if(data.$value === 'private'){
+              // public because custom setting
+              $scope.isPicturePrivate = true;
+            }
+          });
         }
         else{
           // private
@@ -97,9 +112,7 @@ angular.module('projectsApp')
               $scope.isPicturePrivate = false;
             }
           });
-
         }
-
       });
 
       async.parallel([
