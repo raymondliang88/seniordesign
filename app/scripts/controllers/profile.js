@@ -16,7 +16,9 @@ angular.module('projectsApp')
 
       //get user profile Data
       var profileDataRef = new Firebase('https://shining-torch-23.firebaseio.com/profileInfo/'+ profileUID);
-      $scope.profileData = $firebaseObject(profileDataRef); // REMOVE PROFILE INFORATION WHEN PRIVATE
+
+      $scope.profileData = $firebaseObject(profileDataRef);
+      //console.log($scope.profileData);
 
       //timestamp
       var getTime = function() {
@@ -30,6 +32,16 @@ angular.module('projectsApp')
                 date.getMilliseconds()].join(':');
       };
 
+      var photosRef = new Firebase('https://shining-torch-23.firebaseio.com/photos/'+ profileUID + '/photos');
+      var photosTotalRef = new Firebase('https://shining-torch-23.firebaseio.com/photos/'+ profileUID + '/photosTotal');
+
+      $scope.photos = $firebaseArray(photosRef);
+      var photosData = $firebaseObject(photosTotalRef);
+      photosData.$loaded()
+        .then(function(data) {
+          $scope.photosTotal = data.$value;
+        });
+     
       $scope.commonFriends = [];
 
 
@@ -87,6 +99,7 @@ angular.module('projectsApp')
           });
 
         }
+
       });
 
       async.parallel([
@@ -165,7 +178,7 @@ angular.module('projectsApp')
           senderPicture: $scope.myselfData.picture,
           message: message
         });
-        document.getElementById("postForm").reset();
+        document.getElementById('postForm').reset();
       };
 
       $scope.removePost = function(postID) {
@@ -213,9 +226,7 @@ angular.module('projectsApp')
           $scope.removePost(postID);
 
       }, function() {
-
       });
-
     };
 
       //add an image post
@@ -290,9 +301,10 @@ angular.module('projectsApp')
     };
 
     $scope.showAddFriend = function(owner, isFriend) {
-      if(owner || isFriend)
+      if(owner || isFriend) {
         return true;
-      else
+      } else {
         return false;
+      }
     };
 });

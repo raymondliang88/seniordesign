@@ -68,40 +68,44 @@
         </div>
         </div>
       </div>
-
     </div>
             <!--/row-->
   </div>
   <!--/panel-body-->
-      <!-- photos -->
-<div class="panel panel-default" ng-hide="true">
+</div>
+
+<!-- photos -->
+<div class="panel panel-default">
+  <div class="md-actions default-primary-color md-padding" layout="row" layout-align="end end">
+    <md-button style="color: white;" ng-show="true" aria-label="">{{}}</md-button>
+  </div>
   <div class="panel-body">
     <div class="row">
       <div class="col-xs-12 col-sm-12">
-        <h4>Photos - <small>6</small></h4>
+        <md-button ng-click="goToPhotos(profileData.$id)">
+          <h4>Photos - <small>{{photosTotal}}</small></h4>
+        </md-button>
         <div class="row">
-          <div class="col-sm-4 event">
-          <div class="thumbnail">
-            <div class="overlay"></div>
-          <!-- <img class="img-responsive" alt="alternative text" src="http://lorempixel.com/800/400/nightlife?1"> -->
-          </div>
+          <div class="event">
+            <div class="col-xs-6 col-md-3 text-center" ng-repeat="photo in photos | limitTo:5">
+            <!--<div class="thumbnail" ng-repeat="photo in photos | limitTo:5" style="width: 10em; height: 10em;">-->
+              <!--<md-button ng-click="" aria-label="photo" style="width: 60%; height: 60%">-->
+                <img src={{photo.imageSrc}} class="img-responsive" width=100% height=100%>
+              <!--</md-button>-->
+            </div>
+          <!--</div>-->
           </div>
         </div>
       </div>
-
     </div>
-  <!--/row-->
+    <!--/row-->
   </div>
-<!--/panel-body-->
+  <!--/panel-body-->
 </div>
-      <!--/panel-->
-      <!-- end photos -->
+<!--/panel-->
+<!-- end photos -->
 
 </div>
-
-
-      <!-- end Video -->
-    </div>
 
     <!-- Right-handed side -->
 <div class="col-md-6 col-xs-12" ng-hide="isPrivate(isProfilePrivate)">
@@ -182,7 +186,7 @@
                     <!-- Commenter Pictutre Column -->
                     <div class="col-xs-3 col-md-2">
                       <md-button ng-click="goToProfile(comment.senderID)" aria-label="">
-                        <img ng-src="{{comment.senderPicture}}" align="left" style="padding:5px;"/>
+                        <img ng-src="{{comment.senderPicture}}" align="left"/>
                       <md-button>
                     </div>
                     <!-- Comment Text Column -->
