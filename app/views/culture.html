@@ -1,17 +1,25 @@
-<div layout="column" flex layout-fill ng-controller='CultureCtrl'>
+<div layout="column" flex layout-fill class="col-md-3" style="padding-top: 30px;">
 
-  <!-- Culture Search Form -->
-  <form>
-    <label>Language</label>
-      <input type='text' ng-model='input.language' class='form-control' placeholder='Language'/>
-    <label>Country</label>
-      <input type='text' ng-model='input.country' class='form-control' placeholder='Country'/>
-    <md-button ng-click='search(input)' class='md-primary'>
-      Search
-    </md-button>
+<md-card>
+  <md-toolbar class="md-default-theme">
+    <h2 class="md-toolbar-tools">
+      <span>Culture Search</span>
+    </h2>
+  </md-toolbar>
+  <md-content>
+    <!-- Culture Search Form -->
+    <form>
+      <label>Language</label>
+        <input type='text' ng-model='input.language' class='form-control' placeholder='Language'/>
+      <label>Country</label>
+        <input type='text' ng-model='input.country' class='form-control' placeholder='Country'/>
+      <md-button ng-click='search(input)' class='md-primary'>
+        Search
+      </md-button>
 
-    <div ng-repeat="profile in selections">{{ profile.val.firstName }} {{ profile.val.lastName }}</div>
-  </form>
-</div>
-
+      <div ng-repeat="profile in selections">{{ profile.val.firstName }} {{ profile.val.lastName }}</div>
+    </form>
+  </div>
+  </md-content>
+  </md-card>
 </div>
