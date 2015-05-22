@@ -46,7 +46,6 @@
       if(input === undefined){}
       else{
         var s = $scope.profiles.slice();
-        console.log('reset list');
         if(input.firstName !== undefined && input.firstName != ''){
           for (var i = s.length - 1; i >= 0; i--) {
             if(s[i].val.firstName === undefined){s.splice(i,1);}

@@ -14,12 +14,14 @@
     var authObj = $firebaseAuth(authRef);
     var authData = authObj.$getAuth();
     var postID = $stateParams.thread;
+    var topicRef = new Firebase('https;//shining-torch-23.firebaseio.com/forumPosts/'+ postID);
     var commentRef = new Firebase('https://shining-torch-23.firebaseio.com/forumComments/'+ postID);
     var profileRef = new Firebase('https://shining-torch-23.firebaseio.com/profileInfo/'+ authData.uid);
+    $scope.topic;
     $scope.commentData;
     $scope.profileData;
     $scope.profilePics = {};
-    $scope.profileName = {};
+    $scope.profileName = {}
 
     //fetch forum posts, profile data
     async.parallel([
@@ -45,6 +47,19 @@
         .then(function(data){
           $scope.profilePics[data.$id] = data.picture;
           $scope.profileName[data.$id] = data.firstName + ' ' + data.lastName;  
+        });
+      },
+      function(callback){
+        $scope.topic = $firebaseObject(topicRef);
+        $scope.topic.$loaded()
+        .then(function(data){
+          var topicUser = new Firebase('https://shining-torch-23.firebaseio.com/profileInfo/'+ data.creatorID);
+          var topicProfile = $firebaseObject(topicUser);
+          topicProfile.$loaded()
+          .then(function(profile){
+            $scope.profilePics[profile.$id] = profile.picture;
+            $scope.profileName[profile.$id] = profile.firstName + ' ' + profile.lastName; 
+          });
         });
       }
     ]);

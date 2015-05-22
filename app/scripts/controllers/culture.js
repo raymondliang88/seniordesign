@@ -15,22 +15,42 @@
   var authData = authObj.$getAuth
   var profileRef = new Firebase('https://shining-torch-23.firebaseio.com/profileInfo');
   $scope.selections;
-  $scope.profiles;    
+  $scope.profileInfo = []; 
 
   async.parallel([
       function(callback){
-        $scope.profiles = $firebaseObject(profileRef);      
+        var profiles = $firebaseArray(profileRef);
+        profiles.$loaded()
+        .then(function(data){
+          $scope.profileInfo = data;
+        });
       }
     ]);
 
   $scope.search = function(input){
     if(input !== undefined){
+      var s = $scope.profileInfo.slice();
       if(input.language !== undefined){
-        
+        for (var i = s.length - 1; i >= 0; i--) {
+          if(s[i].language === undefined){
+            s.splice(i,1);
+          }
+          else if(s[i].language.toLowerCase() != input.language.toLowerCase()){
+            s.splice(i, 1);
+          }
+        }
+      }  
+      if(input.country !== undefined){
+        for (var i = s.length - 1; i >= 0; i--) {
+          if(s[i].country === undefined){
+            s.splice(i,1);
+          }
+          else if(s[i].country.toLowerCase() != input.country.toLowerCase()){
+            s.splice(i, 1);
+          }
+        }
       }
-      if(input.language !== undefined){
-        
-      }
+      $scope.selections = s;
     }
   };
 
