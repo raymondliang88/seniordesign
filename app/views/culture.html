@@ -7,7 +7,7 @@
   </md-toolbar>
   <md-content style="padding: 5px;">
     <!-- Culture Search Form -->
-    <form>
+    <form ng-submit='search(input)'>
       <label>Language</label>
         <input type='text' ng-model='input.language' class='form-control' placeholder='Language'/>
       <label>Country</label>

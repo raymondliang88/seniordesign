@@ -8,17 +8,35 @@
  * Controller of the projectsApp
  * */
  angular.module('projectsApp')
- .controller('SearchCtrl', function ($scope, $timeout, firebaseService,  $stateParams) {
+ .controller('SearchCtrl', function ($scope, $timeout, firebaseService,  $stateParams, $state, searchService) {
 
-    $scope.selectedProfile = {};
+    $scope.input;
+    if(searchService.getSearchQuery() !== undefined){
+      $scope.input.firstName = searchService.getSearchQuery();
+    }
+    $scope.selectedProfile;
     $scope.loaded = false;
     $scope.profiles = [];
     $scope.selections = [];
 
+
     var ref = new Firebase(firebaseService.getFirebBaseURL());
 
     $scope.visitPage = function(profile){
-      console.log('selected profile', profile);
+      console.log('selection: ', $scope.profiles[$scope.input]);
+      if($scope.profiles[$scope.input] === undefined){
+      }
+      else{
+        visitProfile($scope.profiles[$scope.input].key);
+        document.getElementById("searchForm").reset();
+      }
+    };
+    var visitAdvSearch = function(queryString){
+      searchService.setSearchQuery(queryString);
+      $state.go('home.search');
+    };
+    var visitProfile = function(userid){
+      $state.go('home.profile.user' , {user: userid});
     };
     $scope.loadProfiles = function(){
       ref.child('profileInfo').once('value', function (snapshot) {
@@ -32,7 +50,7 @@
         $scope.profiles.push(profile);
       });
     });
-    //$scope.selections = $scope.profiles;
+ 
     $scope.loaded = true;
     };
 

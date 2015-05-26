@@ -14,26 +14,24 @@
       </md-button>
 
 
-			<!-- <input ng-model="user.name" type="text" class="form-control" flex placeholder="Name"> -->
 
     <!-- TODO: Add action="" to take to selectedProfile -->
-    <form ng-controller="SearchCtrl" ng-submit="visitPage(selectedProfile.val.firstName)">
-			<input type="text" keyboard-poster post-function="searchProfiles" ng-model="input" class="form-control" autocomplete="off" name="_profiles" list="_profiles" flex placeholder="Search"/>
-        <datalist id="_profiles">
-          <option ng-repeat="profile in profiles" ng-model="selectedProfile" value="{{profile.val.firstName}} {{profile.val.lastName}}"></option>
+    <form id="searchForm" ng-controller='SearchCtrl' ng-submit='visitAdvSearch(input)'>
+			<input type='text' keyboard-poster post-function='searchProfiles' ng-model='input' class='form-control' 
+      name='_profiles' list='_profiles' flex placeholder='Search'/>
+        <datalist id='_profiles'>
+          <!-- <option ng-repeat='profile in profiles' ng-model='selectedProfile' value='{{profile.val.firstName}} {{profile.val.lastName}}'></option> -->
+          <select ng-model='selectedProfile' ng-selected='visitPage(selectedProfile)' ng-options="profile.val.firstName+ ' '+ profile.val.lastName for profile in profiles"> </select>
         </datalist>
     </form>
 
-      <md-button class="md-icon-button" aria-label="Settings" ng-click='goToSearch(user.name)'>
-          <md-icon md-svg-icon="images/icons/ic_search_48px.svg"></md-icon>
+      <md-button class='md-icon-button' aria-label='Settings' ng-click='goToSearch(user.name)'>
+          <md-icon md-svg-icon='images/icons/ic_search_48px.svg'></md-icon>
       </md-button>
-      <md-input-container placeholder="Search">
+      <md-input-container placeholder='Search'>
 
       </md-input-container>
-<!--       <md-button ng-click='toggleRight()'>
-        Right Bar Button
-      </md-button>
- -->
+
  		</div>
   </md-toolbar>
 </div>
@@ -117,40 +115,3 @@
 
 </md-sidenav>
 
-<!--
-<form>
-  <md-input-container>
-    <label for="testInput">Test input</label>
-    <input type="text" id="testInput"
-           ng-model="data" md-sidenav-focus>
-  </md-input-container>
-</form>
-<md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
-  <md-toolbar class="md-theme-light">
-    <h1 class="md-toolbar-tools">Sidenav Right</h1>
-  </md-toolbar>
-  <md-content ng-controller="RightCtrl" layout-padding>
-    <form>
-      <md-input-container>
-        <label for="testInput">Test input</label>
-        <input type="text" id="testInput"
-               ng-model="data" md-sidenav-focus>
-      </md-input-container>
-    </form>
-     </md-content>
-		  <md-content layout-padding>
-		    <md-button ng-click="goToSettings()" class="md-primary">
-		      Settings
-		    </md-button>
-  	</md-content>
-		  <md-content layout-padding>
-		    <md-button ng-click="goToDashboard()" class="md-primary">
-		      Settings
-		    </md-button>
-  	</md-content>
-    <md-button ng-click="close()" class="md-primary">
-      Close Sidenav Right
-    </md-button>
-  </md-content>
-  </md-sidenav>
- -->
