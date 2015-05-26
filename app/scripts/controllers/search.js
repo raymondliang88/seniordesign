@@ -23,7 +23,7 @@
     var ref = new Firebase(firebaseService.getFirebBaseURL());
 
     $scope.visitPage = function(profile){
-      console.log('selection: ', $scope.profiles[$scope.input]);
+      // console.log('selection: ', $scope.profiles[$scope.input]);
       if($scope.profiles[$scope.input] === undefined){
       }
       else{
@@ -50,7 +50,7 @@
         $scope.profiles.push(profile);
       });
     });
- 
+
     $scope.loaded = true;
     };
 

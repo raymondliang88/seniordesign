@@ -17,7 +17,7 @@
 
     <!-- TODO: Add action="" to take to selectedProfile -->
     <form id="searchForm" ng-controller='SearchCtrl' ng-submit='visitAdvSearch(input)'>
-			<input type='text' keyboard-poster post-function='searchProfiles' ng-model='input' class='form-control' 
+			<input type='text' keyboard-poster post-function='searchProfiles' ng-model='input' class='form-control'
       name='_profiles' list='_profiles' flex placeholder='Search'/>
         <datalist id='_profiles'>
           <!-- <option ng-repeat='profile in profiles' ng-model='selectedProfile' value='{{profile.val.firstName}} {{profile.val.lastName}}'></option> -->
@@ -42,11 +42,15 @@
   </md-toolbar>
 	<md-content ng-controller="LeftCtrl" layout-padding>
 	<!--dashboard  -->
-    <p> Logged in as {{userid}}</p>
-
+    <md-content layout-padding>
+    <img style="padding-top:100px;" class="personal-image-profile" src={{profileInfo.picture}}>
+    </md-content>
+    <md-content>
+    <h4 style="color: #d43f3a;"> Welcome Back, {{profileInfo.firstName}} {{profileInfo.lastName}} ! </h4>
+    </md-content>
 		<md-content layout-padding>
 			<md-button ng-click="goToDashboard()" class="md-primary">
-			  Dashboard
+			  Chat
 			</md-button>
 		</md-content>
 
@@ -84,7 +88,7 @@
 			  Messages
 			</md-button>
 		</md-content>
-    
+
   <!--Culture-->
     <md-content layout-padding>
       <md-button ng-click="goToCulture()" class="md-primary">

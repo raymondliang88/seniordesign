@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('projectsApp')
-.controller('ChatController',  function($scope, $stateParams, $firebaseAuth, $firebaseArray, $log, $firebaseObject , firebaseService, profileService, $mdDialog, chatService) {
+.controller('ChatController',  function($scope, $state, $stateParams, $firebaseAuth, $firebaseArray, $log, $firebaseObject , firebaseService, profileService, $mdDialog, chatService) {
 
   var ref = new Firebase(firebaseService.getFirebBaseURL());
   var authObj = $firebaseAuth(ref);
@@ -43,11 +43,10 @@ angular.module('projectsApp')
           senderFirstName: $scope.myselfData.firstName,
           senderLastName: $scope.myselfData.lastName
     });
-  }
+  };
 
-
-
-
-
+  $scope.goToProfile = function(userid) {
+    $state.go('home.profile.user' , {user: userid});
+  };
 
 });

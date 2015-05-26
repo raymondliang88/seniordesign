@@ -84,7 +84,7 @@ angular
         }
       })
       .state('home.dashboard', {
-        url: '/dashboard',
+        url: '/chat',
         views: {
           'container@': {
             templateUrl: '/views/dashboard.html',

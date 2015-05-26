@@ -40,7 +40,7 @@ angular.module('projectsApp')
         .then(function(data) {
           $scope.photosTotal = data.$value;
         });
-     
+
       $scope.commonFriends = [];
 
 
@@ -120,7 +120,7 @@ angular.module('projectsApp')
               //postData returns a list of post
               var profilePostRef = new Firebase('https://shining-torch-23.firebaseio.com/posts/'+ profileUID);
               $scope.postData = $firebaseArray(profilePostRef); // REMOVE POSTS WHEN PRIVATE
-              console.log('Post data' + $scope.postData);
+              // console.log('Post data' + $scope.postData);
 
           },
           function(callback){
@@ -171,11 +171,11 @@ angular.module('projectsApp')
 
       $scope.isPrivate = function(isPrivateParam){
         if(isPrivateParam === true ){
-          console.log('Returning true. isPrivateParam: ' + isPrivateParam);
+          // console.log('Returning true. isPrivateParam: ' + isPrivateParam);
           return true;
         }
         else{
-          console.log('Returning false isPrivateParam: ' + isPrivateParam);
+          // console.log('Returning false isPrivateParam: ' + isPrivateParam);
           return false;
         }
       };
@@ -260,7 +260,7 @@ angular.module('projectsApp')
       //Add a comment to a post, pass in postID
       $scope.addComment = function(postID, message) {
         var time = getTime();
-        console.log('gonna post a comment');
+        // console.log('gonna post a comment');
         var profilePostRef = new Firebase('https://shining-torch-23.firebaseio.com/posts/'+ profileUID + '/' +  postID + '/comments/');
         $scope.postComment = $firebaseArray(profilePostRef);
         $scope.postComment.$add({
@@ -312,6 +312,52 @@ angular.module('projectsApp')
       $scope.imgSrc = 0;
       $('#post-imagepreview').attr('src', 0);
     };
+
+
+    $scope.addFriend = function(useruid, firstName, lastName) {
+      var userID = useruid;
+      // console.log('adding ' + userID + ' as friend');
+
+      // add to pending list of requested friend only if the sender's uid isn't there
+      var pendingRef = new Firebase('https://shining-torch-23.firebaseio.com/pending/'+ userID);
+      var pendingObj = $firebaseObject(pendingRef);
+      var senderID = authData.uid;
+
+      pendingObj.$loaded()
+        .then(function(data) {
+
+          var senderList = {};
+          if (data.senderList !== undefined) {
+            senderList = data.senderList;
+          }
+
+          var name = firstName + ' ' + lastName;
+
+          // TODO check if sender and receiver are friends
+          // update pendingTotal
+          if (senderList[senderID] === undefined) {
+            pendingRef.child('pendingTotal').transaction(function(currentValue) {
+              return (currentValue || 0) + 1;
+            });
+
+            // add to senderList
+            senderList[senderID] = name;
+
+            // update Firebase endpoint
+            pendingRef.update({
+              senderList: senderList
+            });
+          }
+
+        })
+        .catch(function(error) {
+          console.error('Error:', error);
+        });
+    };
+
+
+
+
 
     $scope.showAddFriend = function(owner, isFriend) {
       if(owner || isFriend) {

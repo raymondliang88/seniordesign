@@ -36,6 +36,9 @@ angular.module('projectsApp')
 
     $scope.userid = authData.uid;
 
+    var profileRef = new Firebase('https://shining-torch-23.firebaseio.com/profileInfo/' + authData.uid);
+    $scope.profileInfo = $firebaseObject(profileRef);
+
     // notification: check # of pending friends
     // var pending = ref.child('pending').child(authData.uid).child('pendingTotal').once('value', function(snapshot) {
     //   var val = snapshot.val();
