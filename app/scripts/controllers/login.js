@@ -124,7 +124,7 @@ angular.module('projectsApp')
           goToDashboard(authData);
         }).catch(function (error) {
           var msg = 'Invalid E-mail or password. Please try again';
-          alertService.show(msg,ev);
+          alertService.show(msg,'');
         });
     };
 
