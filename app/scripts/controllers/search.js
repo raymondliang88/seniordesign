@@ -16,6 +16,10 @@
     $scope.selections = [];
 
     var ref = new Firebase(firebaseService.getFirebBaseURL());
+
+    $scope.visitPage = function(profile){
+      console.log('selected profile', profile);
+    };
     $scope.loadProfiles = function(){
       ref.child('profileInfo').once('value', function (snapshot) {
       console.log('...fetch users...');

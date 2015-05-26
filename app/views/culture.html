@@ -19,22 +19,21 @@
   </md-content>
   </md-card>
 </div>
-<div>
+<div layout="column" flex layout-fill class="col-md-9" style="padding-top: 30px;">
   <md-card>
   <md-toolbar class="md-default-theme">
     <h2 class="md-toolbar-tools">
       <span>Results</span>
     </h2>
   </md-toolbar>
-  <md-content style="padding: 10px;">
-    <div ng-repeat="profile in selections">
+  <md-content style="padding: 5px;">
+    <div ng-repeat="profile in selections" class="col-md-2">
       <div class="row">
         <div class="col-xxs-3 col-md-2">
           <md-button ng-click="goToProfile(profile.$id)" aria-label="" ng-controller="ToolBarCtrl">
             <img ng-src="{{profile.picture}}" align="left" style="padding:5px;" />
           </md-button>
         </div>
-        <div class="col-sm-6 col-md-6">
           <md-button ng-click="goToProfile(profile.$id)" ng-controller="ToolBarCtrl">
             {{profile.firstName}} {{profile.lastName}}
           </md-button>

@@ -13,13 +13,14 @@
         <span class="btn btn-danger" ng-show="friendRequestObj" ng-click="goToFriendRequest()"> <i class="glyphicon glyphicon-user badge">{{friendRequestObj.$value}}</i></span>
       </md-button>
 
+
 			<!-- <input ng-model="user.name" type="text" class="form-control" flex placeholder="Name"> -->
 
     <!-- TODO: Add action="" to take to selectedProfile -->
-    <form ng-controller="SearchCtrl">
+    <form ng-controller="SearchCtrl" ng-submit="visitPage(selectedProfile.val.firstName)">
 			<input type="text" keyboard-poster post-function="searchProfiles" ng-model="input" class="form-control" autocomplete="off" name="_profiles" list="_profiles" flex placeholder="Search"/>
         <datalist id="_profiles">
-          <option ng-repeat="profile in profiles" ng-model="selectedProfile" value="{{profile.val.firstName}} {{profile.val.lastName}}" ng-click="alert(profile.key)"></option>
+          <option ng-repeat="profile in profiles" ng-model="selectedProfile" value="{{profile.val.firstName}} {{profile.val.lastName}}"></option>
         </datalist>
     </form>
 
