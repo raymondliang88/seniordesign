@@ -39,8 +39,4 @@ angular.module('projectsApp')
       getFriendChat: getFriendChat,
       getFriendInfo: getFriendInfo
     };
-
-
-
-
 });
