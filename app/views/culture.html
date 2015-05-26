@@ -1,0 +1,50 @@
+<div layout="column" flex layout-fill class="col-md-3" style="padding-top: 30px;">
+  <md-card>
+  <md-toolbar class="md-default-theme">
+    <h2 class="md-toolbar-tools">
+      <span>Culture Search</span>
+    </h2>
+  </md-toolbar>
+  <md-content style="padding: 5px;">
+    <!-- Culture Search Form -->
+    <form ng-submit='search(input)'>
+      <label>Language</label>
+        <input type='text' ng-model='input.language' class='form-control' placeholder='Language'/>
+      <label>Country</label>
+        <input type='text' ng-model='input.country' class='form-control' placeholder='Country'/>
+      <md-button ng-click='search(input)' class='md-primary'>
+        Search
+      </md-button>
+    </form>
+  </md-content>
+  </md-card>
+</div>
+<div layout="column" flex layout-fill class="col-md-9" style="padding-top: 30px;">
+  <md-card>
+  <md-toolbar class="md-default-theme">
+    <h2 class="md-toolbar-tools">
+      <span>Results</span>
+    </h2>
+  </md-toolbar>
+  <md-content style="padding: 5px;">
+    <div ng-repeat="profile in selections" class="col-md-2">
+      <div class="row">
+        <div class="col-xxs-3 col-md-2">
+          <md-button ng-click="goToProfile(profile.$id)" aria-label="" ng-controller="ToolBarCtrl">
+            <img ng-src="{{profile.picture}}" align="left" style="padding:5px;" />
+          </md-button>
+        </div>
+          <md-button ng-click="goToProfile(profile.$id)" ng-controller="ToolBarCtrl">
+            {{profile.firstName}} {{profile.lastName}}
+          </md-button>
+          <font size="1"><div style="display: inline;">Country: {{profile.country}}</div></font>
+          <font size="1"><div style="display: inline;">Language: {{profile.language}}</div></font>
+          <div><font size="5">{{profile.aboutMe}}</font></div>
+        </div>
+      </div>
+    </div>
+  </md-content>
+  </md-card>
+  </div>
+
+</div>

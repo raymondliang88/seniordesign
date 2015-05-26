@@ -77,24 +77,24 @@ angular.module('projectsApp')
 
       
                 // remove posts
-                var ref = new Firebase("https://shining-torch-23.firebaseio.com/");
+                var ref = new Firebase('https://shining-torch-23.firebaseio.com/');
                 ref.removeUser({
                   email: email,
                   password: password
                 }, function(error) {
                   if (error) {
                     switch (error.code) {
-                      case "INVALID_USER":
-                        console.log("The specified user account does not exist.");
+                      case 'INVALID_USER':
+                        console.log('The specified user account does not exist.');
                         break;
-                      case "INVALID_PASSWORD":
-                        console.log("The specified user account password is incorrect.");
+                      case 'INVALID_PASSWORD':
+                        console.log('The specified user account password is incorrect.');
                         break;
                       default:
-                        console.log("Error removing user:", error);
+                        console.log('Error removing user:', error);
                     }
                   } else {
-                    console.log("User account deleted successfully!");
+                    console.log('User account deleted successfully!');
                   }
                 });
 

@@ -7,6 +7,26 @@
     <button class="btn" ng-click="goToForum()">Go Back to Forums.</button>
   </span>
 </div>
+<!-- Topic Post -->
+<div>
+  <md-card>
+    <md-content class="md-accent-theme md-padding">
+      <div class="row">
+        <div class="col-xxs-3 col-md-2">
+          <md-button ng-click="goToProfile(topic.creatorID)" aria-label="" ng-controller="ToolBarCtrl">
+            <img ng-src="{{profilePics[topic.creatorID]}}" align="left" style="padding:5px;"/>
+          </md-button>
+        </div>
+        <div class="col-sm-6 col-md-6">
+          <md-button ng-click="goToProfile(topic.creatorID)" aria-label="" ng-controller="ToolBarCtrl">
+            {{profileName[topic.creatorID]}}
+          </md-button>
+          <font size="1"><div style="display: inline;">{{topic.postDate}}</div></font>
+          <font size="5"><div>{{topic.text}}</div></font>
+        </div>
+      </div>
+    </md-content>
+</div>
 
 
 <!-- Post section -->

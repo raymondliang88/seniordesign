@@ -33,15 +33,19 @@
             posterInfo.$loaded()
             .then(function(profile){
               //create hash table of poster pics to reference
-              var uid = posterInfo.$id;
-              $scope.profilePics[uid] = posterInfo.picture;
-              $scope.profileName[uid] = posterInfo.firstName + " " + posterInfo.lastName;
+              $scope.profilePics[profile.$id] = profile.picture;
+              $scope.profileName[profile.$id] = profile.firstName + ' ' + profile.lastName;
             });
           };
         });
       },
       function(callback){
         $scope.profileData = $firebaseObject(profileRef);
+        $scope.profileData.$loaded()
+        .then(function(data){
+          $scope.profilePics[data.$id] = data.picture;
+          $scope.profileName[data.$id] = data.firstName + ' ' + data.lastName;  
+        });
       }
     ]);
 
